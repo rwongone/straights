@@ -1,6 +1,6 @@
 CXX = g++
 CXXFLAGS = -g -Wall -MMD -std=c++0x
-OBJECTS = Card.o Command.o
+OBJECTS = Main.o Card.o Command.o
 CPP = ${OBJECTS:.o=.cpp}
 HEADERS = ${OBJECTS:.o=.h}
 DEPENDS = ${OBJECTS:.o=.d}

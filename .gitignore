@@ -4,6 +4,7 @@
 *.zip
 *.uxf
 straights
+Straights
 diff/*
 refout/*
 testout/*
