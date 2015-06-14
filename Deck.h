@@ -8,6 +8,7 @@ public:
   Deck(int);
   ~Deck();
   friend std::ostream &operator<<(std::ostream &, const Deck &);
+  Card* getCard(int);
 private:
   void shuffle(int);
   Card* cards_[Card::MAX_CARDS]; // need to make this an array

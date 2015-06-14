@@ -5,6 +5,7 @@
 #include <iostream>
 #include <string>
 #include <cassert>
+#include <vector>
 
 // Constructor
 Game::Game(int seed = 0): deck_(new Deck(seed)), table_(new Table()){
@@ -13,10 +14,18 @@ Game::Game(int seed = 0): deck_(new Deck(seed)), table_(new Table()){
     std::string playerType;
     std::cin >> playerType;
     assert(playerType == "h" || playerType == "c");
+
+    // Hand playerHand = new Hand();
+    std::vector<Card*> playerHand;
+
+    for (int j=0; j<13; j++) {
+      playerHand.push_back(deck_->getCard(13*i+j));
+    }
+
     if(playerType == "h"){
-      players_[i] = new HumanPlayer();
+      players_[i] = new HumanPlayer(playerHand);
     } else {
-      players_[i] = new ComputerPlayer();
+      players_[i] = new ComputerPlayer(playerHand);
     }
   }
 }

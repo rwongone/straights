@@ -1,5 +1,5 @@
 #include "ComputerPlayer.h"
 
-ComputerPlayer::ComputerPlayer() : Player() {
+ComputerPlayer::ComputerPlayer(std::vector<Card*> hand) : Player(hand) {
 
 }

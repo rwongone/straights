@@ -2,17 +2,18 @@
 #define _PLAYER_
 
 #include "Card.h"
-#include <set>
+#include <vector>
 
 class Player{
 public:
-  Player();
+  Player(std::vector<Card*>);
   ~Player();
   int score();
   void makeMove();
+  void printHand() const;
 private:
-  std::set<Card*> hand_;
-  std::set<Card*> discardPile_;
+  std::vector<Card*> hand_;
+  std::vector<Card*> discardPile_;
 };
 
 #endif

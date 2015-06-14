@@ -2,15 +2,15 @@
 #define _TABLE_
 
 #include "Card.h"
-#include <set>
+#include <vector>
 
 class Table{
 public:
   Table();
   ~Table();
-  std::set<Card*> getCardsPlayed();
+  std::vector<Card*> getCardsPlayed();
 private:
-  std::set<Card*> cardsPlayed_;
+  std::vector<Card*> cardsPlayed_;
 };
 
 #endif

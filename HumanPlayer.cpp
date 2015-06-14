@@ -1,5 +1,5 @@
 #include "HumanPlayer.h"
 
-HumanPlayer::HumanPlayer() : Player() {
+HumanPlayer::HumanPlayer(std::vector<Card*> hand) : Player(hand) {
 
 }

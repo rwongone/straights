@@ -5,7 +5,7 @@
 #include "Card.h"
 #include "Player.h"
 #include "Table.h"
-#include <set>
+#include <vector>
 
 enum Phase { INVITE, SHUFFLE, PLAY };
 
@@ -19,7 +19,7 @@ private:
   void notify();
   Phase phase;
   Player* players_[4];
-  std::set<Card*> cards_;
+  std::vector<Card*> cards_;
   Deck* deck_;
   Table* table_;
   Player* whoseTurn_;

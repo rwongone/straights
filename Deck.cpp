@@ -2,13 +2,13 @@
 #include <random>
 #include "Card.h"
 #include <iostream>
+#include <cassert>
 
 Deck::Deck(int seed = 0){
   for(int i = 0; i < Card::MAX_CARDS; i++){
     cards_[i] = new Card(i);
   }
   shuffle(seed);
-  std::cout << *this;
 }
 
 void Deck::shuffle(int seed){
@@ -23,6 +23,11 @@ void Deck::shuffle(int seed){
     cards_[n] = cards_[k];
     cards_[k] = c;
   }
+}
+
+Card* Deck::getCard(int index){
+  assert(0 <= index && index < Card::MAX_CARDS);
+  return cards_[index];
 }
 
 std::ostream &operator<<(std::ostream &sout, const Deck &deck){
