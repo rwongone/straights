@@ -12,13 +12,18 @@ class Card{
   friend std::istream &operator>>(std::istream &, Card &);
 
 public:
+  const static int NUM_SUITS = SUIT_COUNT;
+  const static int NUM_FACES = RANK_COUNT;
+  const static int MAX_CARDS = NUM_SUITS * NUM_FACES;
+  Card(int);
   Card(Suit, Rank);
   Suit getSuit() const;
   Rank getRank() const;
-  
+
 private:
   Suit suit_;
   Rank rank_;
+  void init(Suit, Rank);
 };
 
 bool operator==(const Card &, const Card &);

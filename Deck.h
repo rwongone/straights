@@ -5,12 +5,12 @@
 
 class Deck{
 public:
-  Deck();
+  Deck(int);
   ~Deck();
-  void print();
+  friend std::ostream &operator<<(std::ostream &, const Deck &);
 private:
-  void shuffle();
-  Card* cards_[52]; // need to make this an array
+  void shuffle(int);
+  Card* cards_[Card::MAX_CARDS]; // need to make this an array
 };
 
 #endif

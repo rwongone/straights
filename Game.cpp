@@ -7,7 +7,7 @@
 #include <cassert>
 
 // Constructor
-Game::Game() : phase(INVITE){
+Game::Game(int seed = 0): deck_(new Deck(seed)), table_(new Table()){
   for(int i = 0; i < 4; i++){
     std::cout << "Is player " << (i + 1) << " a human(h) or a computer(c)?" << std::endl;
     std::string playerType;

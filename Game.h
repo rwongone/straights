@@ -12,7 +12,7 @@ enum Phase { INVITE, SHUFFLE, PLAY };
 
 class Game{
 public:
-  Game();
+  Game(int);
   ~Game();
 private:
   void reset();
