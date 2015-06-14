@@ -8,9 +8,10 @@ cards_ is an array of pointers to cards
 #include <random>
 
 int seed = 0;
+const int CARD_COUNT = 52;
 
 void shuffle(){
-    static mt19937 rng(seed);
+    static std::mt19937 rng(seed);
 
   int n = CARD_COUNT;
 

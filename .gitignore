@@ -2,4 +2,8 @@
 *.d
 *.o
 *.zip
+*.uxf
 straights
+diff/*
+refout/*
+testout/*
