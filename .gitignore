@@ -3,8 +3,8 @@
 *.o
 *.zip
 *.uxf
+straights.out
 straights
-Straights
 diff/*
 refout/*
 testout/*

@@ -4,7 +4,7 @@ OBJECTS = Main.o Card.o Command.o
 CPP = ${OBJECTS:.o=.cpp}
 HEADERS = ${OBJECTS:.o=.h}
 DEPENDS = ${OBJECTS:.o=.d}
-EXEC = Straights
+EXEC = straights.out
 TESTSCRIPT = tester.sh
 
 ${EXEC}: ${OBJECTS}
