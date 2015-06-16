@@ -1,0 +1,29 @@
+#ifndef _ROUND_
+#define _ROUND_
+
+#include "Deck.h"
+#include "Table.h"
+#include "Player.h"
+#include "Game.h"
+#include <vector>
+#include <iostream>
+
+class Game;
+
+class Round{
+public:
+  Round(Game*, int);
+  ~Round();
+  void reset();
+private:
+  int startingPlayer_;
+  Deck* deck_;
+  Table* table_;
+  Game* game_;
+  void findStartingPlayer();
+  void distributeCards();
+  void gamePlay();
+  void endPhase();
+};
+
+#endif

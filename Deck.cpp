@@ -4,15 +4,14 @@
 #include <iostream>
 #include <cassert>
 
-Deck::Deck(int seed = 0){
+Deck::Deck(int seed = 0) : seed_(seed){
   for(int i = 0; i < Card::MAX_CARDS; i++){
     cards_[i] = new Card(i);
   }
-  shuffle(seed);
 }
 
-void Deck::shuffle(int seed){
-  static std::mt19937 rng(seed);
+void Deck::shuffle(){
+  static std::mt19937 rng(seed_);
 
   int n = Card::MAX_CARDS;
 

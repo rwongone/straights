@@ -6,11 +6,13 @@
 
 class Player{
 public:
-  Player(std::vector<Card*>);
+  Player();
   ~Player();
   int score();
-  void makeMove();
+  void makeMove(); // probably want to make this virtual
   void printHand() const;
+  void setHand(std::vector<Card*>);
+  bool hasStartCard();
 private:
   std::vector<Card*> hand_;
   std::vector<Card*> discardPile_;
