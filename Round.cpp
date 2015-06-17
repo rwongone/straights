@@ -19,7 +19,7 @@ void Round::reset(){
   deck_->shuffle();
   distributeCards();
   findStartingPlayer();
-  std::cout << "A new round begins. It's player " << startingPlayer_ << "'s turn to play." << std::endl;
+  std::cout << "A new round begins. It's player " << (startingPlayer_ + 1) << "'s turn to play." << std::endl;
   gamePlay();
   endPhase();
 }

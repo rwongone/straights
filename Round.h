@@ -16,7 +16,7 @@ public:
   ~Round();
   void reset();
 private:
-  int startingPlayer_;
+  int startingPlayer_; // The INDEX of the starting player. +1 if printing
   Deck* deck_;
   Table* table_;
   Game* game_;
