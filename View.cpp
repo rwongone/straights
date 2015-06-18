@@ -23,7 +23,7 @@ void View::playGame() {
     // } else {
     //   done = controller_->playTurn(currentPlayer);
     // }
-
+    controller_->updateCurrentPlayer(currentPlayer);
     done = controller_->playTurn(currentPlayer);
     currentPlayer += 1;
     currentPlayer %= 4;

@@ -12,7 +12,14 @@ Game::~Game() {
 
 void Game::setStartingPlayer(int index) {
   assert(0 <= index && index < 4);
-  currentPlayer_ = players_[index];
+  startingPlayer_ = players_[index];
+}
+void Game::setCurrentPlayer(int index){
+  currentPlayer_ = index;
+}
+
+int Game::getCurrentPlayer(){
+  return currentPlayer_;
 }
 
 void Game::setPlayer(int index, Player* player) {
