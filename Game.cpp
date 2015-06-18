@@ -1,7 +1,7 @@
 #include "Game.h"
 
 // Constructor
-Game::Game(int seed = 0){}
+Game::Game(int seed = 0): deck_(new Deck(seed)), table_(new Table()) {}
 
 Game::~Game() {
   delete table_;
