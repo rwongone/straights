@@ -3,11 +3,13 @@
 
 #include "Game.h"
 #include "GameController.h"
+#include "Observer.h"
 
-class View{
+class View: public Observer {
 public:
   View(Game*, GameController*);
   ~View();
+  virtual void update();
 private:
   void createPlayers();
   void playGame();

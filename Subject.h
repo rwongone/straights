@@ -1,16 +1,19 @@
 #ifndef _SUBJECT_
 #define _SUBJECT_
 
-class View;
+#include "Observer.h"
+#include <set>
 
 class Subject {
 public:
   Subject();
   ~Subject();
-  void subscribe(View*);
-  virtual void notify() = 0;
+  void subscribe(Observer*);
+protected:
+  void notify();
 private:
-  View* view_;
+  typedef std::set<Observer*> Observers;
+  Observers observers_;
 };
 
 #endif
