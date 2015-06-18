@@ -14,7 +14,11 @@ public:
   void rageQuit(Player*);
   void quit();
   void deck();
-  void setPlayer(int, Player*);
+  void setPlayer(int, std::string);
+  void dealCards();
+  void setPlayerHand(int, std::vector<Card*>);
+  bool playTurn(int);
+  int findStartingPlayer();
 private:
   Game* game_;
 };

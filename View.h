@@ -8,11 +8,12 @@ class View{
 public:
   View(Game*, GameController*);
   ~View();
-  void update();
 private:
-  void initPlayers();
+  void createPlayers();
+  void playGame();
   Game* game_;
   GameController* controller_;
+  int currentPlayer;
 };
 
 #endif

@@ -5,7 +5,14 @@
 Table::Table() {
   cardsPlayed_ = new std::set<Card*>[SUIT_COUNT];
 }
-Table::~Table() {}
+
+Table::~Table() {
+  for (int i = 0; i < SUIT_COUNT; i++) {
+    for (auto it = cardsPlayed_[i].begin(); it != cardsPlayed_[i].end(); ++it) {
+      delete *it;
+    }
+  }
+}
 
 void Table::playCard(Card* theCard) {
   cardsPlayed_[theCard->getSuit()].insert(theCard);

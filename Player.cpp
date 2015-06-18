@@ -2,6 +2,7 @@
 #include <iostream>
 
 Player::Player(){}
+Player::~Player(){}
 
 void Player::setHand(std::vector<Card*> hand){
   hand_ = hand;
