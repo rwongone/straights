@@ -7,7 +7,7 @@ class ComputerPlayer : public Player {
 public:
   ComputerPlayer();
   ~ComputerPlayer();
-  bool makeMove(Table*, Deck*);
+  void makeMove(Table*, Deck*);
 private:
 };
 

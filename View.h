@@ -10,6 +10,7 @@ public:
   ~View();
   void update();
 private:
+  void initPlayers();
   Game* game_;
   GameController* controller_;
 };

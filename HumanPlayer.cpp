@@ -6,7 +6,7 @@ HumanPlayer::HumanPlayer(){
 }
 
 // Return false if game must end
-bool HumanPlayer::makeMove(Table* table, Deck* deck){
+void HumanPlayer::makeMove(Table* table, Deck* deck){
   // Print out cards on table; the HumanPlayer object (at least)
   // needs to be able to access the Table's << operator.
   std::cout << *table;
@@ -31,7 +31,6 @@ bool HumanPlayer::makeMove(Table* table, Deck* deck){
     } else if (c.type == DECK) {
       std::cout << *deck;
     } else if (c.type == QUIT) {
-      return false;
     } else if (c.type == RAGEQUIT) {
       // change human player to computer player
       done = true;

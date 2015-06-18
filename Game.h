@@ -18,8 +18,10 @@ public:
   ~Game();
   Player* getPlayer(int);
   void setGameOver();
+  void setPlayer(int, Player*);
 private:
   void notify();
+  Table* table_;
   Round* round_;
   Player* players_[4]; // Turn this into a constant
   void setupPlayers();

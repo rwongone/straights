@@ -2,21 +2,21 @@
 #define _GAMECONTROLLER_
 
 #include "Player.h"
-#include "Table.h"
 #include "Card.h"
+#include "Game.h"
 
 class GameController{
 public:
-  GameController();
+  GameController(Game*);
   ~GameController();
   void playCard(Card*);
   void discardCard(Card*);
   void rageQuit(Player*);
   void quit();
   void deck();
+  void setPlayer(int, Player*);
 private:
-  Player* players_;
-  Table* table_;
+  Game* game_;
 };
 
 #endif
