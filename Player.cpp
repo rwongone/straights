@@ -18,6 +18,11 @@ void Player::printHand() const {
 void Player::printLegalMoves(Table* table) const {
   std::cout << "Legal plays:";
   // Determine legal plays
+  for (auto it = hand_.begin(); it != hand_.end(); ++it) {
+    if (table->isLegalCard(*it)) {
+      std::cout << " " << **it;
+    }
+  }
   std::cout << std::endl;
 }
 

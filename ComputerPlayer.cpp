@@ -2,6 +2,6 @@
 
 ComputerPlayer::ComputerPlayer(){}
 
-void ComputerPlayer::makeMove(Table* table){
+void ComputerPlayer::makeMove(Table* table, Deck* deck){
 
 }

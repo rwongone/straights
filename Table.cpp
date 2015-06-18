@@ -7,12 +7,20 @@ Table::Table() {
 }
 Table::~Table() {}
 
-std::set<Card*>* Table::getCardsPlayed() {
-  return cardsPlayed_;
-}
-
 void Table::playCard(Card* theCard) {
   cardsPlayed_[theCard->getSuit()].insert(theCard);
+}
+
+bool Table::isLegalCard(Card* theCard) const {
+  if (theCard->getRank() == SEVEN) return true;
+
+  auto theSet = cardsPlayed_[theCard->getSuit()];
+  for (auto it = theSet.begin(); it != theSet.end(); ++it) {
+    if ((*it)->getRank() == theCard->getRank() + 1 || (*it)->getRank() == theCard->getRank() - 1) {
+      return true;
+    }
+  }
+  return false;
 }
 
 std::ostream& operator<<(std::ostream& sout, Table& table) {
@@ -22,7 +30,7 @@ std::ostream& operator<<(std::ostream& sout, Table& table) {
 
   sout << "Cards on the table: " << std::endl; // we may need to omit space after colon
   for (int i=0; i<SUIT_COUNT; i++) {
-    std::set<Card*> suitSet = table.getCardsPlayed()[i];
+    std::set<Card*> suitSet = table.cardsPlayed_[i];
     sout << suits[i] << ":";
     for (auto it=suitSet.begin(); it != suitSet.end(); ++it) {
       sout << " " << ranks[(*it)->getRank()]; // may have to omit space on last entry

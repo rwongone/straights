@@ -34,5 +34,5 @@ void Game::setGameOver(){
 }
 
 void Game::gameEnd(){
-
+  // clean up
 }

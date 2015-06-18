@@ -9,9 +9,9 @@ class Table{
 public:
   Table();
   ~Table();
-  std::set<Card*>* getCardsPlayed();
   void playCard(Card*);
   friend std::ostream& operator<<(std::ostream&, Table&);
+  bool isLegalCard(Card*) const;
 private:
   std::set<Card*> *cardsPlayed_;
 };

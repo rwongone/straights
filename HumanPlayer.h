@@ -8,7 +8,7 @@ class HumanPlayer : public Player {
 public:
   HumanPlayer();
   ~HumanPlayer();
-  void makeMove(Table*);
+  bool makeMove(Table*, Deck*);
 private:
 };
 

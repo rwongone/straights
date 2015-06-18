@@ -3,6 +3,7 @@
 
 #include "Card.h"
 #include "Table.h"
+#include "Deck.h"
 #include <vector>
 #include <iostream>
 
@@ -11,7 +12,7 @@ public:
   Player();
   ~Player();
   int score();
-  virtual void makeMove(Table*) = 0; // probably want to make this virtual
+  virtual bool makeMove(Table*, Deck*) = 0; // probably want to make this virtual
   void printHand() const; // move into Human Player?
   void printLegalMoves(Table*) const; // move into Human Player?
   void setHand(std::vector<Card*>);
