@@ -51,10 +51,10 @@ void View::humanPrompt() {
     std::cin >> c;
     if (c.type == PLAY) {
       // if play is valid, do it and set done = true
-      done = controller_->playCard(index, c.card);
+      done = controller_->playCard(currentIndex, c.card);
     } else if (c.type == DISCARD) {
       // if discard is valid, do it and set done = true
-      done = controller_->discardCard(index, c.card);
+      done = controller_->discardCard(currentIndex, c.card);
     } else if (c.type == DECK) {
       std::cout << *game_->getDeck();
     } else if (c.type == QUIT) {
@@ -62,7 +62,7 @@ void View::humanPrompt() {
       done = true;
     } else if (c.type == RAGEQUIT) {
       // change human player to computer player
-      controller_->rageQuit(index);
+      controller_->rageQuit(currentIndex);
       done = true;
     }
   }
