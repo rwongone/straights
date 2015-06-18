@@ -1,8 +1,7 @@
 #include "ComputerPlayer.h"
-#include "Round.h"
 
-ComputerPlayer::ComputerPlayer(Round* round): Player(round) {}
+ComputerPlayer::ComputerPlayer(){}
 
-void ComputerPlayer::makeMove(){
+void ComputerPlayer::makeMove(Table* table){
 
 }

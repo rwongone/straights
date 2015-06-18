@@ -1,8 +1,7 @@
 #include "Player.h"
 #include <iostream>
-#include "Round.h"
 
-Player::Player(Round* round): round_(round) {}
+Player::Player(){}
 
 void Player::setHand(std::vector<Card*> hand){
   hand_ = hand;

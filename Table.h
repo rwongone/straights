@@ -11,7 +11,7 @@ public:
   ~Table();
   std::set<Card*>* getCardsPlayed();
   void playCard(Card*);
-  friend std::ostream& operator<<(std::ostream&, const Table&);
+  friend std::ostream& operator<<(std::ostream&, Table&);
 private:
   std::set<Card*> *cardsPlayed_;
 };

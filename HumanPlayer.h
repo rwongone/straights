@@ -2,13 +2,13 @@
 #define _HUMANPLAYER_
 
 #include "Player.h"
-#include "Round.h"
+#include "Table.h"
 
 class HumanPlayer : public Player {
 public:
-  HumanPlayer(Round*);
+  HumanPlayer();
   ~HumanPlayer();
-  void makeMove();
+  void makeMove(Table*);
 private:
 };
 

@@ -9,7 +9,6 @@
 #include <iostream>
 
 class Game;
-class Player;
 
 class Round{
 public:

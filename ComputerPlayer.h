@@ -2,13 +2,12 @@
 #define _COMPUTERPLAYER_
 
 #include "Player.h"
-#include "Round.h"
 
 class ComputerPlayer : public Player {
 public:
-  ComputerPlayer(Round*);
+  ComputerPlayer();
   ~ComputerPlayer();
-  void makeMove();
+  void makeMove(Table*);
 private:
 };
 

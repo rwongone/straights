@@ -1,14 +1,13 @@
 #include "HumanPlayer.h"
-#include "Table.h"
-#include "Round.h"
 
-HumanPlayer::HumanPlayer(Round* round) : Player(round) {
+HumanPlayer::HumanPlayer(){
 
 }
 
-void HumanPlayer::makeMove(){
+void HumanPlayer::makeMove(Table* table){
   // Print out cards on table; the HumanPlayer object (at least)
   // needs to be able to access the Table's << operator.
+  std::cout << *table << std::endl;
 
   // Print out hand
 

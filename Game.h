@@ -11,7 +11,6 @@
 #include <string>
 
 class Round;
-class Player;
 
 class Game{
 public:

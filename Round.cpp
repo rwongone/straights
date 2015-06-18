@@ -4,6 +4,7 @@ Round::Round(Game* game, int seed) : game_(game), deck_(new Deck(seed)), table_(
 
 }
 
+// Might not be needed
 Table* Round::getTable() const {
   return table_;
 }
@@ -42,7 +43,7 @@ void Round::gamePlay(){
   for(int i = 0; i < 13; i++){ // Use constant. Also, each round lasts up to 13 cards since we go
     for(int j = startingPlayer_; j < startingPlayer_ + 4; j++){
       int currentPlayer = j % 4; // Get the current player index. Wrap if past 4.
-      game_->getPlayer(currentPlayer)->makeMove();
+      game_->getPlayer(currentPlayer)->makeMove(table_);
     }
   }
 }
