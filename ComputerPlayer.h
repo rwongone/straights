@@ -7,7 +7,8 @@ class ComputerPlayer : public Player {
 public:
   ComputerPlayer();
   ~ComputerPlayer();
-  void makeMove(Table*, Deck*);
+  bool isHuman();
+  void makeMove();
 private:
 };
 

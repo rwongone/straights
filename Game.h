@@ -18,10 +18,12 @@ public:
   ~Game();
   Player* getPlayer(int);
   Deck* getDeck();
+  Table* getTable();
   void setGameOver();
   void setPlayer(int, Player*);
-  void setCurrentPlayer(int);
+  void setStartingPlayer(int);
   void setPlayerHand(int, std::vector<Card*>);
+  bool playerIsHuman(int);
 private:
   void notify();
   Deck* deck_;

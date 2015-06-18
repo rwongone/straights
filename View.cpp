@@ -1,5 +1,6 @@
 #include "View.h"
 #include "Player.h"
+#include "Command.h"
 
 View::View(Game* game, GameController* controller) : game_(game), controller_(controller) {
   createPlayers();
@@ -16,9 +17,45 @@ void View::playGame() {
   bool done = false;
 
   while (!done) {
-    done = controller_->playTurn(currentPlayer);
+    if (game_->getPlayer(currentPlayer)->isHuman()) {
+      done = playHumanTurn(currentPlayer);
+    } else {
+      done = controller_->playTurn(currentPlayer);
+    }
     currentPlayer += 1;
     currentPlayer %= 4;
+  }
+}
+
+bool View::playHumanTurn(int index) {
+  Table* theTable = game_->getTable();
+  std::cout << *theTable;
+
+  // Print out hand
+  controller_->printHand(index);
+
+  // Print out valid moves
+  controller_->printLegalMoves(index);
+
+  bool done = false;
+
+  while (!done) {
+    Command c;
+    std::cin >> c;
+    if (c.type == PLAY) {
+      // if play is valid, do it and set done = true
+
+    } else if (c.type == DISCARD) {
+      // if discard is valid, do it and set done = true
+
+    } else if (c.type == DECK) {
+      std::cout << *game_->getDeck();
+    } else if (c.type == QUIT) {
+      return true;
+    } else if (c.type == RAGEQUIT) {
+      // change human player to computer player
+      done = true;
+    }
   }
 }
 

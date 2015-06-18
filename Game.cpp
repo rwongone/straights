@@ -10,7 +10,7 @@ Game::~Game() {
   }
 }
 
-void Game::setCurrentPlayer(int index) {
+void Game::setStartingPlayer(int index) {
   assert(0 <= index && index < 4);
   currentPlayer_ = players_[index];
 }
@@ -30,6 +30,10 @@ Deck* Game::getDeck() {
 Player* Game::getPlayer(int index){
   // Assert valid index
   return players_[index];
+}
+
+Table* Game::getTable() {
+  return table_;
 }
 
 void Game::setGameOver(){

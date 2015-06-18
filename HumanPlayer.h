@@ -8,7 +8,9 @@ class HumanPlayer : public Player {
 public:
   HumanPlayer();
   ~HumanPlayer();
-  void makeMove(Table*, Deck*);
+  void printHand() const; // move into Human Player?
+  void printLegalMoves(Table*) const; // move into Human Player?
+  bool isHuman();
 private:
 };
 

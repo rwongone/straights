@@ -18,6 +18,8 @@ public:
   void dealCards();
   void setPlayerHand(int, std::vector<Card*>);
   bool playTurn(int);
+  void printHand(int) const;
+  void printLegalMoves(int) const;
   int findStartingPlayer();
 private:
   Game* game_;

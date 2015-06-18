@@ -11,6 +11,7 @@ public:
 private:
   void createPlayers();
   void playGame();
+  bool playHumanTurn(int);
   Game* game_;
   GameController* controller_;
   int currentPlayer;

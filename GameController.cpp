@@ -12,10 +12,11 @@ void GameController::setPlayer(int index, std::string playerType) {
 }
 
 void GameController::dealCards() {
+  Deck* theDeck = game_->getDeck();
   for (int i=0; i<4; i++){ // Use constants
     std::vector<Card*> playerHand;
     for(int j = 0; j < 13; j++){ // Use constants
-      playerHand.push_back(game_->getDeck()->getCard(13*i+j)); // Use constants
+      playerHand.push_back(theDeck->getCard(13*i+j)); // Use constants
     }
     game_->setPlayerHand(i, playerHand);
   }
@@ -29,7 +30,7 @@ void GameController::setPlayerHand(int index, std::vector<Card*> hand) {
 int GameController::findStartingPlayer() {
   for(int i = 0; i < 4; i++){
     if(game_->getPlayer(i)->hasStartCard()){
-      game_->setCurrentPlayer(i);
+      game_->setStartingPlayer(i);
       return i;
     }
   }
@@ -39,4 +40,12 @@ int GameController::findStartingPlayer() {
 // return false if game continues
 bool GameController::playTurn(int index) {
   return false;
+}
+
+void GameController::printHand(int index) const {
+  game_->getPlayer(index)->printHand();
+}
+
+void GameController::printLegalMoves(int index) const {
+  game_->getPlayer(index)->printLegalMoves(game_->getTable());
 }

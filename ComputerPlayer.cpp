@@ -2,6 +2,10 @@
 
 ComputerPlayer::ComputerPlayer(){}
 
-void ComputerPlayer::makeMove(Table* table, Deck* deck){
+void ComputerPlayer::makeMove(){
 
+}
+
+bool ComputerPlayer::isHuman() {
+  return false;
 }
