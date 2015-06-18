@@ -29,6 +29,7 @@ public:
   void setPlayerHand(int, std::vector<Card*>);
   void notify();
   bool shouldQuit();
+  std::vector<Card*> getLegalMoves(int);
 private:
   Deck* deck_;
   Table* table_;

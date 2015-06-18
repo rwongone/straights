@@ -69,12 +69,18 @@ bool GameController::playCard(Card c) {
   return true;
 }
 
-bool GameController::discardCard(Card c) {
-  return true;
-}
-
 void GameController::rageQuit(int index) {
   // convert the player[index] to a computer player
-
   numComputerPlayers_++;
+}
+
+bool GameController::discardCard(int index, Card card){
+  // Assert that there are no legal moves available
+  std::vector<Card*> legalMoves = game_->getLegalMoves(index);
+  if(legalMoves.size() > 0){
+    // You have a legal play. You may not discard
+  }
+
+  Player* player = game_->getPlayer(index);
+  player->discardCard(card);
 }

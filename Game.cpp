@@ -23,6 +23,18 @@ void Game::setPlayerHand(int index, std::vector<Card*> hand) {
   players_[index]->setHand(hand);
 }
 
+std::vector<Card*> Game::getLegalMoves(int index){
+  Player* player = getPlayer(index);
+  std::vector<Card*> hand = player->getHand();
+  std::vector<Card*> legalMoves;
+  for (auto it = hand.begin(); it != hand.end(); ++it) {
+    if (table_->isLegalCard(*it)) {
+      legalMoves.push_back(*it);
+    }
+  }
+  return legalMoves;
+}
+
 Deck* Game::getDeck() {
   return deck_;
 }

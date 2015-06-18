@@ -6,6 +6,7 @@
 #include "Deck.h"
 #include <vector>
 #include <iostream>
+#include <algorithm>
 
 class Player {
 public:
@@ -17,6 +18,8 @@ public:
   bool hasStartCard() const;
   void printHand() const;
   void printLegalMoves(Table*) const;
+  std::vector<Card*> getHand();
+  void discardCard(Card);
 private:
   std::vector<Card*> hand_;
   std::vector<Card*> discardPile_;
