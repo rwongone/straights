@@ -21,21 +21,22 @@ public:
   Player* getPlayer(int);
   Deck* getDeck();
   Table* getTable();
+  void setQuit();
   void setGameOver();
   bool isGameDone();
   void setPlayer(int, Player*);
   void setStartingPlayer(int);
   void setPlayerHand(int, std::vector<Card*>);
   void notify();
-  bool playerIsHuman(int);
+  bool shouldQuit();
 private:
   Deck* deck_;
   Table* table_;
   Player* players_[4]; // Turn this into a constant
   Player* currentPlayer_;
   void setupPlayers();
-  void gameEnd();
   bool gameOver_;
+  bool shouldQuit_;
 };
 
 #endif

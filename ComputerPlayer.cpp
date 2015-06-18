@@ -1,6 +1,6 @@
 #include "ComputerPlayer.h"
 
-ComputerPlayer::ComputerPlayer(){}
+ComputerPlayer::ComputerPlayer() {}
 
 void ComputerPlayer::playTurn(){
 

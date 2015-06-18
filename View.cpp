@@ -5,8 +5,11 @@
 View::View(Game* game, GameController* controller) : game_(game), controller_(controller) {
   game->subscribe(this);
   createPlayers();
-  controller_->dealCards();
-  playGame();
+
+  while (!game_->shouldQuit()) {
+    controller_->dealCards();
+    playGame();
+  }
 }
 
 View::~View() {
@@ -18,15 +21,13 @@ void View::playGame() {
   bool done = false;
 
   while (!done) {
-    // if (game_->getPlayer(currentPlayer)->isHuman()) {
-    //   done = playHumanTurn(currentPlayer);
-    // } else {
-    //   done = controller_->playTurn(currentPlayer);
-    // }
-
     done = controller_->playTurn(currentPlayer);
     currentPlayer += 1;
     currentPlayer %= 4;
+  }
+
+  if (!game_->shouldQuit()) {
+    // print out end results
   }
 }
 
@@ -47,10 +48,10 @@ void View::humanPrompt(int index) {
     std::cin >> c;
     if (c.type == PLAY) {
       // if play is valid, do it and set done = true
-
+      done = controller_->playCard(c.card);
     } else if (c.type == DISCARD) {
       // if discard is valid, do it and set done = true
-
+      done = controller_->discardCard(c.card);
     } else if (c.type == DECK) {
       std::cout << *game_->getDeck();
     } else if (c.type == QUIT) {
@@ -58,6 +59,7 @@ void View::humanPrompt(int index) {
       done = true;
     } else if (c.type == RAGEQUIT) {
       // change human player to computer player
+      controller_->rageQuit(index);
       done = true;
     }
   }

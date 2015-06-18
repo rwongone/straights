@@ -40,14 +40,18 @@ void Game::setGameOver(){
   gameOver_ = true;
 }
 
-void Game::gameEnd(){
-  // clean up
-}
-
 bool Game::isGameDone() {
   return gameOver_;
 }
 
 void Game::notify() {
 
+}
+
+void Game::setQuit() {
+  shouldQuit_ = true;
+}
+
+bool Game::shouldQuit() {
+  return shouldQuit_;
 }

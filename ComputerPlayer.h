@@ -7,7 +7,6 @@ class ComputerPlayer : public Player {
 public:
   ComputerPlayer();
   ~ComputerPlayer();
-  bool isHuman();
   void playTurn();
 private:
 };

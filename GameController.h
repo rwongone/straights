@@ -9,9 +9,9 @@ class GameController{
 public:
   GameController(Game*);
   ~GameController();
-  void playCard(Card*);
-  void discardCard(Card*);
-  void rageQuit(Player*);
+  bool playCard(Card);
+  bool discardCard(Card);
+  void rageQuit(int);
   void quit();
   void deck();
   void setPlayer(int, std::string);
@@ -21,9 +21,11 @@ public:
   void printHand(int) const;
   void printLegalMoves(int) const;
   bool isGameDone();
+  bool shouldQuit();
   int findStartingPlayer();
 private:
   Game* game_;
+  int numComputerPlayers_;
 };
 
 #endif

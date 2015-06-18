@@ -1,6 +1,6 @@
 #include "GameController.h"
 
-GameController::GameController(Game* game): game_(game) {}
+GameController::GameController(Game* game): game_(game), numComputerPlayers_(0) {}
 
 void GameController::setPlayer(int index, std::string playerType) {
   assert(playerType == "h" || playerType == "c");
@@ -8,6 +8,7 @@ void GameController::setPlayer(int index, std::string playerType) {
     game_->setPlayer(index, new HumanPlayer());
   } else {
     game_->setPlayer(index, new ComputerPlayer());
+    numComputerPlayers_++;
   }
 }
 
@@ -45,6 +46,11 @@ bool GameController::playTurn(int index) {
 
 void GameController::quit() {
   game_->setGameOver();
+  game_->setQuit();
+}
+
+bool GameController::shouldQuit() {
+  return game_->shouldQuit() || numComputerPlayers_ == 4;
 }
 
 bool GameController::isGameDone() {
@@ -57,4 +63,18 @@ void GameController::printHand(int index) const {
 
 void GameController::printLegalMoves(int index) const {
   game_->getPlayer(index)->printLegalMoves(game_->getTable());
+}
+
+bool GameController::playCard(Card c) {
+  return true;
+}
+
+bool GameController::discardCard(Card c) {
+  return true;
+}
+
+void GameController::rageQuit(int index) {
+  // convert the player[index] to a computer player
+
+  numComputerPlayers_++;
 }
