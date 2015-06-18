@@ -28,6 +28,7 @@ public:
   void setPlayerHand(int, std::vector<Card*>);
   void notify();
   bool playerIsHuman(int);
+  std::vector<Card*> getLegalMoves(int);
 private:
   Deck* deck_;
   Table* table_;

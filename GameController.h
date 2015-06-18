@@ -10,7 +10,7 @@ public:
   GameController(Game*);
   ~GameController();
   void playCard(Card*);
-  void discardCard(Card*);
+  void discardCard(int, Card);
   void rageQuit(Player*);
   void quit();
   void deck();

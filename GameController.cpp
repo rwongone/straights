@@ -58,3 +58,14 @@ void GameController::printHand(int index) const {
 void GameController::printLegalMoves(int index) const {
   game_->getPlayer(index)->printLegalMoves(game_->getTable());
 }
+
+void GameController::discardCard(int index, Card card){
+  // Assert that there are no legal moves available
+  std::vector<Card*> legalMoves = game_->getLegalMoves(index);
+  if(legalMoves.size() > 0){
+    // You have a legal play. You may not discard
+  }
+
+  Player* player = game_->getPlayer(index);
+  player->discardCard(card);
+}
