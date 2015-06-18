@@ -73,3 +73,6 @@ void View::createPlayers() {
   }
 }
 
+void View::update(){
+
+}
