@@ -12,6 +12,7 @@ private:
   void createPlayers();
   void playGame();
   bool playHumanTurn(int);
+  void humanPrompt(int);
   Game* game_;
   GameController* controller_;
   int currentPlayer;

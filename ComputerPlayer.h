@@ -8,7 +8,7 @@ public:
   ComputerPlayer();
   ~ComputerPlayer();
   bool isHuman();
-  void makeMove();
+  void playTurn();
 private:
 };
 

@@ -1,7 +1,9 @@
 #include "HumanPlayer.h"
 #include "Command.h"
 
-HumanPlayer::HumanPlayer(){
+HumanPlayer::HumanPlayer() {}
+
+void HumanPlayer::playTurn() {
 
 }
 

@@ -37,9 +37,18 @@ int GameController::findStartingPlayer() {
   assert(false);
 }
 
-// return false if game continues
 bool GameController::playTurn(int index) {
-  return false;
+  game_->getPlayer(index)->playTurn();
+
+  return isGameDone();
+}
+
+void GameController::quit() {
+  game_->setGameOver();
+}
+
+bool GameController::isGameDone() {
+  return game_->isGameDone();
 }
 
 void GameController::printHand(int index) const {

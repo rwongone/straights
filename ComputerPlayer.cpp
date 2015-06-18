@@ -2,7 +2,7 @@
 
 ComputerPlayer::ComputerPlayer(){}
 
-void ComputerPlayer::makeMove(){
+void ComputerPlayer::playTurn(){
 
 }
 

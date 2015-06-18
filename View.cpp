@@ -3,6 +3,7 @@
 #include "Command.h"
 
 View::View(Game* game, GameController* controller) : game_(game), controller_(controller) {
+  game->subscribe(this);
   createPlayers();
   controller_->dealCards();
   playGame();
@@ -17,17 +18,19 @@ void View::playGame() {
   bool done = false;
 
   while (!done) {
-    if (game_->getPlayer(currentPlayer)->isHuman()) {
-      done = playHumanTurn(currentPlayer);
-    } else {
-      done = controller_->playTurn(currentPlayer);
-    }
+    // if (game_->getPlayer(currentPlayer)->isHuman()) {
+    //   done = playHumanTurn(currentPlayer);
+    // } else {
+    //   done = controller_->playTurn(currentPlayer);
+    // }
+
+    done = controller_->playTurn(currentPlayer);
     currentPlayer += 1;
     currentPlayer %= 4;
   }
 }
 
-bool View::playHumanTurn(int index) {
+void View::humanPrompt(int index) {
   Table* theTable = game_->getTable();
   std::cout << *theTable;
 
@@ -51,7 +54,8 @@ bool View::playHumanTurn(int index) {
     } else if (c.type == DECK) {
       std::cout << *game_->getDeck();
     } else if (c.type == QUIT) {
-      return true;
+      controller_->quit();
+      done = true;
     } else if (c.type == RAGEQUIT) {
       // change human player to computer player
       done = true;

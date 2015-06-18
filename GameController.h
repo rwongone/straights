@@ -20,6 +20,7 @@ public:
   bool playTurn(int);
   void printHand(int) const;
   void printLegalMoves(int) const;
+  bool isGameDone();
   int findStartingPlayer();
 private:
   Game* game_;

@@ -12,7 +12,7 @@ public:
   Player();
   ~Player();
   int score();
-  void makeMove(); // probably want to make this virtual
+  virtual void playTurn() = 0; // probably want to make this virtual
   virtual bool isHuman() = 0;
   void setHand(std::vector<Card*>);
   bool hasStartCard() const;

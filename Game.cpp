@@ -43,3 +43,11 @@ void Game::setGameOver(){
 void Game::gameEnd(){
   // clean up
 }
+
+bool Game::isGameDone() {
+  return gameOver_;
+}
+
+void Game::notify() {
+
+}

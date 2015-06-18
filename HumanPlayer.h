@@ -8,6 +8,7 @@ class HumanPlayer : public Player {
 public:
   HumanPlayer();
   ~HumanPlayer();
+  void playTurn();
   void printHand() const; // move into Human Player?
   void printLegalMoves(Table*) const; // move into Human Player?
   bool isHuman();
