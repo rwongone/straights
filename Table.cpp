@@ -23,9 +23,9 @@ std::ostream& operator<<(std::ostream& sout, Table& table) {
   sout << "Cards on the table: " << std::endl; // we may need to omit space after colon
   for (int i=0; i<SUIT_COUNT; i++) {
     std::set<Card*> suitSet = table.getCardsPlayed()[i];
-    sout << suits[i] << ": ";
+    sout << suits[i] << ":";
     for (auto it=suitSet.begin(); it != suitSet.end(); ++it) {
-      sout << ranks[(*it)->getRank()] << " "; // may have to omit space on last entry
+      sout << " " << ranks[(*it)->getRank()]; // may have to omit space on last entry
     }
     sout << std::endl;
   }

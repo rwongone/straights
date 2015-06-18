@@ -8,9 +8,17 @@ void Player::setHand(std::vector<Card*> hand){
 }
 
 void Player::printHand() const {
+  std::cout << "Your hand:";
   for (auto it = hand_.begin(); it != hand_.end(); ++it) {
-    std::cout << **it << std::endl;
+    std::cout << " " <<  **it;
   }
+  std::cout << std::endl;
+}
+
+void Player::printLegalMoves(Table* table) const {
+  std::cout << "Legal plays:";
+  // Determine legal plays
+  std::cout << std::endl;
 }
 
 bool Player::hasStartCard() const {
