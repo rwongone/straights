@@ -1,31 +1,53 @@
 #include "Game.h"
-#include "HumanPlayer.h"
-#include "ComputerPlayer.h"
-#include "Player.h"
-#include <iostream>
-#include <string>
-#include <cassert>
-#include <vector>
 
 // Constructor
-Game::Game(int seed = 0): deck_(new Deck(seed)), table_(new Table()){
-  for(int i = 0; i < 4; i++){
-    std::cout << "Is player " << (i + 1) << " a human(h) or a computer(c)?" << std::endl;
-    std::string playerType;
-    std::cin >> playerType;
-    assert(playerType == "h" || playerType == "c");
+Game::Game(int seed = 0): deck_(new Deck(seed)), table_(new Table()) {}
 
-    // Hand playerHand = new Hand();
-    std::vector<Card*> playerHand;
-
-    for (int j=0; j<13; j++) {
-      playerHand.push_back(deck_->getCard(13*i+j));
-    }
-
-    if(playerType == "h"){
-      players_[i] = new HumanPlayer(playerHand);
-    } else {
-      players_[i] = new ComputerPlayer(playerHand);
-    }
+Game::~Game() {
+  delete table_;
+  for (int i=0; i<4; i++) {
+    delete players_[i];
   }
+}
+
+void Game::setStartingPlayer(int index) {
+  assert(0 <= index && index < 4);
+  currentPlayer_ = players_[index];
+}
+
+void Game::setPlayer(int index, Player* player) {
+  players_[index] = player;
+}
+
+void Game::setPlayerHand(int index, std::vector<Card*> hand) {
+  players_[index]->setHand(hand);
+}
+
+Deck* Game::getDeck() {
+  return deck_;
+}
+
+Player* Game::getPlayer(int index){
+  // Assert valid index
+  return players_[index];
+}
+
+Table* Game::getTable() {
+  return table_;
+}
+
+void Game::setGameOver(){
+  gameOver_ = true;
+}
+
+void Game::gameEnd(){
+  // clean up
+}
+
+bool Game::isGameDone() {
+  return gameOver_;
+}
+
+void Game::notify() {
+
 }

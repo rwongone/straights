@@ -1,5 +1,11 @@
 #include "ComputerPlayer.h"
 
-ComputerPlayer::ComputerPlayer(std::vector<Card*> hand) : Player(hand) {
+ComputerPlayer::ComputerPlayer(){}
 
+void ComputerPlayer::playTurn(){
+
+}
+
+bool ComputerPlayer::isHuman() {
+  return false;
 }

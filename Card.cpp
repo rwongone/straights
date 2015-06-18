@@ -26,6 +26,10 @@ Rank Card::getRank() const{
   return rank_;
 }
 
+bool Card::isStartCard() const{
+  return rank_ == SEVEN && suit_ == SPADE;
+}
+
 bool operator==(const Card &a, const Card &b){
   return a.getSuit() == b.getSuit() && a.getRank() == b.getRank();
 }

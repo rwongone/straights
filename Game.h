@@ -1,28 +1,41 @@
 #ifndef _GAME_
 #define _GAME_
 
-#include "Deck.h"
-#include "Card.h"
 #include "Player.h"
-#include "Table.h"
+#include "HumanPlayer.h"
+#include "ComputerPlayer.h"
+#include "Round.h"
+#include "Subject.h"
 #include <vector>
+#include <iostream>
+#include <cassert>
+#include <string>
 
-enum Phase { INVITE, SHUFFLE, PLAY };
+class Round;
+class View;
 
-
-class Game{
+class Game : public Subject {
 public:
   Game(int);
   ~Game();
-private:
-  void reset();
+  Player* getPlayer(int);
+  Deck* getDeck();
+  Table* getTable();
+  void setGameOver();
+  bool isGameDone();
+  void setPlayer(int, Player*);
+  void setStartingPlayer(int);
+  void setPlayerHand(int, std::vector<Card*>);
   void notify();
-  Phase phase;
-  Player* players_[4];
-  std::vector<Card*> cards_;
+  bool playerIsHuman(int);
+private:
   Deck* deck_;
   Table* table_;
-  Player* whoseTurn_;
+  Player* players_[4]; // Turn this into a constant
+  Player* currentPlayer_;
+  void setupPlayers();
+  void gameEnd();
+  bool gameOver_;
 };
 
 #endif

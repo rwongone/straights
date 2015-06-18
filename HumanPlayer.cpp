@@ -1,5 +1,12 @@
 #include "HumanPlayer.h"
+#include "Command.h"
 
-HumanPlayer::HumanPlayer(std::vector<Card*> hand) : Player(hand) {
+HumanPlayer::HumanPlayer() {}
 
+void HumanPlayer::playTurn() {
+
+}
+
+bool HumanPlayer::isHuman() {
+  return true;
 }

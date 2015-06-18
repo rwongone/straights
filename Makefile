@@ -1,6 +1,6 @@
 CXX = g++
 CXXFLAGS = -g -Wall -MMD -std=c++0x
-OBJECTS = Main.o Card.o Command.o Deck.o Player.o Table.o Game.o GameController.o View.o HumanPlayer.o ComputerPlayer.o
+OBJECTS = Main.o Card.o Command.o Deck.o Player.o Table.o Game.o GameController.o View.o HumanPlayer.o ComputerPlayer.o Subject.o
 CPP = ${OBJECTS:.o=.cpp}
 HEADERS = ${OBJECTS:.o=.h}
 DEPENDS = ${OBJECTS:.o=.d}
