@@ -1,8 +1,8 @@
 #include "HumanPlayer.h"
 #include "Command.h"
 
-HumanPlayer::HumanPlayer() {}
+HumanPlayer::HumanPlayer(): Player() {}
 
 void HumanPlayer::playTurn() {
-
+  notify();
 }

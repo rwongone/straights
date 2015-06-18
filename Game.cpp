@@ -63,8 +63,10 @@ bool Game::isGameDone() {
   return gameOver_;
 }
 
-void Game::notify() {
-
+void Game::subscribe(Observer* observer){
+  for(int i = 0; i < 4; i++){
+    players_[i]->subscribe(observer);
+  }
 }
 
 void Game::setQuit() {

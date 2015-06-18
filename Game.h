@@ -5,16 +5,15 @@
 #include "HumanPlayer.h"
 #include "ComputerPlayer.h"
 #include "Round.h"
-#include "Subject.h"
+#include "Observer.h"
 #include <vector>
 #include <iostream>
 #include <cassert>
 #include <string>
 
 class Round;
-class View;
 
-class Game : public Subject {
+class Game {
 public:
   Game(int);
   ~Game();
@@ -31,6 +30,7 @@ public:
   void setPlayerHand(int, std::vector<Card*>);
   void notify();
   bool shouldQuit();
+  void subscribe(Observer*);
   std::vector<Card*> getLegalMoves(int);
 private:
   Deck* deck_;

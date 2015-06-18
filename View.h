@@ -14,7 +14,7 @@ private:
   void createPlayers();
   void playGame();
   bool playHumanTurn(int);
-  void humanPrompt(int);
+  void humanPrompt();
   Game* game_;
   GameController* controller_;
   int currentPlayer;
