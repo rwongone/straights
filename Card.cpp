@@ -27,7 +27,7 @@ Rank Card::getRank() const{
 }
 
 bool Card::isStartCard() const{
-  return rank_ == (Rank)(SEVEN) && suit_ == (Suit)(SPADE);
+  return rank_ == SEVEN && suit_ == SPADE;
 }
 
 bool operator==(const Card &a, const Card &b){

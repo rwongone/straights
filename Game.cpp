@@ -22,9 +22,9 @@ void Game::setupPlayers(){
     assert(playerType == "h" || playerType == "c");
 
     if(playerType == "h"){
-      players_[i] = new HumanPlayer();
+      players_[i] = new HumanPlayer(round_);
     } else {
-      players_[i] = new ComputerPlayer();
+      players_[i] = new ComputerPlayer(round_);
     }
   }
 }

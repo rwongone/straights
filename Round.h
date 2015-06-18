@@ -9,12 +9,14 @@
 #include <iostream>
 
 class Game;
+class Player;
 
 class Round{
 public:
   Round(Game*, int);
   ~Round();
   void reset();
+  Table* getTable() const;
 private:
   int startingPlayer_; // The INDEX of the starting player. +1 if printing
   Deck* deck_;

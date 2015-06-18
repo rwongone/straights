@@ -1,16 +1,11 @@
 #include "Player.h"
 #include <iostream>
+#include "Round.h"
 
-Player::Player() {
-
-}
+Player::Player(Round* round): round_(round) {}
 
 void Player::setHand(std::vector<Card*> hand){
   hand_ = hand;
-}
-
-void Player::makeMove(){ // probably should be virtual
-
 }
 
 void Player::printHand() const {
@@ -19,7 +14,7 @@ void Player::printHand() const {
   }
 }
 
-bool Player::hasStartCard(){
+bool Player::hasStartCard() const {
   for (auto it = hand_.begin(); it != hand_.end(); ++it) {
     if((*it)->isStartCard()){
       return true;
