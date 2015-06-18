@@ -30,15 +30,17 @@ void View::playGame() {
   }
 }
 
-void View::humanPrompt(int index) {
+void View::humanPrompt() {
   Table* theTable = game_->getTable();
   std::cout << *theTable;
 
+  int currentIndex = game_->getCurrentPlayer();
+
   // Print out hand
-  controller_->printHand(index);
+  controller_->printHand(currentIndex);
 
   // Print out valid moves
-  controller_->printLegalMoves(index);
+  controller_->printLegalMoves(currentIndex);
 
   bool done = false;
 

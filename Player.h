@@ -4,11 +4,12 @@
 #include "Card.h"
 #include "Table.h"
 #include "Deck.h"
+#include "Subject.h"
 #include <vector>
 #include <iostream>
 #include <algorithm>
 
-class Player {
+class Player : public Subject {
 public:
   Player();
   ~Player();
