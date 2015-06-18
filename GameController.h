@@ -9,7 +9,7 @@ class GameController{
 public:
   GameController(Game*);
   ~GameController();
-  bool playCard(Card);
+  bool playCard(int, Card);
   bool discardCard(int, Card);
   void rageQuit(int);
   void quit();

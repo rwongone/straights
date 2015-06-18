@@ -49,10 +49,10 @@ void View::humanPrompt(int index) {
     std::cin >> c;
     if (c.type == PLAY) {
       // if play is valid, do it and set done = true
-      done = controller_->playCard(c.card);
+      done = controller_->playCard(index, c.card);
     } else if (c.type == DISCARD) {
       // if discard is valid, do it and set done = true
-      done = controller_->discardCard(c.card);
+      done = controller_->discardCard(index, c.card);
     } else if (c.type == DECK) {
       std::cout << *game_->getDeck();
     } else if (c.type == QUIT) {

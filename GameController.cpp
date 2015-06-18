@@ -69,7 +69,7 @@ void GameController::printLegalMoves(int index) const {
   game_->getPlayer(index)->printLegalMoves(game_->getTable());
 }
 
-bool GameController::playCard(Card c) {
+bool GameController::playCard(int index, Card card) {
   return true;
 }
 
@@ -83,8 +83,10 @@ bool GameController::discardCard(int index, Card card){
   std::vector<Card*> legalMoves = game_->getLegalMoves(index);
   if(legalMoves.size() > 0){
     // You have a legal play. You may not discard
+    return false;
   }
 
   Player* player = game_->getPlayer(index);
   player->discardCard(card);
+  return true;
 }
