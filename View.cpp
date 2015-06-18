@@ -21,6 +21,7 @@ void View::playGame() {
   bool done = false;
 
   while (!done) {
+    controller_->updateCurrentPlayer(currentPlayer);
     done = controller_->playTurn(currentPlayer);
     currentPlayer += 1;
     currentPlayer %= 4;

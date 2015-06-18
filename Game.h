@@ -26,6 +26,8 @@ public:
   bool isGameDone();
   void setPlayer(int, Player*);
   void setStartingPlayer(int);
+  void setCurrentPlayer(int);
+  int getCurrentPlayer();
   void setPlayerHand(int, std::vector<Card*>);
   void notify();
   bool shouldQuit();
@@ -34,7 +36,8 @@ private:
   Deck* deck_;
   Table* table_;
   Player* players_[4]; // Turn this into a constant
-  Player* currentPlayer_;
+  Player* startingPlayer_;
+  int currentPlayer_;
   void setupPlayers();
   bool gameOver_;
   bool shouldQuit_;

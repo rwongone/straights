@@ -27,6 +27,10 @@ void GameController::setPlayerHand(int index, std::vector<Card*> hand) {
     game_->setPlayerHand(index, hand);
 }
 
+void GameController::updateCurrentPlayer(int index){
+  game_->setCurrentPlayer(index);
+}
+
 // Pre: The 7S card must be in one player's hand.
 int GameController::findStartingPlayer() {
   for(int i = 0; i < 4; i++){
