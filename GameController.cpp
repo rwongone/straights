@@ -19,8 +19,8 @@ void GameController::dealCards() {
     for(int j = 0; j < 13; j++){ // Use constants
       playerHand.push_back(theDeck->getCard(13*i+j)); // Use constants
     }
-    game_->setPlayerHand(i, playerHand);
-  }
+    game_->setPlayerHand(i, playerHand)
+;  }
 }
 
 void GameController::setPlayerHand(int index, std::vector<Card*> hand) {
@@ -46,10 +46,19 @@ void GameController::playTurn(int index) {
   Player* player = game_->getPlayer(index);
   std::vector<Card*> legalMoves = game_->getLegalMoves(index);
   std::vector<Card*> hand = player->getHand();
+
   if (legalMoves.size() == 0) {
+    if (hand.size() == 0) {
+      game_->setGameOver();
+      return;
+    }
     Card* theCard = hand.front();
+    // std::cout << "PLAYER " << (index+1) << " DISCARDS " << *theCard << std::endl;
     discardCard(index, *theCard);
-    hand.erase(hand.begin());
+  } else {
+    Card* theCard = legalMoves.front();
+    // std::cout << "PLAYER " << (index+1) << " PLAYS " << *theCard << std::endl;
+    playCard(index, *theCard);
   }
 }
 
@@ -84,7 +93,6 @@ void GameController::rageQuit(int index) {
 }
 
 bool GameController::discardCard(int index, Card card){
-
   // Assert that there are no legal moves available
   std::vector<Card*> legalMoves = game_->getLegalMoves(index);
   if(legalMoves.size() > 0){
