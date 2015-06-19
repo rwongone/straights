@@ -1,10 +1,6 @@
 #include "ComputerPlayer.h"
 
-ComputerPlayer::ComputerPlayer(){}
-
-void ComputerPlayer::playTurn(){
-
-}
+ComputerPlayer::ComputerPlayer(): Player() {}
 
 bool ComputerPlayer::isHuman() {
   return false;

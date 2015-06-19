@@ -9,21 +9,25 @@ class GameController{
 public:
   GameController(Game*);
   ~GameController();
-  void playCard(Card*);
-  void discardCard(Card*);
-  void rageQuit(Player*);
+  bool playCard(int, Card);
+  bool discardCard(int, Card);
+  void rageQuit(int);
   void quit();
   void deck();
   void setPlayer(int, std::string);
   void dealCards();
   void setPlayerHand(int, std::vector<Card*>);
-  bool playTurn(int);
+  void updateCurrentPlayer(int);
+  void playTurn(int);
   void printHand(int) const;
   void printLegalMoves(int) const;
   bool isGameDone();
+  bool shouldQuit();
   int findStartingPlayer();
+  void printSummary();
 private:
   Game* game_;
+  int numComputerPlayers_;
 };
 
 #endif

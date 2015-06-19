@@ -3,10 +3,12 @@
 #include "Command.h"
 
 View::View(Game* game, GameController* controller) : game_(game), controller_(controller) {
-  game->subscribe(this);
   createPlayers();
-  controller_->dealCards();
-  playGame();
+
+  while (!game_->shouldQuit()) {
+    controller_->dealCards();
+    playGame();
+  }
 }
 
 View::~View() {
@@ -15,30 +17,35 @@ View::~View() {
 
 void View::playGame() {
   currentPlayer = controller_->findStartingPlayer();
-  bool done = false;
 
-  while (!done) {
-    // if (game_->getPlayer(currentPlayer)->isHuman()) {
-    //   done = playHumanTurn(currentPlayer);
-    // } else {
-    //   done = controller_->playTurn(currentPlayer);
-    // }
-
-    done = controller_->playTurn(currentPlayer);
+  while (!game_->isGameDone()) {
+    controller_->updateCurrentPlayer(currentPlayer);
+    if (game_->getPlayer(currentPlayer)->isHuman()) {
+      humanPrompt();
+    } else {
+      controller_->playTurn(currentPlayer);
+    }
     currentPlayer += 1;
     currentPlayer %= 4;
   }
+
+  if (!game_->shouldQuit()) {
+    controller_->printSummary();
+    // need to reshuffle and start game again
+  }
 }
 
-void View::humanPrompt(int index) {
+void View::humanPrompt() {
   Table* theTable = game_->getTable();
   std::cout << *theTable;
 
+  int currentIndex = game_->getCurrentPlayer();
+
   // Print out hand
-  controller_->printHand(index);
+  controller_->printHand(currentIndex);
 
   // Print out valid moves
-  controller_->printLegalMoves(index);
+  controller_->printLegalMoves(currentIndex);
 
   bool done = false;
 
@@ -47,10 +54,16 @@ void View::humanPrompt(int index) {
     std::cin >> c;
     if (c.type == PLAY) {
       // if play is valid, do it and set done = true
-
+      bool isValidPlay;
+      isValidPlay = controller_->playCard(currentIndex, c.card);
+      if(!isValidPlay){
+        std::cout << "This is not a legal play." << std::endl;
+      } else {
+        done = true;
+      }
     } else if (c.type == DISCARD) {
       // if discard is valid, do it and set done = true
-
+      done = controller_->discardCard(currentIndex, c.card);
     } else if (c.type == DECK) {
       std::cout << *game_->getDeck();
     } else if (c.type == QUIT) {
@@ -58,6 +71,7 @@ void View::humanPrompt(int index) {
       done = true;
     } else if (c.type == RAGEQUIT) {
       // change human player to computer player
+      controller_->rageQuit(currentIndex);
       done = true;
     }
   }
@@ -73,3 +87,6 @@ void View::createPlayers() {
   }
 }
 
+void View::update(){
+
+}

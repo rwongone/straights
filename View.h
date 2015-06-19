@@ -4,15 +4,16 @@
 #include "Game.h"
 #include "GameController.h"
 
-class View{
+class View {
 public:
   View(Game*, GameController*);
-  ~View();
+  virtual ~View();
+  virtual void update();
 private:
   void createPlayers();
   void playGame();
   bool playHumanTurn(int);
-  void humanPrompt(int);
+  void humanPrompt();
   Game* game_;
   GameController* controller_;
   int currentPlayer;

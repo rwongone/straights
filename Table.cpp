@@ -19,6 +19,15 @@ void Table::playCard(Card* theCard) {
 }
 
 bool Table::isLegalCard(Card* theCard) const {
+  if (cardsPlayed_[3].size() == 0){
+    // First turn
+    if (theCard->getRank() == SEVEN && theCard->getSuit() == SPADE){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   if (theCard->getRank() == SEVEN) return true;
 
   auto theSet = cardsPlayed_[theCard->getSuit()];

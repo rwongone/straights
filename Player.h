@@ -6,21 +6,27 @@
 #include "Deck.h"
 #include <vector>
 #include <iostream>
+#include <algorithm>
 
 class Player {
 public:
   Player();
   ~Player();
-  int score();
-  virtual void playTurn() = 0; // probably want to make this virtual
-  virtual bool isHuman() = 0;
+  int score() const;
+  int addScore();
   void setHand(std::vector<Card*>);
   bool hasStartCard() const;
   void printHand() const;
   void printLegalMoves(Table*) const;
+  void printSummary() const;
+  std::vector<Card*> getHand();
+  virtual bool isHuman() = 0;
+  void discardCard(Card);
+  void playCard(Card*);
 private:
   std::vector<Card*> hand_;
   std::vector<Card*> discardPile_;
+  int score_;
 };
 
 #endif

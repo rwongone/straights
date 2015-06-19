@@ -12,7 +12,14 @@ Game::~Game() {
 
 void Game::setStartingPlayer(int index) {
   assert(0 <= index && index < 4);
-  currentPlayer_ = players_[index];
+  startingPlayer_ = players_[index];
+}
+void Game::setCurrentPlayer(int index){
+  currentPlayer_ = index;
+}
+
+int Game::getCurrentPlayer(){
+  return currentPlayer_;
 }
 
 void Game::setPlayer(int index, Player* player) {
@@ -21,6 +28,18 @@ void Game::setPlayer(int index, Player* player) {
 
 void Game::setPlayerHand(int index, std::vector<Card*> hand) {
   players_[index]->setHand(hand);
+}
+
+std::vector<Card*> Game::getLegalMoves(int index){
+  Player* player = getPlayer(index);
+  std::vector<Card*> hand = player->getHand();
+  std::vector<Card*> legalMoves;
+  for (auto it = hand.begin(); it != hand.end(); ++it) {
+    if (table_->isLegalCard(*it)) {
+      legalMoves.push_back(*it);
+    }
+  }
+  return legalMoves;
 }
 
 Deck* Game::getDeck() {
@@ -40,14 +59,14 @@ void Game::setGameOver(){
   gameOver_ = true;
 }
 
-void Game::gameEnd(){
-  // clean up
-}
-
 bool Game::isGameDone() {
   return gameOver_;
 }
 
-void Game::notify() {
+void Game::setQuit() {
+  shouldQuit_ = true;
+}
 
+bool Game::shouldQuit() {
+  return shouldQuit_;
 }
