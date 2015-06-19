@@ -4,3 +4,7 @@
 HumanPlayer::HumanPlayer(): Player() {}
 
 void HumanPlayer::playTurn(){}
+
+bool HumanPlayer::isHuman() {
+  return true;
+}

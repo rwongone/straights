@@ -18,7 +18,7 @@ public:
   void dealCards();
   void setPlayerHand(int, std::vector<Card*>);
   void updateCurrentPlayer(int);
-  bool playTurn(int);
+  void playTurn(int);
   void printHand(int) const;
   void printLegalMoves(int) const;
   bool isGameDone();

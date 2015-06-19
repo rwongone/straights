@@ -17,11 +17,14 @@ View::~View() {
 
 void View::playGame() {
   currentPlayer = controller_->findStartingPlayer();
-  bool done = false;
 
-  while (!done) {
+  while (!game_->isGameDone()) {
     controller_->updateCurrentPlayer(currentPlayer);
-    done = controller_->playTurn(currentPlayer);
+    if (game_->getPlayer(currentPlayer)->isHuman()) {
+      humanPrompt();
+    } else {
+      controller_->playTurn(currentPlayer);
+    }
     currentPlayer += 1;
     currentPlayer %= 4;
   }
