@@ -62,7 +62,13 @@ void View::humanPrompt() {
       }
     } else if (c.type == DISCARD) {
       // if discard is valid, do it and set done = true
-      done = controller_->discardCard(currentIndex, c.card);
+      bool isValidDiscard;
+      isValidDiscard = controller_->discardCard(currentIndex, c.card);
+      if(!isValidDiscard){
+        std::cout << "You have a legal play. You may not discard.";
+      } else {
+        done = true;
+      }
     } else if (c.type == DECK) {
       std::cout << *game_->getDeck();
     } else if (c.type == QUIT) {
