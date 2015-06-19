@@ -84,6 +84,26 @@ void GameController::printLegalMoves(int index) const {
 }
 
 bool GameController::playCard(int index, Card card) {
+  Card* cardToPlay = NULL;
+  std::vector<Card*> legalMoves = game_->getLegalMoves(index);
+  for(auto it = legalMoves.begin(); it != legalMoves.end(); ++it){
+    if(**it == card){
+      cardToPlay = *it;
+    }
+  }
+
+  // This is not a legal play
+  if(cardToPlay == NULL){
+    return false;
+  }
+
+  // Add card to table
+  Table* table = game_->getTable();
+  table->playCard(cardToPlay);
+
+  Player* player = game_->getPlayer(index);
+  // Remove card from player's hand
+  player->playCard(cardToPlay);
   return true;
 }
 

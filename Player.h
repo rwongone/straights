@@ -20,6 +20,7 @@ public:
   std::vector<Card*> getHand();
   virtual bool isHuman() = 0;
   void discardCard(Card);
+  void playCard(Card*);
 private:
   std::vector<Card*> hand_;
   std::vector<Card*> discardPile_;

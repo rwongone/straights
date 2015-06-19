@@ -53,7 +53,13 @@ void View::humanPrompt() {
     std::cin >> c;
     if (c.type == PLAY) {
       // if play is valid, do it and set done = true
-      done = controller_->playCard(currentIndex, c.card);
+      bool isValidPlay;
+      isValidPlay = controller_->playCard(currentIndex, c.card);
+      if(!isValidPlay){
+        std::cout << "This is not a legal play." << std::endl;
+      } else {
+        done = true;
+      }
     } else if (c.type == DISCARD) {
       // if discard is valid, do it and set done = true
       done = controller_->discardCard(currentIndex, c.card);

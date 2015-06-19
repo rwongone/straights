@@ -40,6 +40,10 @@ bool Player::hasStartCard() const {
   return false;
 }
 
+void Player::playCard(Card* card){
+  hand_.erase(find(hand_.begin(), hand_.end(), card));
+}
+
 void Player::discardCard(Card card){
   Card* cardToDiscard;
   // Grab the corresponding card from the hand
