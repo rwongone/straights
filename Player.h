@@ -10,8 +10,13 @@
 
 class Player {
 public:
+  // Constructor
   Player();
+  // Destructor
   ~Player();
+  // Copy Constructor
+  Player(const Player&);
+  // Accessor - Return's the player's score
   int score() const;
   int addScore();
   void setHand(std::vector<Card*>);

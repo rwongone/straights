@@ -111,6 +111,9 @@ bool GameController::playCard(int index, Card card) {
 
 void GameController::rageQuit(int index) {
   // convert the player[index] to a computer player
+  Player* humanToConvert = game_->getPlayer(index);
+  game_->setPlayer(index, new ComputerPlayer(*humanToConvert));
+  delete humanToConvert;
   numComputerPlayers_++;
 }
 
