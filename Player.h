@@ -12,6 +12,7 @@ class Player {
 public:
   Player();
   ~Player();
+  Player(const Player&);               // copy constructor
   int score() const;
   int addScore();
   void setHand(std::vector<Card*>);

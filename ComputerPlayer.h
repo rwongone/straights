@@ -9,6 +9,7 @@ class ComputerPlayer : public Player {
 public:
   ComputerPlayer();
   ~ComputerPlayer();
+  ComputerPlayer(const Player&);
   bool isHuman();
 private:
 };

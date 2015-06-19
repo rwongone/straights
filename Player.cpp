@@ -2,7 +2,15 @@
 #include <iostream>
 
 Player::Player(): score_(0) {}
-Player::~Player(){}
+Player::~Player(){
+  // IMPORTANT! Do not delete cards. Deck will handle deletion of cards.
+}
+
+Player::Player(const Player& player){
+  score_ = player.score_;
+  hand_ = player.hand_;
+  discardPile_ = player.discardPile_;
+}
 
 void Player::setHand(std::vector<Card*> hand){
   hand_ = hand;
