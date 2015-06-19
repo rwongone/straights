@@ -18,7 +18,6 @@ std::string GameController::GameControllerException::code(){
 
 // Player specified by index plays a card on the table - Returns true if successful
 void GameController::playCard(const int index, Card card) {
-  std::cout << "Player " << (index+1) << " plays " << card << "." << std::endl;
   Card* cardToPlay = NULL;
   std::vector<Card*> legalMoves = game_->getLegalMoves(index);
   for(auto it = legalMoves.begin(); it != legalMoves.end(); ++it){
@@ -32,6 +31,8 @@ void GameController::playCard(const int index, Card card) {
     throw GameControllerException("Illegal Play");
   }
 
+  std::cout << "Player " << (index+1) << " plays " << card << "." << std::endl;
+
   // Add card to table
   Table* table = game_->getTable();
   table->playCard(cardToPlay);
@@ -43,12 +44,13 @@ void GameController::playCard(const int index, Card card) {
 
 // Player specified by index discards a card - Returns true if successful
 void GameController::discardCard(const int index, Card card){
-  std::cout << "Player " << (index+1) << " discards " << card << "." << std::endl;
   // Assert that there are no legal moves available
   std::vector<Card*> legalMoves = game_->getLegalMoves(index);
   if(legalMoves.size() > 0){
     throw GameControllerException("Legal Moves Exist");
   }
+
+  std::cout << "Player " << (index+1) << " discards " << card << "." << std::endl;
 
   Player* player = game_->getPlayer(index);
   player->discardCard(card);

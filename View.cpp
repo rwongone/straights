@@ -83,7 +83,7 @@ void View::humanPrompt() {
         done = true;
       } catch (GameController::GameControllerException ex){
         if(ex.code() == "Illegal Play"){
-          std::cout << "This is not a legal play." << std::endl;
+          std::cout << "This is not a legal play." << std::endl << ">";
         }
       }
     } else if (c.type == DISCARD) {
@@ -92,7 +92,7 @@ void View::humanPrompt() {
         done = true;
       } catch (GameController::GameControllerException ex){
         if(ex.code() == "Legal Moves Exist"){
-          std::cout << "You have a legal play. You may not discard." << std::endl;
+          std::cout << "You have a legal play. You may not discard." << std::endl << ">";
         }
       }
     } else if (c.type == DECK) {

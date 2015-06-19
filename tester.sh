@@ -1,8 +1,10 @@
-# run from root of project 
+# run from root of project
 # $1 is command, "init", "test"
 # $2 is name of root directory
 EXE="./Straights"
 REFEXE="./straights"
+cyan='\e[0;36m'
+default='\e[0m'
 
 if [ $1 ] && [ $1 == "init" ]
 then
@@ -32,7 +34,9 @@ else
 
 	for file in ./tests/*
 	do
+		echo -e "${cyan}"
 		echo "$file"
+		echo -e "${default}"
 		# $EXE $file > ./testout/$(basename $file).out
 		$EXE < $file > ./testout/$(basename $file).out
 		if [ -f ./refout/$(basename $file).ref ]
@@ -42,6 +46,6 @@ else
 			# cat ./diff/$(basename $file).dif
 		else
 			echo "Reference output for \"$(basename $file)\" does not exist in testout directory."
-		fi			
+		fi
 	done
 fi
