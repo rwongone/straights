@@ -13,9 +13,11 @@ View::View(Game* game, GameController* controller) : game_(game), controller_(co
     playGame();
   }
 
-  std::vector<int> winners = controller_->winners();
-  for (auto it = winners.begin(); it != winners.end(); ++it) {
-    std::cout << "Player " << *it << " wins!" << std::endl;
+  if (game_->isGameDone()) {
+    std::vector<int> winners = controller_->winners();
+    for (auto it = winners.begin(); it != winners.end(); ++it) {
+      std::cout << "Player " << *it << " wins!" << std::endl;
+    }
   }
 }
 
@@ -24,7 +26,7 @@ View::~View() {}
 void View::playGame() {
   currentPlayer = controller_->findStartingPlayer();
 
-  while (!game_->isGameDone()) {
+  while (!game_->isGameDone() && !game_->shouldQuit()) {
     controller_->updateCurrentPlayer(currentPlayer);
     if (game_->getPlayer(currentPlayer)->isHuman()) {
       humanPrompt();
