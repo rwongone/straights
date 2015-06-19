@@ -42,5 +42,6 @@ std::ostream &operator<<(std::ostream &sout, const Deck &deck){
     }
     sout << std::endl;
   }
+  sout << ">";
   return sout;
 }

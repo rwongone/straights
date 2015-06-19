@@ -7,6 +7,7 @@ View::View(Game* game, GameController* controller) : game_(game), controller_(co
 
   while (!game_->shouldQuit()) {
     controller_->dealCards();
+    std::cout << "A new round begins. It's player " << (controller_->findStartingPlayer()+1) << "'s turn to play." << std::endl;
     playGame();
   }
 

@@ -56,11 +56,9 @@ void GameController::playTurn(int index) {
       return;
     }
     Card* theCard = hand.front();
-    std::cout << "Player " << (index+1) << " discards " << *theCard << "." << std::endl;
     discardCard(index, *theCard);
   } else {
     Card* theCard = legalMoves.front();
-    std::cout << "Player " << (index+1) << " plays " << *theCard <<  "." << std::endl;
     playCard(index, *theCard);
   }
 }
@@ -87,6 +85,7 @@ void GameController::printLegalMoves(int index) const {
 }
 
 bool GameController::playCard(int index, Card card) {
+  std::cout << "Player " << (index+1) << " plays " << card << "." << std::endl;
   Card* cardToPlay = NULL;
   std::vector<Card*> legalMoves = game_->getLegalMoves(index);
   for(auto it = legalMoves.begin(); it != legalMoves.end(); ++it){
@@ -116,6 +115,7 @@ void GameController::rageQuit(int index) {
 }
 
 bool GameController::discardCard(int index, Card card){
+  std::cout << "Player " << (index+1) << " discards " << card << "." << std::endl;
   // Assert that there are no legal moves available
   std::vector<Card*> legalMoves = game_->getLegalMoves(index);
   if(legalMoves.size() > 0){
