@@ -160,5 +160,12 @@ int GameController::winningPlayer() const {
 }
 
 void GameController::startGame() {
+  for (int i=0; i<4; i++) {
+    game_->getPlayer(i)->reset();
+  }
   game_->startGame();
+}
+
+void GameController::cleanTable() {
+  game_->getTable()->clean();
 }

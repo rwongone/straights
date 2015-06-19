@@ -88,8 +88,6 @@ void Player::discardCard(Card card){
   // Print Player <x> discards <card>
 }
 
-
-
 int Player::addScore() {
   int accumulator = 0;
   for (auto it = discardPile_.begin(); it != discardPile_.end(); ++it) {
@@ -101,4 +99,8 @@ int Player::addScore() {
 
 void Player::reset() {
   discardPile_.clear();
+}
+
+bool Player::noMoreMoves() const {
+  return hand_.size() == 0;
 }

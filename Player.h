@@ -29,6 +29,7 @@ public:
   void discardCard(Card);
   void playCard(Card*);
   void reset();
+  bool noMoreMoves() const;
 private:
   std::vector<Card*> hand_;
   std::vector<Card*> discardPile_;

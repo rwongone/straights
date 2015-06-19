@@ -8,6 +8,7 @@ View::View(Game* game, GameController* controller) : game_(game), controller_(co
   while (!game_->shouldQuit()) {
     controller_->startGame();
     controller_->dealCards();
+    controller_->cleanTable();
     std::cout << "A new round begins. It's player " << (controller_->findStartingPlayer()+1) << "'s turn to play." << std::endl;
     playGame();
   }
@@ -38,10 +39,15 @@ void View::playGame() {
 }
 
 void View::humanPrompt() {
+  int currentIndex = game_->getCurrentPlayer();
+  Player* thePlayer = game_->getPlayer(currentIndex);
+  if (thePlayer->noMoreMoves()) {
+    game_->setGameOver();
+    return;
+  }
+
   Table* theTable = game_->getTable();
   std::cout << *theTable;
-
-  int currentIndex = game_->getCurrentPlayer();
 
   // Print out hand
   controller_->printHand(currentIndex);
