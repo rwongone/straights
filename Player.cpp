@@ -1,15 +1,25 @@
 #include "Player.h"
 #include <iostream>
 
-Player::Player(): score_(0) {}
-Player::~Player(){
-  // IMPORTANT! Do not delete cards. Deck will handle deletion of cards.
+// Constructor
+Player::Player(): score_(0) {
+
 }
 
+// Destructor
+Player::~Player(){
+}
+
+// Copy Constructor
 Player::Player(const Player& player){
   score_ = player.score_;
   hand_ = player.hand_;
   discardPile_ = player.discardPile_;
+}
+
+// Accessor - Return's the player's score
+int Player::score() const {
+  return score_;
 }
 
 void Player::setHand(std::vector<Card*> hand){
@@ -78,9 +88,7 @@ void Player::discardCard(Card card){
   // Print Player <x> discards <card>
 }
 
-int Player::score() const {
-  return score_;
-}
+
 
 int Player::addScore() {
   int accumulator = 0;
