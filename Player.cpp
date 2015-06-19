@@ -1,5 +1,4 @@
 #include "Player.h"
-#include <iostream>
 
 // Constructor
 Player::Player(): score_(0) {
@@ -22,14 +21,64 @@ int Player::score() const {
   return score_;
 }
 
+// Mutator - Updates the player's score and returns how much it increased by
+int Player::addScore() {
+  int accumulator = 0;
+  for (auto it = discardPile_.begin(); it != discardPile_.end(); ++it) {
+    accumulator += (**it).getRank() + 1;
+  }
+  score_ += accumulator;
+  return accumulator;
+}
+
+// Mutator - Gives a player a vector of cards for their hand
 void Player::setHand(std::vector<Card*> hand){
   hand_ = hand;
 }
 
-std::vector<Card*> Player::getHand(){
+// Accessor - Returns the player's hand
+std::vector<Card*> Player::getHand() const{
   return hand_;
 }
 
+// Returns true if the player's hand contains the 7S
+bool Player::hasStartCard() const {
+  for (auto it = hand_.begin(); it != hand_.end(); ++it) {
+    if((*it)->isStartCard()){
+      return true;
+    }
+  }
+  return false;
+}
+
+// Mutator - Removes card from hand
+void Player::playCard(Card* card){
+  hand_.erase(find(hand_.begin(), hand_.end(), card));
+}
+
+// Mutator - Removes card from hand and adds to discard pile
+void Player::discardCard(Card card){
+  // Find the card to discard from hand
+  Card* cardToDiscard;
+  for (auto it = hand_.begin(); it != hand_.end(); ++it) {
+    if(**it == card){
+      cardToDiscard = *it;
+    }
+  }
+
+  // Add card to discard pile
+  discardPile_.push_back(cardToDiscard);
+
+  // Remove card from hand
+  hand_.erase(find(hand_.begin(), hand_.end(), cardToDiscard));
+}
+
+// Mutator - Empties the discard pile
+void Player::reset() {
+  discardPile_.clear();
+}
+
+// Prints the player's hand
 void Player::printHand() const {
   std::cout << "Your hand:";
   for (auto it = hand_.begin(); it != hand_.end(); ++it) {
@@ -38,6 +87,7 @@ void Player::printHand() const {
   std::cout << std::endl;
 }
 
+// Prints the player's legal moves
 void Player::printLegalMoves(Table* table) const {
   std::cout << "Legal plays:";
   // Determine legal plays
@@ -49,6 +99,7 @@ void Player::printLegalMoves(Table* table) const {
   std::cout << std::endl << ">";
 }
 
+// Prints a summary of a player's discarded cards at the end of the round
 void Player::printSummary() const {
   for (auto it = discardPile_.begin(); it != discardPile_.end(); ++it) {
     std::cout << " " << **it;
@@ -56,51 +107,7 @@ void Player::printSummary() const {
   std::cout << std::endl;
 }
 
-bool Player::hasStartCard() const {
-  for (auto it = hand_.begin(); it != hand_.end(); ++it) {
-    if((*it)->isStartCard()){
-      return true;
-    }
-  }
-  return false;
-}
-
-void Player::playCard(Card* card){
-  hand_.erase(find(hand_.begin(), hand_.end(), card));
-}
-
-void Player::discardCard(Card card){
-  Card* cardToDiscard;
-  // Grab the corresponding card from the hand
-  for (auto it = hand_.begin(); it != hand_.end(); ++it) {
-    if(**it == card){
-      cardToDiscard = *it;
-    }
-  }
-
-  // Will Crash if it can't find the card in the hand
-
-  // Add card to discard pile
-  discardPile_.push_back(cardToDiscard);
-  // Remove card from hand
-  hand_.erase(find(hand_.begin(), hand_.end(), cardToDiscard));
-
-  // Print Player <x> discards <card>
-}
-
-int Player::addScore() {
-  int accumulator = 0;
-  for (auto it = discardPile_.begin(); it != discardPile_.end(); ++it) {
-    accumulator += (**it).getRank() + 1;
-  }
-  score_ += accumulator;
-  return accumulator;
-}
-
-void Player::reset() {
-  discardPile_.clear();
-}
-
+// Returns true when hand is empty
 bool Player::noMoreMoves() const {
   return hand_.size() == 0;
 }

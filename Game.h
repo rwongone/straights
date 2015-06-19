@@ -2,6 +2,7 @@
 #define _GAME_
 
 #include "Player.h"
+#include "Deck.h"
 #include "HumanPlayer.h"
 #include "ComputerPlayer.h"
 #include <vector>
@@ -13,7 +14,7 @@ public:
   // Constructor - Takes an int which is used as a seed to shuffle the deck
   Game(int);
   // Destructor
-  ~Game();
+  virtual ~Game();
   // Accessor - Returns the player at the given index
   Player* getPlayer(int);
   // Accessor - Returns the deck

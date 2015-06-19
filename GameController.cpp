@@ -1,89 +1,13 @@
 #include "GameController.h"
 
+// Constructor
 GameController::GameController(Game* game): game_(game), numComputerPlayers_(0) {}
 
+// Destructor
 GameController::~GameController() {}
 
-void GameController::setPlayer(int index, std::string playerType) {
-  assert(playerType == "h" || playerType == "c");
-  if (playerType == "h"){
-    game_->setPlayer(index, new HumanPlayer());
-  } else {
-    game_->setPlayer(index, new ComputerPlayer());
-    numComputerPlayers_++;
-  }
-}
-
-void GameController::dealCards() {;
-  Deck* theDeck = game_->getDeck();
-  theDeck->shuffle();
-  for (int i=0; i<4; i++){ // Use constants
-    std::vector<Card*> playerHand;
-    for(int j = 0; j < 13; j++){ // Use constants
-      playerHand.push_back(theDeck->getCard(13*i+j)); // Use constants
-    }
-    game_->setPlayerHand(i, playerHand);
-  }
-}
-
-void GameController::setPlayerHand(int index, std::vector<Card*> hand) {
-    game_->setPlayerHand(index, hand);
-}
-
-void GameController::updateCurrentPlayer(int index){
-  game_->setCurrentPlayer(index);
-}
-
-// Pre: The 7S card must be in one player's hand.
-int GameController::findStartingPlayer() {
-  for(int i = 0; i < 4; i++){
-    if(game_->getPlayer(i)->hasStartCard()){
-      game_->setStartingPlayer(i);
-      return i;
-    }
-  }
-  assert(false);
-}
-
-void GameController::playTurn(int index) {
-  Player* player = game_->getPlayer(index);
-  std::vector<Card*> legalMoves = game_->getLegalMoves(index);
-  std::vector<Card*> hand = player->getHand();
-
-  if (legalMoves.size() == 0) {
-    if (hand.size() == 0) {
-      game_->setGameOver();
-      return;
-    }
-    Card* theCard = hand.front();
-    discardCard(index, *theCard);
-  } else {
-    Card* theCard = legalMoves.front();
-    playCard(index, *theCard);
-  }
-}
-
-void GameController::quit() {
-  game_->setQuit();
-}
-
-bool GameController::shouldQuit() {
-  return game_->shouldQuit() || numComputerPlayers_ == 4;
-}
-
-bool GameController::isGameDone() {
-  return game_->isGameDone();
-}
-
-void GameController::printHand(int index) const {
-  game_->getPlayer(index)->printHand();
-}
-
-void GameController::printLegalMoves(int index) const {
-  game_->getPlayer(index)->printLegalMoves(game_->getTable());
-}
-
-bool GameController::playCard(int index, Card card) {
+// Player specified by index plays a card on the table - Returns true if successful
+bool GameController::playCard(const int index, Card card) {
   std::cout << "Player " << (index+1) << " plays " << card << "." << std::endl;
   Card* cardToPlay = NULL;
   std::vector<Card*> legalMoves = game_->getLegalMoves(index);
@@ -108,15 +32,8 @@ bool GameController::playCard(int index, Card card) {
   return true;
 }
 
-void GameController::rageQuit(int index) {
-  // convert the player[index] to a computer player
-  Player* humanToConvert = game_->getPlayer(index);
-  game_->setPlayer(index, new ComputerPlayer(*humanToConvert));
-  delete humanToConvert;
-  numComputerPlayers_++;
-}
-
-bool GameController::discardCard(int index, Card card){
+// Player specified by index discards a card - Returns true if successful
+bool GameController::discardCard(const int index, Card card){
   std::cout << "Player " << (index+1) << " discards " << card << "." << std::endl;
   // Assert that there are no legal moves available
   std::vector<Card*> legalMoves = game_->getLegalMoves(index);
@@ -129,7 +46,97 @@ bool GameController::discardCard(int index, Card card){
   return true;
 }
 
-void GameController::printSummary() {
+// Automove for a player
+void GameController::playTurn(const int index) {
+  Player* player = game_->getPlayer(index);
+  std::vector<Card*> legalMoves = game_->getLegalMoves(index);
+  std::vector<Card*> hand = player->getHand();
+
+  if (legalMoves.size() == 0) {
+    if (hand.size() == 0) {
+      game_->setGameOver();
+      return;
+    }
+    Card* theCard = hand.front();
+    discardCard(index, *theCard);
+  } else {
+    Card* theCard = legalMoves.front();
+    playCard(index, *theCard);
+  }
+}
+
+// Player specified by index ragequits and becomes a computer
+void GameController::rageQuit(const int index) {
+  // convert the player[index] to a computer player
+  Player* humanToConvert = game_->getPlayer(index);
+  game_->setPlayer(index, new ComputerPlayer(*humanToConvert));
+  delete humanToConvert;
+  numComputerPlayers_++;
+}
+
+// Ends the program
+void GameController::quit() const{
+  game_->setQuit();
+}
+
+// Creates a new player based on type
+void GameController::setPlayer(const int index, const std::string playerType) {
+  assert(playerType == "h" || playerType == "c");
+  if (playerType == "h"){
+    game_->setPlayer(index, new HumanPlayer());
+  } else {
+    game_->setPlayer(index, new ComputerPlayer());
+    numComputerPlayers_++;
+  }
+}
+
+// Shuffles the deck and gives each player a hand
+void GameController::dealCards() {;
+  Deck* theDeck = game_->getDeck();
+  theDeck->shuffle();
+  for (int i=0; i<4; i++){ // Use constants
+    std::vector<Card*> playerHand;
+    for(int j = 0; j < 13; j++){ // Use constants
+      playerHand.push_back(theDeck->getCard(13*i+j)); // Use constants
+    }
+    game_->setPlayerHand(i, playerHand);
+  }
+}
+
+// Gives player a hand
+void GameController::setPlayerHand(const int index, std::vector<Card*> hand) {
+    game_->setPlayerHand(index, hand);
+}
+
+// Tells the model whose turn it is
+void GameController::updateCurrentPlayer(int index){
+  game_->setCurrentPlayer(index);
+}
+
+// Determines the index of the starting player
+// Pre: The 7S card must be in one player's hand.
+int GameController::findStartingPlayerIndex() {
+  for(int i = 0; i < 4; i++){
+    if(game_->getPlayer(i)->hasStartCard()){
+      game_->setStartingPlayer(i);
+      return i;
+    }
+  }
+  assert(false);
+}
+
+// Prints the player specified by index's hand
+void GameController::printHand(const int index) const {
+  game_->getPlayer(index)->printHand();
+}
+
+// Prints the legal moves for a player specified by index
+void GameController::printLegalMoves(const int index) const {
+  game_->getPlayer(index)->printLegalMoves(game_->getTable());
+}
+
+// Prints a summary of discards and scores at the end of a round
+void GameController::printSummary() const{
   for (int i=0; i<4; i++) {
     Player *thePlayer = game_->getPlayer(i);
     std::cout << "Player " << (i+1) << "'s discards:";
@@ -147,6 +154,17 @@ void GameController::printSummary() {
   }
 }
 
+// Returns true if the program should end
+bool GameController::isGameDone() const{
+  return game_->isGameDone();
+}
+
+// Returns true if the round is over
+bool GameController::shouldQuit() const{
+  return game_->shouldQuit() || numComputerPlayers_ == 4;
+}
+
+// Returns the winner(s) of the game
 std::vector<int> GameController::winners() const {
   int minScore = 1000;
   std::vector<int> minPlayers;
@@ -166,6 +184,7 @@ std::vector<int> GameController::winners() const {
   return minPlayers;
 }
 
+// Resets players and starts the game
 void GameController::startGame() {
   for (int i=0; i<4; i++) {
     game_->getPlayer(i)->reset();
@@ -173,6 +192,7 @@ void GameController::startGame() {
   game_->startGame();
 }
 
+// Clears the played cards on the table
 void GameController::cleanTable() {
   game_->getTable()->clean();
 }

@@ -3,19 +3,28 @@
 
 #include "Game.h"
 #include "GameController.h"
+#include "Player.h"
+#include "Command.h"
 
 class View {
 public:
+  // Constructor
   View(Game*, GameController*);
+  // Destructor
   virtual ~View();
 private:
+  // Determine the type of each player and adds to the game
   void createPlayers();
+  // Game Phase
   void playGame();
-  bool playHumanTurn(int);
+  // Prompt human for command
   void humanPrompt();
+  // The game
   Game* game_;
+  // The controller
   GameController* controller_;
-  int currentPlayer;
+  // The index of the current player
+  int currentPlayerIndex_;
 };
 
 #endif

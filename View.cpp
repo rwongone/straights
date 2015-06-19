@@ -1,7 +1,6 @@
 #include "View.h"
-#include "Player.h"
-#include "Command.h"
 
+// Constructor
 View::View(Game* game, GameController* controller) : game_(game), controller_(controller) {
   createPlayers();
 
@@ -9,7 +8,7 @@ View::View(Game* game, GameController* controller) : game_(game), controller_(co
     controller_->startGame();
     controller_->dealCards();
     controller_->cleanTable();
-    std::cout << "A new round begins. It's player " << (controller_->findStartingPlayer()+1) << "'s turn to play." << std::endl;
+    std::cout << "A new round begins. It's player " << (controller_->findStartingPlayerIndex()+1) << "'s turn to play." << std::endl;
     playGame();
   }
 
@@ -21,28 +20,41 @@ View::View(Game* game, GameController* controller) : game_(game), controller_(co
   }
 }
 
+// Destructor
 View::~View() {}
 
+// Determine the type of each player and adds to the game
+void View::createPlayers() {
+  for(int i = 0; i < 4; i++){
+    std::cout << "Is player " << (i + 1) << " a human(h) or a computer(c)?" << std::endl << ">";
+    std::string playerType;
+    std::cin >> playerType;
+    assert(playerType == "h" || playerType == "c");
+    controller_->setPlayer(i, playerType);
+  }
+}
+
+// Game Phase
 void View::playGame() {
-  currentPlayer = controller_->findStartingPlayer();
+  currentPlayerIndex_ = controller_->findStartingPlayerIndex();
 
   while (!game_->isGameDone() && !game_->shouldQuit()) {
-    controller_->updateCurrentPlayer(currentPlayer);
-    if (game_->getPlayer(currentPlayer)->isHuman()) {
+    controller_->updateCurrentPlayer(currentPlayerIndex_);
+    if (game_->getPlayer(currentPlayerIndex_)->isHuman()) {
       humanPrompt();
     } else {
-      controller_->playTurn(currentPlayer);
+      controller_->playTurn(currentPlayerIndex_);
     }
-    currentPlayer += 1;
-    currentPlayer %= 4;
+    currentPlayerIndex_ += 1;
+    currentPlayerIndex_ %= 4;
   }
 
   if (!game_->shouldQuit()) {
     controller_->printSummary();
-    // need to reshuffle and start game again
   }
 }
 
+// Prompt human for command
 void View::humanPrompt() {
   int currentIndex = game_->getCurrentPlayer();
   Player* thePlayer = game_->getPlayer(currentIndex);
@@ -98,12 +110,3 @@ void View::humanPrompt() {
   }
 }
 
-void View::createPlayers() {
-  for(int i = 0; i < 4; i++){
-    std::cout << "Is player " << (i + 1) << " a human(h) or a computer(c)?" << std::endl << ">";
-    std::string playerType;
-    std::cin >> playerType;
-    assert(playerType == "h" || playerType == "c");
-    controller_->setPlayer(i, playerType);
-  }
-}
