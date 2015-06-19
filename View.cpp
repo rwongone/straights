@@ -3,7 +3,6 @@
 #include "Command.h"
 
 View::View(Game* game, GameController* controller) : game_(game), controller_(controller) {
-  game->subscribe(this);
   createPlayers();
 
   while (!game_->shouldQuit()) {

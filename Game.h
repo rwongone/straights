@@ -5,7 +5,6 @@
 #include "HumanPlayer.h"
 #include "ComputerPlayer.h"
 #include "Round.h"
-#include "Observer.h"
 #include <vector>
 #include <iostream>
 #include <cassert>
@@ -28,9 +27,7 @@ public:
   void setCurrentPlayer(int);
   int getCurrentPlayer();
   void setPlayerHand(int, std::vector<Card*>);
-  void notify();
   bool shouldQuit();
-  void subscribe(Observer*);
   std::vector<Card*> getLegalMoves(int);
 private:
   Deck* deck_;

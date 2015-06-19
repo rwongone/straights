@@ -3,9 +3,8 @@
 
 #include "Game.h"
 #include "GameController.h"
-#include "Observer.h"
 
-class View: public Observer {
+class View {
 public:
   View(Game*, GameController*);
   ~View();

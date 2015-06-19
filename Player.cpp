@@ -1,7 +1,7 @@
 #include "Player.h"
 #include <iostream>
 
-Player::Player(): Subject(){}
+Player::Player(){}
 Player::~Player(){}
 
 void Player::setHand(std::vector<Card*> hand){

@@ -3,6 +3,4 @@
 
 HumanPlayer::HumanPlayer(): Player() {}
 
-void HumanPlayer::playTurn() {
-  notify();
-}
+void HumanPlayer::playTurn(){}
