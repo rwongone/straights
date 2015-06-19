@@ -64,7 +64,6 @@ void GameController::playTurn(int index) {
 }
 
 void GameController::quit() {
-  game_->setGameOver();
   game_->setQuit();
 }
 
