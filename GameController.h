@@ -5,6 +5,7 @@
 #include "Card.h"
 #include "Game.h"
 #include <vector>
+#include <string>
 
 class GameController{
 public:
@@ -12,10 +13,21 @@ public:
   GameController(Game*);
   // Destructor
   ~GameController();
-  // Player specified by index plays a card on the table - Returns true if successful
-  bool playCard(const int, Card);
-  // Player specified by index discards a card - Returns true if successful
-  bool discardCard(const int, Card);
+  // GameController Exception
+  class GameControllerException{
+    public:
+      // GameController Exception Constructor
+      GameControllerException(std::string);
+      // Accessor - Return GameController Exception
+      std::string code();
+    private:
+      // Exception Code
+      std::string code_;
+  };
+  // Player specified by index plays a card on the table - Throws exception if illegal play
+  void playCard(const int, Card);
+  // Player specified by index discards a card - Throws exception if there is a legal play
+  void discardCard(const int, Card);
   // Automove for a player
   void playTurn(const int);
   // Player specified by index ragequits and becomes a computer
