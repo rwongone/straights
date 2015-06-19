@@ -3,14 +3,14 @@
 
 #include "Card.h"
 
-class Deck{
+class Deck {
 public:
   Deck(int);
   ~Deck();
   friend std::ostream &operator<<(std::ostream &, const Deck &);
   Card* getCard(int);
-private:
   void shuffle();
+private:
   Card* cards_[Card::MAX_CARDS]; // need to make this an array
   int seed_;
 };

@@ -23,6 +23,7 @@ public:
   virtual bool isHuman() = 0;
   void discardCard(Card);
   void playCard(Card*);
+  void reset();
 private:
   std::vector<Card*> hand_;
   std::vector<Card*> discardPile_;

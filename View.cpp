@@ -6,14 +6,16 @@ View::View(Game* game, GameController* controller) : game_(game), controller_(co
   createPlayers();
 
   while (!game_->shouldQuit()) {
+    controller_->startGame();
     controller_->dealCards();
+    std::cout << "A new round begins. It's player " << (controller_->findStartingPlayer()+1) << "'s turn to play." << std::endl;
     playGame();
   }
+
+  std::cout << "Player " << controller_->winningPlayer() << " wins!" << std::endl;
 }
 
-View::~View() {
-
-}
+View::~View() {}
 
 void View::playGame() {
   currentPlayer = controller_->findStartingPlayer();
@@ -85,14 +87,10 @@ void View::humanPrompt() {
 
 void View::createPlayers() {
   for(int i = 0; i < 4; i++){
-    std::cout << "Is player " << (i + 1) << " a human(h) or a computer(c)?" << std::endl;
+    std::cout << "Is player " << (i + 1) << " a human(h) or a computer(c)?" << std::endl << ">";
     std::string playerType;
     std::cin >> playerType;
     assert(playerType == "h" || playerType == "c");
     controller_->setPlayer(i, playerType);
   }
-}
-
-void View::update(){
-
 }

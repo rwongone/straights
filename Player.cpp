@@ -28,7 +28,7 @@ void Player::printLegalMoves(Table* table) const {
       std::cout << " " << **it;
     }
   }
-  std::cout << std::endl;
+  std::cout << std::endl << ">";
 }
 
 void Player::printSummary() const {
@@ -81,4 +81,8 @@ int Player::addScore() {
   }
   score_ += accumulator;
   return accumulator;
+}
+
+void Player::reset() {
+  discardPile_.clear();
 }
