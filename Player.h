@@ -14,12 +14,12 @@ public:
   Player();
   ~Player();
   int score();
-  virtual void playTurn() = 0; // probably want to make this virtual
   void setHand(std::vector<Card*>);
   bool hasStartCard() const;
   void printHand() const;
   void printLegalMoves(Table*) const;
   std::vector<Card*> getHand();
+  virtual bool isHuman() = 0;
   void discardCard(Card);
 private:
   std::vector<Card*> hand_;

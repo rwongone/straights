@@ -42,10 +42,15 @@ int GameController::findStartingPlayer() {
   assert(false);
 }
 
-bool GameController::playTurn(int index) {
-  game_->getPlayer(index)->playTurn();
-
-  return isGameDone();
+void GameController::playTurn(int index) {
+  Player* player = game_->getPlayer(index);
+  std::vector<Card*> legalMoves = game_->getLegalMoves(index);
+  std::vector<Card*> hand = player->getHand();
+  if (legalMoves.size() == 0) {
+    Card* theCard = hand.front();
+    discardCard(index, *theCard);
+    hand.erase(hand.begin());
+  }
 }
 
 void GameController::quit() {

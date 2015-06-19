@@ -8,7 +8,7 @@
 class View: public Observer {
 public:
   View(Game*, GameController*);
-  ~View();
+  virtual ~View();
   virtual void update();
 private:
   void createPlayers();
