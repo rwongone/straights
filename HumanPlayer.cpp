@@ -1,8 +1,12 @@
 #include "HumanPlayer.h"
-#include "Command.h"
 
+// Constructor
 HumanPlayer::HumanPlayer(): Player() {}
 
-bool HumanPlayer::isHuman() {
+// Destructor
+HumanPlayer::~HumanPlayer(){};
+
+// Returns true since this is a human
+bool HumanPlayer::isHuman() const{
   return true;
 }
