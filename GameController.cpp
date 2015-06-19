@@ -6,9 +6,18 @@ GameController::GameController(Game* game): game_(game), numComputerPlayers_(0) 
 // Destructor
 GameController::~GameController() {}
 
+// GameController Exception Constructor
+GameController::GameControllerException::GameControllerException(std::string code) : code_(code){
+
+}
+
+// Accessor - Return GameController Exception
+std::string GameController::GameControllerException::code(){
+  return code_;
+}
+
 // Player specified by index plays a card on the table - Returns true if successful
-bool GameController::playCard(const int index, Card card) {
-  std::cout << "Player " << (index+1) << " plays " << card << "." << std::endl;
+void GameController::playCard(const int index, Card card) {
   Card* cardToPlay = NULL;
   std::vector<Card*> legalMoves = game_->getLegalMoves(index);
   for(auto it = legalMoves.begin(); it != legalMoves.end(); ++it){
@@ -19,8 +28,10 @@ bool GameController::playCard(const int index, Card card) {
 
   // This is not a legal play
   if(cardToPlay == NULL){
-    return false;
+    throw GameControllerException("Illegal Play");
   }
+
+  std::cout << "Player " << (index+1) << " plays " << card << "." << std::endl;
 
   // Add card to table
   Table* table = game_->getTable();
@@ -29,21 +40,20 @@ bool GameController::playCard(const int index, Card card) {
   Player* player = game_->getPlayer(index);
   // Remove card from player's hand
   player->playCard(cardToPlay);
-  return true;
 }
 
 // Player specified by index discards a card - Returns true if successful
-bool GameController::discardCard(const int index, Card card){
-  std::cout << "Player " << (index+1) << " discards " << card << "." << std::endl;
+void GameController::discardCard(const int index, Card card){
   // Assert that there are no legal moves available
   std::vector<Card*> legalMoves = game_->getLegalMoves(index);
   if(legalMoves.size() > 0){
-    return false;
+    throw GameControllerException("Legal Moves Exist");
   }
+
+  std::cout << "Player " << (index+1) << " discards " << card << "." << std::endl;
 
   Player* player = game_->getPlayer(index);
   player->discardCard(card);
-  return true;
 }
 
 // Automove for a player

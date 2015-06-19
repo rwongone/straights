@@ -78,22 +78,22 @@ void View::humanPrompt() {
     Command c;
     std::cin >> c;
     if (c.type == PLAY) {
-      // if play is valid, do it and set done = true
-      bool isValidPlay;
-      isValidPlay = controller_->playCard(currentIndex, c.card);
-      if(!isValidPlay){
-        std::cout << "This is not a legal play." << std::endl;
-      } else {
+      try {
+        controller_->playCard(currentIndex, c.card);
         done = true;
+      } catch (GameController::GameControllerException ex){
+        if(ex.code() == "Illegal Play"){
+          std::cout << "This is not a legal play." << std::endl << ">";
+        }
       }
     } else if (c.type == DISCARD) {
-      // if discard is valid, do it and set done = true
-      bool isValidDiscard;
-      isValidDiscard = controller_->discardCard(currentIndex, c.card);
-      if(!isValidDiscard){
-        std::cout << "You have a legal play. You may not discard.";
-      } else {
+      try {
+        controller_->discardCard(currentIndex, c.card);
         done = true;
+      } catch (GameController::GameControllerException ex){
+        if(ex.code() == "Legal Moves Exist"){
+          std::cout << "You have a legal play. You may not discard." << std::endl << ">";
+        }
       }
     } else if (c.type == DECK) {
       std::cout << *game_->getDeck();
