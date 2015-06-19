@@ -2,26 +2,36 @@
 #include "Card.h"
 #include <string>
 
+// Constructor
 Table::Table() {
   cardsPlayed_ = new std::set<Card*>[SUIT_COUNT];
 }
 
+// Destructor
 Table::~Table() {
   delete[] cardsPlayed_;
 }
 
+// Mutator - Add a card to cardsPlayed
 void Table::playCard(Card* theCard) {
   cardsPlayed_[theCard->getSuit()].insert(theCard);
 }
 
+// Returns True if the passed in card is a legal move for the given table
 bool Table::isLegalCard(Card* theCard) const {
   if (cardsPlayed_[3].size() == 0){
-    // First turn
-    return theCard->getRank() == SEVEN && theCard->getSuit() == SPADE;
+    // If it is the first turn, the only legal card is the 7S.
+    if (theCard->getRank() == SEVEN && theCard->getSuit() == SPADE){
+      return true;
+    } else {
+      return false;
+    }
   }
 
+  // All 7's are legal at any point besides the first turn
   if (theCard->getRank() == SEVEN) return true;
 
+  // Determine whether the +1/-1 of the card has been played
   auto theSet = cardsPlayed_[theCard->getSuit()];
   for (auto it = theSet.begin(); it != theSet.end(); ++it) {
     if ((*it)->getRank() == theCard->getRank() + 1 || (*it)->getRank() == theCard->getRank() - 1) {
@@ -31,6 +41,7 @@ bool Table::isLegalCard(Card* theCard) const {
   return false;
 }
 
+// Insertion Operator - Insert Table into output stream
 std::ostream& operator<<(std::ostream& sout, Table& table) {
   std::string suits[SUIT_COUNT] = {"Clubs", "Diamonds", "Hearts", "Spades"};
   std::string ranks[RANK_COUNT] = {"A", "2", "3", "4", "5", "6",
