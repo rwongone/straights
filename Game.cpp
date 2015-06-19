@@ -71,3 +71,7 @@ void Game::setQuit() {
 bool Game::shouldQuit() {
   return shouldQuit_;
 }
+
+void Game::startGame() {
+  gameOver_ = false;
+}

@@ -8,7 +8,6 @@ class View {
 public:
   View(Game*, GameController*);
   virtual ~View();
-  virtual void update();
 private:
   void createPlayers();
   void playGame();

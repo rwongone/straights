@@ -6,6 +6,7 @@ View::View(Game* game, GameController* controller) : game_(game), controller_(co
   createPlayers();
 
   while (!game_->shouldQuit()) {
+    controller_->startGame();
     controller_->dealCards();
     std::cout << "A new round begins. It's player " << (controller_->findStartingPlayer()+1) << "'s turn to play." << std::endl;
     playGame();
@@ -86,8 +87,4 @@ void View::createPlayers() {
     assert(playerType == "h" || playerType == "c");
     controller_->setPlayer(i, playerType);
   }
-}
-
-void View::update(){
-
 }

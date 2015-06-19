@@ -156,3 +156,7 @@ int GameController::winningPlayer() const {
   }
   return minPlayer;
 }
+
+void GameController::startGame() {
+  game_->startGame();
+}

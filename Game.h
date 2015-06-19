@@ -28,6 +28,7 @@ public:
   bool shouldQuit();
   std::vector<Card*> getLegalMoves(int);
   void createTable();
+  void startGame();
 private:
   Deck* deck_;
   Table* table_;
