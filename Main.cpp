@@ -13,5 +13,10 @@ int main(int argc, char* argv[]) {
   Game* game = new Game(seed);
   GameController* gameController = new GameController(game);
   View* gameView = new View(game, gameController);
+
+  delete game;
+  delete gameController;
+  delete gameView;
+
   return 0;
 }

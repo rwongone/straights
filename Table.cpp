@@ -8,9 +8,7 @@ Table::Table() {
 
 Table::~Table() {
   for (int i = 0; i < SUIT_COUNT; i++) {
-    for (auto it = cardsPlayed_[i].begin(); it != cardsPlayed_[i].end(); ++it) {
-      delete *it;
-    }
+    delete &cardsPlayed_[i];
   }
 }
 
@@ -21,11 +19,7 @@ void Table::playCard(Card* theCard) {
 bool Table::isLegalCard(Card* theCard) const {
   if (cardsPlayed_[3].size() == 0){
     // First turn
-    if (theCard->getRank() == SEVEN && theCard->getSuit() == SPADE){
-      return true;
-    } else {
-      return false;
-    }
+    return theCard->getRank() == SEVEN && theCard->getSuit() == SPADE;
   }
 
   if (theCard->getRank() == SEVEN) return true;

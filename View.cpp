@@ -7,13 +7,12 @@ View::View(Game* game, GameController* controller) : game_(game), controller_(co
 
   while (!game_->shouldQuit()) {
     controller_->dealCards();
+    std::cout << *(game_->getDeck());
     playGame();
   }
 }
 
-View::~View() {
-
-}
+View::~View() {}
 
 void View::playGame() {
   currentPlayer = controller_->findStartingPlayer();

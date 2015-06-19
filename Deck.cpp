@@ -8,8 +8,12 @@ Deck::Deck(int seed = 0) : seed_(seed){
   for(int i = 0; i < Card::MAX_CARDS; i++){
     cards_[i] = new Card(i);
   }
+}
 
-  shuffle();
+Deck::~Deck() {
+  for (int i=0; i<Card::MAX_CARDS; i++) {
+    delete cards_[i];
+  }
 }
 
 void Deck::shuffle(){

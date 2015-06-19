@@ -25,6 +25,7 @@ public:
   bool shouldQuit();
   int findStartingPlayer();
   void printSummary();
+  void cleanUp();
 private:
   Game* game_;
   int numComputerPlayers_;

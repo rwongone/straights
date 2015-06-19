@@ -10,8 +10,6 @@
 #include <cassert>
 #include <string>
 
-class Round;
-
 class Game {
 public:
   Game(int);
@@ -29,6 +27,7 @@ public:
   void setPlayerHand(int, std::vector<Card*>);
   bool shouldQuit();
   std::vector<Card*> getLegalMoves(int);
+  void createTable();
 private:
   Deck* deck_;
   Table* table_;

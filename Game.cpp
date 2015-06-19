@@ -1,9 +1,11 @@
 #include "Game.h"
 
 // Constructor
-Game::Game(int seed = 0): deck_(new Deck(seed)), table_(new Table()) {}
+Game::Game(int seed = 0): deck_(new Deck(seed)), table_(new Table()), shouldQuit_(false), gameOver_(false) {}
 
 Game::~Game() {
+  std::cout << "DELETING GAME" << std::endl;
+  delete deck_;
   delete table_;
   for (int i=0; i<4; i++) {
     delete players_[i];

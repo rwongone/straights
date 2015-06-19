@@ -2,6 +2,8 @@
 
 GameController::GameController(Game* game): game_(game), numComputerPlayers_(0) {}
 
+GameController::~GameController() {}
+
 void GameController::setPlayer(int index, std::string playerType) {
   assert(playerType == "h" || playerType == "c");
   if (playerType == "h"){
@@ -12,15 +14,16 @@ void GameController::setPlayer(int index, std::string playerType) {
   }
 }
 
-void GameController::dealCards() {
+void GameController::dealCards() {;
   Deck* theDeck = game_->getDeck();
+  theDeck->shuffle();
   for (int i=0; i<4; i++){ // Use constants
     std::vector<Card*> playerHand;
     for(int j = 0; j < 13; j++){ // Use constants
       playerHand.push_back(theDeck->getCard(13*i+j)); // Use constants
     }
-    game_->setPlayerHand(i, playerHand)
-;  }
+    game_->setPlayerHand(i, playerHand);
+  }
 }
 
 void GameController::setPlayerHand(int index, std::vector<Card*> hand) {
@@ -53,11 +56,11 @@ void GameController::playTurn(int index) {
       return;
     }
     Card* theCard = hand.front();
-    std::cout << "Player " << (index+1) << " Discards " << *theCard << std::endl;
+    std::cout << "Player " << (index+1) << " discards " << *theCard << std::endl;
     discardCard(index, *theCard);
   } else {
     Card* theCard = legalMoves.front();
-    std::cout << "Player " << (index+1) << " Discards " << *theCard << std::endl;
+    std::cout << "Player " << (index+1) << " plays " << *theCard << std::endl;
     playCard(index, *theCard);
   }
 }
@@ -135,5 +138,11 @@ void GameController::printSummary() {
     std::cout << thePlayer->score() << " + ";
     std::cout << thePlayer->addScore() << " = ";
     std::cout << thePlayer->score() << std::endl;
+
+    if (thePlayer->score() >= 80) {
+      game_->setGameOver();
+      game_->setQuit();
+    }
   }
 }
+
