@@ -1,7 +1,7 @@
 #include "Player.h"
 #include <iostream>
 
-Player::Player(){}
+Player::Player(): score_(0) {}
 Player::~Player(){}
 
 void Player::setHand(std::vector<Card*> hand){
@@ -27,6 +27,13 @@ void Player::printLegalMoves(Table* table) const {
     if (table->isLegalCard(*it)) {
       std::cout << " " << **it;
     }
+  }
+  std::cout << std::endl;
+}
+
+void Player::printSummary() const {
+  for (auto it = discardPile_.begin(); it != discardPile_.end(); ++it) {
+    std::cout << " " << **it;
   }
   std::cout << std::endl;
 }
@@ -61,4 +68,17 @@ void Player::discardCard(Card card){
   hand_.erase(find(hand_.begin(), hand_.end(), cardToDiscard));
 
   // Print Player <x> discards <card>
+}
+
+int Player::score() const {
+  return score_;
+}
+
+int Player::addScore() {
+  int accumulator = 0;
+  for (auto it = discardPile_.begin(); it != discardPile_.end(); ++it) {
+    accumulator += (**it).getRank() + 1;
+  }
+  score_ += accumulator;
+  return accumulator;
 }

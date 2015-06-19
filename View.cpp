@@ -30,7 +30,8 @@ void View::playGame() {
   }
 
   if (!game_->shouldQuit()) {
-    // print out end results
+    controller_->printSummary();
+    // need to reshuffle and start game again
   }
 }
 

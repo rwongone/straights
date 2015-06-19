@@ -124,3 +124,16 @@ bool GameController::discardCard(int index, Card card){
   player->discardCard(card);
   return true;
 }
+
+void GameController::printSummary() {
+  for (int i=0; i<4; i++) {
+    Player *thePlayer = game_->getPlayer(i);
+    std::cout << "Player " << (i+1) << "'s discards:";
+    thePlayer->printSummary();
+
+    std::cout << "Player " << (i+1) << "'s score: ";
+    std::cout << thePlayer->score() << " + ";
+    std::cout << thePlayer->addScore() << " = ";
+    std::cout << thePlayer->score() << std::endl;
+  }
+}
