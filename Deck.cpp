@@ -38,7 +38,8 @@ Card* Deck::getCard(int index){
 std::ostream &operator<<(std::ostream &sout, const Deck &deck){
   for(int i = 0; i < Card::NUM_SUITS; i++){
     for(int j = 0; j < Card::NUM_FACES; j++) {
-      sout << *deck.cards_[Card::NUM_FACES*i+j] << " ";
+      sout << *deck.cards_[Card::NUM_FACES*i+j];
+      if (j < Card::NUM_FACES - 1) sout << " ";
     }
     sout << std::endl;
   }

@@ -28,6 +28,7 @@ public:
   void cleanUp();
   int winningPlayer() const;
   void startGame();
+  void cleanTable();
 private:
   Game* game_;
   int numComputerPlayers_;

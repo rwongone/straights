@@ -40,7 +40,6 @@ public:
   void setPlayerHand(const int, std::vector<Card*>);
   // Accessor - Returns a set of a player's legal moves
   std::vector<Card*> getLegalMoves(int);
-  void createTable();
   void startGame();
 private:
   // Deck
