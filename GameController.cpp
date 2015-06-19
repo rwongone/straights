@@ -56,11 +56,11 @@ void GameController::playTurn(int index) {
       return;
     }
     Card* theCard = hand.front();
-    std::cout << "Player " << (index+1) << " discards " << *theCard << std::endl;
+    std::cout << "Player " << (index+1) << " discards " << *theCard << "." << std::endl;
     discardCard(index, *theCard);
   } else {
     Card* theCard = legalMoves.front();
-    std::cout << "Player " << (index+1) << " plays " << *theCard << std::endl;
+    std::cout << "Player " << (index+1) << " plays " << *theCard <<  "." << std::endl;
     playCard(index, *theCard);
   }
 }
@@ -146,3 +146,13 @@ void GameController::printSummary() {
   }
 }
 
+int GameController::winningPlayer() const {
+  int minScore = 1000;
+  int minPlayer = 0;
+  for (int i=0; i<4; i++) {
+    if (game_->getPlayer(i)->score() < minScore) {
+      minPlayer = i+1;
+    }
+  }
+  return minPlayer;
+}

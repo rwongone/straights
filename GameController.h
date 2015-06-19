@@ -26,6 +26,7 @@ public:
   int findStartingPlayer();
   void printSummary();
   void cleanUp();
+  int winningPlayer() const;
 private:
   Game* game_;
   int numComputerPlayers_;
