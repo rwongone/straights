@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Card.h"
 #include "Game.h"
+#include <vector>
 
 class GameController{
 public:
@@ -26,7 +27,7 @@ public:
   int findStartingPlayer();
   void printSummary();
   void cleanUp();
-  int winningPlayer() const;
+  std::vector<int> winners() const;
   void startGame();
   void cleanTable();
 private:
