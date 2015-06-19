@@ -53,11 +53,11 @@ void GameController::playTurn(int index) {
       return;
     }
     Card* theCard = hand.front();
-    // std::cout << "PLAYER " << (index+1) << " DISCARDS " << *theCard << std::endl;
+    std::cout << "Player " << (index+1) << " Discards " << *theCard << std::endl;
     discardCard(index, *theCard);
   } else {
     Card* theCard = legalMoves.front();
-    // std::cout << "PLAYER " << (index+1) << " PLAYS " << *theCard << std::endl;
+    std::cout << "Player " << (index+1) << " Discards " << *theCard << std::endl;
     playCard(index, *theCard);
   }
 }
