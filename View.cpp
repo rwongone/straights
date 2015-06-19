@@ -85,7 +85,9 @@ void View::humanPrompt() {
       done = true;
     } else if (c.type == RAGEQUIT) {
       // change human player to computer player
+      std::cout << "Player " << (currentIndex+1) << " ragequits. A computer will now take over." << std::endl;
       controller_->rageQuit(currentIndex);
+      controller_->playTurn(currentIndex);
       done = true;
     }
   }
