@@ -148,15 +148,23 @@ void GameController::printSummary() {
   }
 }
 
-int GameController::winningPlayer() const {
+std::vector<int> GameController::winners() const {
   int minScore = 1000;
-  int minPlayer = 0;
+  std::vector<int> minPlayers;
   for (int i=0; i<4; i++) {
-    if (game_->getPlayer(i)->score() < minScore) {
-      minPlayer = i+1;
+    int theScore = game_->getPlayer(i)->score();
+    if (theScore == minScore) {
+      minPlayers.push_back(i+1);
+      minScore = game_->getPlayer(i)->score();
+    } else if (theScore < minScore) {
+      minPlayers.clear();
+      minPlayers.push_back(i+1);
+      minScore = game_->getPlayer(i)->score();
+    } else {
+      minPlayers.clear();
     }
   }
-  return minPlayer;
+  return minPlayers;
 }
 
 void GameController::startGame() {
