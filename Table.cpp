@@ -7,9 +7,7 @@ Table::Table() {
 }
 
 Table::~Table() {
-  for (int i = 0; i < SUIT_COUNT; i++) {
-    delete &cardsPlayed_[i];
-  }
+  delete[] cardsPlayed_;
 }
 
 void Table::playCard(Card* theCard) {
