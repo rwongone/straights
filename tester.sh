@@ -1,8 +1,8 @@
 # run from root of project
 # $1 is command, "init", "test"
 # $2 is name of root directory
-EXE="./Straights"
-REFEXE="./straights"
+EXE="./straights"
+REFEXE="./straights.ref"
 cyan='\e[0;36m'
 default='\e[0m'
 

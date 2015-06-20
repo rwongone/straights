@@ -4,7 +4,7 @@ OBJECTS = Main.o Card.o Command.o Deck.o Player.o Table.o Game.o GameController.
 CPP = ${OBJECTS:.o=.cpp}
 HEADERS = ${OBJECTS:.o=.h}
 DEPENDS = ${OBJECTS:.o=.d}
-EXEC = straights.out
+EXEC = straights
 TESTSCRIPT = tester.sh
 
 ${EXEC}: ${OBJECTS}
