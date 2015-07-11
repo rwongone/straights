@@ -4,6 +4,8 @@
 #include <gtkmm.h>
 #include <string>
 #include "TopMenuView.h"
+#include "PlayerListView.h"
+#include "HandView.h"
 
 class GameWindowView : public Gtk::Window {
 public:
@@ -14,8 +16,8 @@ private:
 
   TopMenuView topMenu;
   Gtk::Table cardTable;
-  Gtk::HBox playerHBox;
-  Gtk::HBox handHBox;
+  PlayerListView playerList;
+  HandView handList;
 };
 
 #endif
