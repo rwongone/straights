@@ -1,22 +1,8 @@
-#include "Game.h"
-#include "View.h"
-#include "GameController.h"
-#include <stdlib.h>
+#include <gtkmm.h>
 
 int main(int argc, char* argv[]) {
-  int seed = 0;
-
-  if(argc > 1){
-    seed = strtol(argv[1], NULL, 10);
-  }
-
-  Game* game = new Game(seed);
-  GameController* gameController = new GameController(game);
-  View* gameView = new View(game, gameController);
-
-  delete game;
-  delete gameController;
-  delete gameView;
-
+  Gtk::Main kit(argc, argv);
+  Gtk::Window window;
+  Gtk::Main::run(window);
   return 0;
 }
