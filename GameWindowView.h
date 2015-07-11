@@ -5,6 +5,8 @@
 #include <string>
 #include "TopMenuView.h"
 #include "CardTableView.h"
+#include "PlayerListView.h"
+#include "HandView.h"
 
 class GameWindowView : public Gtk::Window {
 public:
@@ -14,10 +16,9 @@ private:
   Gtk::VBox mainVBox;
 
   TopMenuView topMenu;
-
   CardTableView cardTable;
-  Gtk::HBox playerHBox;
-  Gtk::HBox handHBox;
+  PlayerListView playerList;
+  HandView handList;
 };
 
 #endif
