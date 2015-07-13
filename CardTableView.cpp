@@ -11,6 +11,8 @@ CardTableView::CardTableView(Gtk::Window &parent) : Gtk::Frame(), parent_(parent
     }
   }
 
+  cards_.set_row_spacings(5);
+  cards_.set_col_spacings(2);
   add(cards_);
   cards_.show();
 }
