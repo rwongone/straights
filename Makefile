@@ -1,18 +1,19 @@
 CXX = g++
 CXXFLAGS = -g -Wall -MMD -std=c++0x -O `pkg-config gtkmm-2.4 --cflags --libs`
-OBJECTS = Main.o GameWindowView.o TopMenuView.o CardTableView.o PlayerListView.o HandView.o Card.o Game.o Table.o Deck.o Player.o HumanPlayer.o ComputerPlayer.o GameController.o
+OBJECTS = Main.o Card.o Game.o Table.o Deck.o Player.o HumanPlayer.o ComputerPlayer.o GameController.o
+VIEWS = GameWindowView.o TopMenuView.o CardTableView.o PlayerListView.o HandView.o
 # Card.o Command.o Deck.o Player.o Table.o Game.o GameController.o View.o HumanPlayer.o ComputerPlayer.o
-CPP = ${OBJECTS:.o=.cpp}
-HEADERS = ${OBJECTS:.o=.h}
-DEPENDS = ${OBJECTS:.o=.d}
+CPP = ${OBJECTS:.o=.cpp} ${VIEWS:.o=.cpp}
+HEADERS = ${OBJECTS:.o=.h} ${VIEWS:.o=.h}
+DEPENDS = ${OBJECTS:.o=.d} ${VIEWS:.o=.d}
 EXEC = straights
 TESTSCRIPT = tester.sh
 
-${EXEC}: ${OBJECTS}
-	${CXX} ${OBJECTS} ${CXXFLAGS} -o ${EXEC}
+${EXEC}: ${OBJECTS} ${VIEWS}
+	${CXX} ${OBJECTS} ${VIEWS} ${CXXFLAGS} -o ${EXEC}
 
 clean:
-	rm -rf ${DEPENDS} ${OBJECTS} ${EXEC}
+	rm -rf ${DEPENDS} ${OBJECTS} ${VIEWS} ${EXEC}
 
 test:
 	bash ./${TESTSCRIPT} ./${EXEC}
