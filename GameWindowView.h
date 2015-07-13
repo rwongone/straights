@@ -14,7 +14,6 @@ public:
   virtual ~GameWindowView();
 private:
   Gtk::VBox mainVBox;
-
   TopMenuView topMenu;
   CardTableView cardTable;
   PlayerListView playerList;
