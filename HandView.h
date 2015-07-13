@@ -2,6 +2,8 @@
 #define HAND_VIEW_H
 
 #include <gtkmm.h>
+#include <string>
+#include <sstream>
 
 class HandView : public Gtk::Frame {
 public:
@@ -9,8 +11,9 @@ public:
   virtual ~HandView();
 private:
   Gtk::Window &parent_;
-  Gtk::HBox cardHBox;
-  Gtk::Image *cards_[13];
+  Gtk::Table cards_;
+  Gtk::Image images_[13];
+  std::string toImageFile(const int, const int) const;
 };
 
 #endif
