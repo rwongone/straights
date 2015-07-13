@@ -4,10 +4,12 @@
 #include <gtkmm.h>
 #include <string>
 #include <sstream>
+#include "Game.h"
+#include "GameController.h"
 
 class HandView : public Gtk::Frame {
 public:
-  HandView(Gtk::Window&);
+  HandView(Gtk::Window&, Game*, GameController*);
   virtual ~HandView();
 private:
   Gtk::Window &parent_;

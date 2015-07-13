@@ -2,10 +2,12 @@
 #define TOP_MENU_VIEW_H
 
 #include <gtkmm.h>
+#include "Game.h"
+#include "GameController.h"
 
 class TopMenuView : public Gtk::HBox {
 public:
-  TopMenuView(Gtk::Window&);
+  TopMenuView(Gtk::Window&, Game*, GameController*);
   virtual ~TopMenuView();
 private:
   void quitButtonClicked();

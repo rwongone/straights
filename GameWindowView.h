@@ -7,10 +7,12 @@
 #include "CardTableView.h"
 #include "PlayerListView.h"
 #include "HandView.h"
+#include "GameController.h"
+#include "Game.h"
 
 class GameWindowView : public Gtk::Window {
 public:
-  GameWindowView(const std::string);
+  GameWindowView(const std::string, Game*, GameController*);
   virtual ~GameWindowView();
 private:
   Gtk::VBox mainVBox;
@@ -18,6 +20,8 @@ private:
   CardTableView cardTable;
   PlayerListView playerList;
   HandView handList;
+  Game* game_;
+  GameController* gameController_;
 };
 
 #endif

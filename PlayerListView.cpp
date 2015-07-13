@@ -25,6 +25,7 @@ PlayerListView::PlayerListView(Gtk::Window &parent): parent_(parent) {
 
     // Add the ragequit button
     rageQuit_[i].set_label("Rage!");
+    rageQuit_[i].signal_clicked().connect(sigc::bind<int>(sigc::mem_fun(*this, &PlayerListView::rageQuitButtonClicked), i));
 
     playerStats_[i].pack_start(rageQuit_[i]);
 
@@ -43,6 +44,10 @@ PlayerListView::PlayerListView(Gtk::Window &parent): parent_(parent) {
     points_[i].show();
     discards_[i].show();
   }
+}
+
+void PlayerListView::rageQuitButtonClicked(const int i) {
+
 }
 
 PlayerListView::~PlayerListView() {}

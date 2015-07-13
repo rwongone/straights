@@ -1,6 +1,6 @@
 #include "GameWindowView.h"
 
-GameWindowView::GameWindowView(const std::string title): Gtk::Window(), mainVBox(), topMenu(*this), cardTable(*this), playerList(*this), handList(*this) {
+GameWindowView::GameWindowView(const std::string title, Game* game, GameController* controller): Gtk::Window(), mainVBox(), game_(game), gameController_(controller), topMenu(*this, game, controller), cardTable(*this, game, controller), playerList(*this, game, controller), handList(*this, game, controller) {
   set_title(title);
 
   add(mainVBox);
