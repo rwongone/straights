@@ -1,6 +1,6 @@
 CXX = g++
 CXXFLAGS = -g -Wall -MMD -std=c++0x -O `pkg-config gtkmm-2.4 --cflags --libs`
-OBJECTS = Main.o GameWindowView.o TopMenuView.o CardTableView.o PlayerListView.o HandView.o
+OBJECTS = Main.o GameWindowView.o TopMenuView.o CardTableView.o PlayerListView.o HandView.o Card.o
 # Card.o Command.o Deck.o Player.o Table.o Game.o GameController.o View.o HumanPlayer.o ComputerPlayer.o
 CPP = ${OBJECTS:.o=.cpp}
 HEADERS = ${OBJECTS:.o=.h}
