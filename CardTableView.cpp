@@ -1,6 +1,6 @@
 #include "CardTableView.h"
 
-CardTableView::CardTableView(Gtk::Window &parent) : Gtk::Frame(), parent_(parent), cards_(13, 4, true) {
+CardTableView::CardTableView(Gtk::Window &parent) : Gtk::Frame(), parent_(parent), cards_(4, 13, false) {
   set_label("Cards on the table");
 
   for (int i=0; i<13; i++) {
