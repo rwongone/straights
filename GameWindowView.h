@@ -7,8 +7,7 @@
 #include "CardTableView.h"
 #include "PlayerListView.h"
 #include "HandView.h"
-#include "GameController.h"
-#include "Game.h"
+#include "PlayerPickerView.h"
 
 class GameWindowView : public Gtk::Window {
 public:
