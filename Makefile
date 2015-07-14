@@ -14,7 +14,7 @@ OBJECTS += Game.o
 OBJECTS += GameController.o
 
 # Views
-OBJECTS += GameWindowView.o TopMenuView.o CardTableView.o PlayerListView.o HandCardsView.o PlayerPickerView.o
+OBJECTS += Observer.o GameWindowView.o TopMenuView.o CardTableView.o PlayerListView.o HandCardsView.o PlayerPickerView.o
 
 CPP = ${OBJECTS:.o=.cpp}
 HEADERS = ${OBJECTS:.o=.h}

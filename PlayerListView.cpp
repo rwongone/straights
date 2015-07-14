@@ -56,3 +56,5 @@ void PlayerListView::rageQuitButtonClicked(const int i) {
 }
 
 PlayerListView::~PlayerListView() {}
+
+void PlayerListView::update(){}

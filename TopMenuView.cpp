@@ -24,3 +24,5 @@ TopMenuView::~TopMenuView() {}
 void TopMenuView::quitButtonClicked() {
   parent_.hide();
 }
+
+void TopMenuView::update(){}

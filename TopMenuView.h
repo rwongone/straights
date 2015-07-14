@@ -4,11 +4,13 @@
 #include <gtkmm.h>
 #include "Game.h"
 #include "GameController.h"
+#include "Observer.h"
 
-class TopMenuView : public Gtk::HBox {
+class TopMenuView : public Gtk::HBox, public Observer {
 public:
   TopMenuView(Gtk::Window&, Game*, GameController*);
   virtual ~TopMenuView();
+  virtual void update();
 private:
   void quitButtonClicked();
   Gtk::Window &parent_;

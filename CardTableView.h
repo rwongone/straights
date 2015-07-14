@@ -8,11 +8,13 @@
 #include "Card.h"
 #include "Game.h"
 #include "GameController.h"
+#include "Observer.h"
 
-class CardTableView: public Gtk::Frame {
+class CardTableView: public Gtk::Frame, public Observer {
 public:
   CardTableView(Gtk::Window&, Game*, GameController*);
   ~CardTableView();
+  virtual void update();
 private:
   Gtk::Window &parent_;
   Gtk::Table cards_;

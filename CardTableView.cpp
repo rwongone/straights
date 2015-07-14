@@ -45,3 +45,5 @@ std::string CardTableView::toImageFile(const int i, const int j) const {
   returnValue << "img/" << i << "_" << j << ".png";
   return returnValue.str();
 }
+
+void CardTableView::update(){}

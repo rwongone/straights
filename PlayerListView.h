@@ -5,11 +5,13 @@
 #include <iostream>
 #include "Game.h"
 #include "GameController.h"
+#include "Observer.h"
 
-class PlayerListView : public Gtk::HBox {
+class PlayerListView : public Gtk::HBox, public Observer {
 public:
   PlayerListView(Gtk::Window&, Game*, GameController*);
   virtual ~PlayerListView();
+  virtual void update();
 private:
   Gtk::Window &parent_;
   Gtk::Frame frames_[4];

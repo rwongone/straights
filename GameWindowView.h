@@ -10,11 +10,13 @@
 #include "PlayerPickerView.h"
 #include "Game.h"
 #include "GameController.h"
+#include "Observer.h"
 
-class GameWindowView : public Gtk::Window {
+class GameWindowView : public Gtk::Window, public Observer {
 public:
   GameWindowView(const std::string, Game*, GameController*);
   virtual ~GameWindowView();
+  virtual void update();
 private:
   Gtk::VBox mainVBox;
   TopMenuView topMenu;

@@ -30,3 +30,4 @@ GameWindowView::GameWindowView(const std::string title, Game* game, GameControll
 
 GameWindowView::~GameWindowView() {}
 
+void GameWindowView::update(){}
