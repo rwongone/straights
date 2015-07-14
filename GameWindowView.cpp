@@ -1,6 +1,14 @@
 #include "GameWindowView.h"
 
-GameWindowView::GameWindowView(const std::string title): topMenu(*this), cardTable(*this), playerList(*this), handCards(*this) {
+GameWindowView::GameWindowView(const std::string title, Game* game, GameController* controller) :
+  // Initialization List
+  topMenu(*this),
+  cardTable(*this),
+  playerList(*this),
+  handCards(*this),
+  game_(game),
+  controller_(controller){
+
   set_title(title);
 
   for(int i = 0; i < 4; i++){
