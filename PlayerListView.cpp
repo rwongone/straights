@@ -16,6 +16,9 @@ PlayerListView::PlayerListView(Gtk::Window &parent, Game* game, GameController* 
   game_(game),
   controller_(controller) {
 
+  // Start observing the Facade
+  game->subscribe(this);
+
   for(int i = 0; i < 4; i++){
     // Add the "Player i" title to the frame
     std::ostringstream frameTitle;

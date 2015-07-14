@@ -7,6 +7,9 @@ HandCardsView::HandCardsView(Gtk::Window &parent, Game* game, GameController* co
   game_(game),
   controller_(controller) {
 
+  // Start observing the Facade
+  game->subscribe(this);
+
   set_label("Your Hand");
 
   for (int i = 0; i < 13; i++) {

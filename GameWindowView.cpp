@@ -9,6 +9,9 @@ GameWindowView::GameWindowView(const std::string title, Game* game, GameControll
   game_(game),
   controller_(controller) {
 
+  // Start observing the Facade
+  game->subscribe(this);
+
   set_title(title);
 
   for(int i = 0; i < 4; i++){

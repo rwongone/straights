@@ -8,6 +8,9 @@ TopMenuView::TopMenuView(Gtk::Window &parent, Game* game, GameController* contro
   game_(game),
   controller_(controller) {
 
+  // Start observing the Facade
+  game->subscribe(this);
+
   pack_start(seedButton);
   pack_start(seedEntry);
   pack_start(quitButton);
