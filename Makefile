@@ -8,7 +8,7 @@ OBJECTS = Main.o
 OBJECTS += Card.o Table.o Deck.o Player.o HumanPlayer.o ComputerPlayer.o
 
 # Model Facade
-OBJECTS += Game.o
+OBJECTS += Game.o Subject.o
 
 # Controllers
 OBJECTS += GameController.o

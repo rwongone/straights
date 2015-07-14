@@ -7,8 +7,9 @@
 #include "ComputerPlayer.h"
 #include <vector>
 #include <cassert>
+#include "Subject.h"
 
-class Game {
+class Game : public Subject {
 public:
   static const int NUMBER_OF_PLAYERS = 4;
   // Constructor - Takes an int which is used as a seed to shuffle the deck
