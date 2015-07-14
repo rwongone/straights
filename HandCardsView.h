@@ -1,16 +1,14 @@
-#ifndef HAND_VIEW_H
-#define HAND_VIEW_H
+#ifndef HAND_CARDS_VIEW_H
+#define HAND_CARDS_VIEW_H
 
 #include <gtkmm.h>
 #include <string>
 #include <sstream>
-#include "Game.h"
-#include "GameController.h"
 
-class HandView : public Gtk::Frame {
+class HandCardsView : public Gtk::Frame {
 public:
-  HandView(Gtk::Window&, Game*, GameController*);
-  virtual ~HandView();
+  HandCardsView(Gtk::Window&);
+  virtual ~HandCardsView();
 private:
   Gtk::Window &parent_;
   Gtk::Table cards_;

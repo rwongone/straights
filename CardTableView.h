@@ -6,12 +6,10 @@
 #include <iostream>
 #include <string>
 #include "Card.h"
-#include "Game.h"
-#include "GameController.h"
 
 class CardTableView: public Gtk::Frame {
 public:
-  CardTableView(Gtk::Window&, Game*, GameController*);
+  CardTableView(Gtk::Window&);
   ~CardTableView();
 private:
   Gtk::Window &parent_;

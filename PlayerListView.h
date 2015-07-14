@@ -3,12 +3,10 @@
 
 #include <gtkmm.h>
 #include <iostream>
-#include "Game.h"
-#include "GameController.h"
 
 class PlayerListView : public Gtk::HBox {
 public:
-  PlayerListView(Gtk::Window&, Game*, GameController*);
+  PlayerListView(Gtk::Window&);
   virtual ~PlayerListView();
 private:
   Gtk::Window &parent_;

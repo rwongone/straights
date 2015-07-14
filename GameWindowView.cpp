@@ -1,6 +1,6 @@
 #include "GameWindowView.h"
 
-GameWindowView::GameWindowView(const std::string title, Game* game, GameController* controller): Gtk::Window(), mainVBox(), game_(game), gameController_(controller), topMenu(*this, game, controller), cardTable(*this, game, controller), playerList(*this, game, controller), handList(*this, game, controller) {
+GameWindowView::GameWindowView(const std::string title): Gtk::Window(), mainVBox(), topMenu(*this), cardTable(*this), playerList(*this), handCards(*this) {
   set_title(title);
 
   for(int i = 0; i < 4; i++){
@@ -11,13 +11,13 @@ GameWindowView::GameWindowView(const std::string title, Game* game, GameControll
   mainVBox.pack_start(topMenu);
   mainVBox.pack_start(cardTable);
   mainVBox.pack_start(playerList);
-  mainVBox.pack_start(handList);
+  mainVBox.pack_start(handCards);
 
   mainVBox.show();
   topMenu.show();
   cardTable.show();
   playerList.show();
-  handList.show();
+  handCards.show();
 }
 
 GameWindowView::~GameWindowView() {}
