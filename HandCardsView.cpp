@@ -1,6 +1,12 @@
 #include "HandCardsView.h"
 
-HandCardsView::HandCardsView(Gtk::Window &parent): parent_(parent), cards_(1, 13, false) {
+HandCardsView::HandCardsView(Gtk::Window &parent, Game* game, GameController* controller) :
+  // Initialization List
+  parent_(parent),
+  cards_(1, 13, false),
+  game_(game),
+  controller_(controller) {
+
   set_label("Your Hand");
 
   for (int i = 0; i < 13; i++) {

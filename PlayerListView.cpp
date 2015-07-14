@@ -10,7 +10,12 @@ namespace {
   }
 };
 
-PlayerListView::PlayerListView(Gtk::Window &parent): parent_(parent) {
+PlayerListView::PlayerListView(Gtk::Window &parent, Game* game, GameController* controller) :
+  // Initialization List
+  parent_(parent),
+  game_(game),
+  controller_(controller) {
+
   for(int i = 0; i < 4; i++){
     // Add the "Player i" title to the frame
     std::ostringstream frameTitle;

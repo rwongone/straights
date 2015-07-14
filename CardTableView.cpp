@@ -4,7 +4,13 @@ namespace {
   const std::string NOTHING_CARD = "img/nothing.png";
 }
 
-CardTableView::CardTableView(Gtk::Window &parent) : parent_(parent), cards_(4, 13, false) {
+CardTableView::CardTableView(Gtk::Window &parent, Game* game, GameController* controller) :
+  // Initialization List
+  parent_(parent),
+  cards_(4, 13, false),
+  game_(game),
+  controller_(controller) {
+
   set_label("Cards on the table");
 
   for (int i=0; i<13; i++) {

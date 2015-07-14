@@ -2,12 +2,12 @@
 
 GameWindowView::GameWindowView(const std::string title, Game* game, GameController* controller) :
   // Initialization List
-  topMenu(*this),
-  cardTable(*this),
-  playerList(*this),
-  handCards(*this),
+  topMenu(*this, game, controller),
+  cardTable(*this, game, controller),
+  playerList(*this, game, controller),
+  handCards(*this, game, controller),
   game_(game),
-  controller_(controller){
+  controller_(controller) {
 
   set_title(title);
 
