@@ -1,4 +1,5 @@
 #include "GameWindowView.h"
+#include <iostream>
 
 GameWindowView::GameWindowView(const std::string title, Game* game, GameController* controller) :
   // Initialization List
@@ -34,3 +35,9 @@ GameWindowView::GameWindowView(const std::string title, Game* game, GameControll
 GameWindowView::~GameWindowView() {}
 
 void GameWindowView::update(){}
+
+void GameWindowView::assignPlayerType(std::string playerType){
+  // Parse Human Player or Computer Player
+  // Determine player index
+  // controller_->setPlayer()
+}

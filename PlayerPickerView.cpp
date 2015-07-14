@@ -1,6 +1,10 @@
 #include "PlayerPickerView.h"
 
-PlayerPickerView::PlayerPickerView(Gtk::Window &parent, std::string title) : Dialog(title, parent, true, true){
+PlayerPickerView::PlayerPickerView(GameWindowView &parent, std::string title) :
+  // Initialization List
+  Dialog(title, parent, true, true),
+  parent_(parent) {
+
   set_default_size(300, 150);
   std::vector<std::string> options;
   options.push_back("Human Player");
@@ -22,7 +26,7 @@ PlayerPickerView::PlayerPickerView(Gtk::Window &parent, std::string title) : Dia
     case Gtk::RESPONSE_OK:
       for(unsigned int i =0; i < options.size(); i++){
         if(buttons[i]->get_active()){
-          // They chose this option. Call something in the parent with options[i] to tell the controller
+          parent.assignPlayerType(options[i]);
           break;
         }
       }
