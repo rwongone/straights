@@ -1,6 +1,6 @@
 #include "TopMenuView.h"
 
-TopMenuView::TopMenuView(Gtk::Window &parent): parent_(parent), seedButton("Start new game with seed:"), seedEntry(), quitButton("QUIT") {
+TopMenuView::TopMenuView(Gtk::Window &parent): parent_(parent), seedButton("Start new game with seed:"), quitButton("QUIT") {
   pack_start(seedButton);
   pack_start(seedEntry);
   pack_start(quitButton);
