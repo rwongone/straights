@@ -36,14 +36,9 @@ std::string HandCardsView::toImageFile(const Card& c) const {
 }
 
 void HandCardsView::update() {
+  std::cerr << "Updating hand for player " << game_->getCurrentPlayer() + 1 << std::endl;
   currentPlayer_ = game_->getPlayer(game_->getCurrentPlayer());
   setHand(currentPlayer_->getHand());
-
-  std::cerr << "Updating hand for player " << game_->getCurrentPlayer() + 1 << std::endl;
-
-  for (int i=0; i<13; i++) {
-    cards_.attach(images_[i], i, i+1, 0, 1);
-  }
 }
 
 void HandCardsView::setHand(std::vector<Card*> hand) {
