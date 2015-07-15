@@ -50,6 +50,8 @@ public:
   bool shouldQuit() const;
   // Returns the winner(s) of the game
   std::vector<int> winners() const;
+  void nextTurn();
+  void endTransaction() const;
 
   // setup phase and helpers
   void setupGame();
@@ -58,7 +60,6 @@ public:
   void dealCards();
   void cleanTable();
   void determineStartingPlayer();
-  void endTransaction() const;
 private:
   // The game
   Game* game_;
