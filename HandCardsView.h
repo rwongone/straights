@@ -20,11 +20,13 @@ public:
 private:
   Gtk::Window &parent_;
   Gtk::Table cards_;
+  Gtk::Button clickableImages_[13];
   Gtk::Image images_[13];
   Game* game_;
   GameController* controller_;
   std::string toImageFile(const int, const int) const;
   std::string toImageFile(const Card&) const;
+  void cardInHandClicked(const int, Card);
   Player* currentPlayer_;
 };
 

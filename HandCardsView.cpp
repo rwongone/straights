@@ -14,13 +14,13 @@ HandCardsView::HandCardsView(Gtk::Window &parent, Game* game, GameController* co
 
   for (int i = 0; i < 13; i++) {
     images_[i].set("img/nothing.png");
-    cards_.attach(images_[i], i, i + 1, 0, 1);
-    images_[i].show();
+    clickableImages_[i].set_image(images_[i]);
+    cards_.attach(clickableImages_[i], i, i + 1, 0, 1);
   }
 
   cards_.set_col_spacings(2);
   add(cards_);
-  cards_.show();
+  show_all();
 }
 
 HandCardsView::~HandCardsView() {}
@@ -45,11 +45,23 @@ void HandCardsView::update() {
 }
 
 void HandCardsView::setHand(std::vector<Card*> hand) {
-  int i = 0;
-  for (; i<hand.size(); i++) {
-    images_[i].set(toImageFile(*(hand[i])));
+  for (int i=0; i<hand.size(); i++) {
+    int currentPlayerIndex = game_->getCurrentPlayer();
+    Card theCard = *hand[i];
+
+    images_[i].set(toImageFile(theCard));
+    clickableImages_[i].signal_clicked().connect(sigc::bind<int, Card>(sigc::mem_fun(*this, &HandCardsView::cardInHandClicked), currentPlayerIndex, theCard));
   }
-  for (; i<13; i++) {
+  for (int i=hand.size(); i<13; i++) {
     images_[i].set("img/nothing.png");
   }
+
+  for (int i=0; i<13; i++) {
+    clickableImages_[i].set_image(images_[i]);
+  }
+}
+
+void HandCardsView::cardInHandClicked(const int index, Card theCard) {
+  std::cerr << "Player " << index+1 << " played " << theCard << std::endl;
+  // controller_->playCard(index, theCard);
 }
