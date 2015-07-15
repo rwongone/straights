@@ -47,8 +47,8 @@ void Table::clean() {
   }
 }
 
-std::set<Card*> Table::getCards() const {
-  return *cardsPlayed_;
+std::set<Card*>* Table::getCards() const {
+  return cardsPlayed_;
 }
 
 // Insertion Operator - Insert Table into output stream

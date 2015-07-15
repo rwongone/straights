@@ -54,11 +54,14 @@ std::string CardTableView::toImageFile(const int i, const int j) const {
 void CardTableView::update(){
   std::cerr << "Table is updating." << std::endl;
   cardsOnTable_ = game_->getCardsOnTable();
-  for(auto it=cardsOnTable_.begin(); it!=cardsOnTable_.end(); ++it) {
-    int s = (*it)->getSuit();
-    int r = (*it)->getRank();
 
-    setCard(**it, true);
-    cards_.attach(images_[s][r], s, s+1, r, r+1);
+  for (int i=0; i<4; i++) {
+    for(auto it=cardsOnTable_[i].begin(); it!=cardsOnTable_[i].end(); ++it) {
+      int s = (*it)->getSuit();
+      int r = (*it)->getRank();
+
+      setCard(**it, true);
+      cards_.attach(images_[s][r], s, s+1, r, r+1);
+    }
   }
 }

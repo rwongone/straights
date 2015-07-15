@@ -23,7 +23,7 @@ private:
   Game* game_;
   Table* table_;
   GameController* controller_;
-  std::set<Card*> cardsOnTable_;
+  std::set<Card*>* cardsOnTable_;
   std::string toImageFile(const int, const int) const;
   void setCard(const int, const int, const bool);
   void setCard(const Card, const bool);

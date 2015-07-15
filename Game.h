@@ -46,7 +46,7 @@ public:
   void discardPlayerCard(const int, Card*);
   void resetPlayer(const int);
   int getStartingPlayerIndex();
-  std::set<Card*> getCardsOnTable() const;
+  std::set<Card*>* getCardsOnTable() const;
 
   // Deck Functions
   void shuffleDeck();

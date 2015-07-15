@@ -133,6 +133,6 @@ void Game::shuffleDeck(){
 Card* Game::getCardFromDeck(int index){
   return deck_->getCard(index);
 }
-std::set<Card*> Game::getCardsOnTable() const {
+std::set<Card*>* Game::getCardsOnTable() const {
   return table_->getCards();
 }
