@@ -48,15 +48,16 @@ void GameController::discardCard(const int index, Card card){
   // Assert that there are no legal moves available
   std::vector<Card*> legalMoves = game_->getLegalMoves(index);
   if(legalMoves.size() > 0){
-    throw GameControllerException("Legal Moves Exist");
+    std::cerr << "Legal moves exist, cannot discard." << std::endl;
+    // throw GameControllerException("Legal Moves Exist");
+  } else {
+    std::cout << "Player " << (index+1) << " discards " << card << "." << std::endl;
+
+    Player* player = game_->getPlayer(index);
+    player->discardCard(card);
+    nextTurn();
+    endTransaction();
   }
-
-  std::cout << "Player " << (index+1) << " discards " << card << "." << std::endl;
-
-  Player* player = game_->getPlayer(index);
-  player->discardCard(card);
-  nextTurn();
-  endTransaction();
 }
 
 // Automove for a player
