@@ -4,7 +4,7 @@
 HandCardsView::HandCardsView(Gtk::Window &parent, Game* game, GameController* controller) :
   // Initialization List
   parent_(parent),
-  cards_(1, 13, false),
+  cards_(2, 13, false),
   game_(game),
   controller_(controller) {
 
@@ -13,7 +13,9 @@ HandCardsView::HandCardsView(Gtk::Window &parent, Game* game, GameController* co
 
   for (int i = 0; i < 13; i++) {
     images_[i].set("img/nothing.png");
+    discardIcons_[i].set("img/delete.png");
     clickableImages_[i].set_image(images_[i]);
+    discardButtons_[i].set_image(discardIcons_[i]);
     cards_.attach(clickableImages_[i], i, i + 1, 0, 1);
     cards_.attach(discardButtons_[i], i, i + 1, 1, 2);
   }
@@ -55,11 +57,13 @@ void HandCardsView::setHand(std::vector<Card*> hand) {
     Card theCard = *hand[i];
 
     images_[i].set(toImageFile(theCard));
+    discardIcons_[i].set("img/delete.png");
     clickableImagesHandlers_[i] = clickableImages_[i].signal_clicked().connect(sigc::bind<int, Card>(sigc::mem_fun(*this, &HandCardsView::cardInHandClicked), currentPlayerIndex, theCard));
     discardButtonsHandlers_[i] = discardButtons_[i].signal_clicked().connect(sigc::bind<int, Card>(sigc::mem_fun(*this, &HandCardsView::discardButtonClicked), currentPlayerIndex, theCard));
   }
   for (int i=hand.size(); i<13; i++) {
     images_[i].set("img/nothing.png");
+    discardIcons_[i].clear();
     clickableImages_[i].signal_clicked().connect(sigc::mem_fun(*this, &HandCardsView::NOOP));
     discardButtons_[i].signal_clicked().connect(sigc::mem_fun(*this, &HandCardsView::NOOP));
   }
