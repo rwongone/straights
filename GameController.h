@@ -36,14 +36,8 @@ public:
   void quit() const;
   // Creates a new player based on type
   void setPlayer(const int, const std::string);
-  // Shuffles the deck and gives each player a hand
-  void dealCards();
-  // Gives player a hand
-  void setPlayerHand(const int, std::vector<Card*>);
   // Tells the model whose turn it is
   void updateCurrentPlayer(int);
-  // Determines the index of the starting player
-  int findStartingPlayerIndex();
   // Prints the player specified by index's hand
   void printHand(const int) const;
   // Prints the legal moves for a player specified by index
@@ -56,10 +50,14 @@ public:
   bool shouldQuit() const;
   // Returns the winner(s) of the game
   std::vector<int> winners() const;
-  // Resets players and starts the game
-  void startGame();
-  // Clears the played cards on the table
+
+  // setup phase and helpers
+  void setupGame();
+  void resetPlayers();
+  void resetRound();
+  void dealCards();
   void cleanTable();
+  void determineStartingPlayer();
 private:
   // The game
   Game* game_;

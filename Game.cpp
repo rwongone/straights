@@ -31,11 +31,13 @@ Table* Game::getTable() {
 // Mutator - Sets the game to quit mode: (The program should shut down)
 void Game::setQuit() {
   shouldQuit_ = true;
+  notify();
 }
 
 // Mutator - Sets the round to done. (52 cards have been played)
-void Game::setGameOver(){
-  gameOver_ = true;
+void Game::setGameOver(bool isGameOver){
+  gameOver_ = isGameOver;
+  notify();
 }
 
 // Accessor - Returns whether the game should quit
@@ -51,17 +53,13 @@ bool Game::isGameDone() const{
 // Mutator - Sets the player at the given index
 void Game::setPlayer(const int index, Player* player) {
   players_[index] = player;
-}
-
-// Mutator - Sets the starting player
-void Game::setStartingPlayer(const int index) {
-  assert(0 <= index && index < NUMBER_OF_PLAYERS);
-  startingPlayer_ = players_[index];
+  notify();
 }
 
 // Mutator - Saves the index of the current player
 void Game::setCurrentPlayer(const int index){
   currentPlayer_ = index;
+  notify();
 }
 
 // Accessor - Gets the index of the current player
@@ -72,6 +70,7 @@ int Game::getCurrentPlayer() const{
 // Mutator - Gives the player a set of cards
 void Game::setPlayerHand(const int index, std::vector<Card*> hand) {
   players_[index]->setHand(hand);
+  notify();
 }
 
 // Accessor - Returns a set of a player's legal moves
@@ -87,6 +86,53 @@ std::vector<Card*> Game::getLegalMoves(int index){
   return legalMoves;
 }
 
-void Game::startGame() {
-  gameOver_ = false;
+void Game::cleanTable() {
+  table_->clean();
+  notify();
+}
+
+void Game::playCardToTable(Card* theCard) {
+  table_->playCard(theCard);
+  notify();
+}
+
+int Game::addPlayerScore(const int index) {
+  int returnValue = players_[index]->addScore();
+  notify();
+  return returnValue;
+}
+
+void Game::playPlayerCard(const int index, Card* card) {
+  players_[index]->playCard(card);
+  notify();
+}
+
+void Game::discardPlayerCard(const int index, Card* card) {
+  players_[index]->discardCard(*card);
+  notify();
+}
+
+void Game::resetPlayer(const int index) {
+  players_[index]->reset();
+  notify();
+}
+
+int Game::getStartingPlayerIndex(){
+  for(int i = 0; i < 4; i++){
+    if(players_[i]->hasStartCard()){
+      return i;
+    }
+  }
+  assert(false); // called without having starting player
+}
+
+void Game::shuffleDeck(){
+  deck_->shuffle();
+}
+
+Card* Game::getCardFromDeck(int index){
+  return deck_->getCard(index);
+}
+std::set<Card*>* Game::getCardsOnTable() const {
+  return table_->getCards();
 }

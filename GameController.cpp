@@ -20,26 +20,25 @@ std::string GameController::GameControllerException::code(){
 void GameController::playCard(const int index, Card card) {
   Card* cardToPlay = NULL;
   std::vector<Card*> legalMoves = game_->getLegalMoves(index);
+
+  std::cerr << "Player " << (index+1) << " legal moves: ";
   for(auto it = legalMoves.begin(); it != legalMoves.end(); ++it){
-    if(**it == card){
+    std::cerr << **it << " ";
+    if(**it == card) {
       cardToPlay = *it;
     }
   }
+  std::cerr << std::endl;
 
   // This is not a legal play
   if(cardToPlay == NULL){
-    throw GameControllerException("Illegal Play");
+    std::cerr << card << " is an illegal play." << std::endl;
+    // throw GameControllerException("Illegal Play");
+  } else {
+    // Add card to table
+    game_->playCardToTable(cardToPlay);
+    game_->playPlayerCard(index, cardToPlay);
   }
-
-  std::cout << "Player " << (index+1) << " plays " << card << "." << std::endl;
-
-  // Add card to table
-  Table* table = game_->getTable();
-  table->playCard(cardToPlay);
-
-  Player* player = game_->getPlayer(index);
-  // Remove card from player's hand
-  player->playCard(cardToPlay);
 }
 
 // Player specified by index discards a card - Returns true if successful
@@ -64,7 +63,7 @@ void GameController::playTurn(const int index) {
 
   if (legalMoves.size() == 0) {
     if (hand.size() == 0) {
-      game_->setGameOver();
+      game_->setGameOver(true);
       return;
     }
     Card* theCard = hand.front();
@@ -91,8 +90,8 @@ void GameController::quit() const{
 
 // Creates a new player based on type
 void GameController::setPlayer(const int index, const std::string playerType) {
-  assert(playerType == "h" || playerType == "c");
-  if (playerType == "h"){
+  assert(playerType == "Human Player" || playerType == "Computer Player");
+  if (playerType == "Human Player"){
     game_->setPlayer(index, new HumanPlayer());
   } else {
     game_->setPlayer(index, new ComputerPlayer());
@@ -100,39 +99,9 @@ void GameController::setPlayer(const int index, const std::string playerType) {
   }
 }
 
-// Shuffles the deck and gives each player a hand
-void GameController::dealCards() {;
-  Deck* theDeck = game_->getDeck();
-  theDeck->shuffle();
-  for (int i=0; i<4; i++){ // Use constants
-    std::vector<Card*> playerHand;
-    for(int j = 0; j < 13; j++){ // Use constants
-      playerHand.push_back(theDeck->getCard(13*i+j)); // Use constants
-    }
-    game_->setPlayerHand(i, playerHand);
-  }
-}
-
-// Gives player a hand
-void GameController::setPlayerHand(const int index, std::vector<Card*> hand) {
-    game_->setPlayerHand(index, hand);
-}
-
 // Tells the model whose turn it is
 void GameController::updateCurrentPlayer(int index){
   game_->setCurrentPlayer(index);
-}
-
-// Determines the index of the starting player
-// Pre: The 7S card must be in one player's hand.
-int GameController::findStartingPlayerIndex() {
-  for(int i = 0; i < 4; i++){
-    if(game_->getPlayer(i)->hasStartCard()){
-      game_->setStartingPlayer(i);
-      return i;
-    }
-  }
-  assert(false);
 }
 
 // Prints the player specified by index's hand
@@ -158,7 +127,7 @@ void GameController::printSummary() const{
     std::cout << thePlayer->score() << std::endl;
 
     if (thePlayer->score() >= 80) {
-      game_->setGameOver();
+      game_->setGameOver(true);
       game_->setQuit();
     }
   }
@@ -194,15 +163,46 @@ std::vector<int> GameController::winners() const {
   return minPlayers;
 }
 
-// Resets players and starts the game
-void GameController::startGame() {
-  for (int i=0; i<4; i++) {
-    game_->getPlayer(i)->reset();
-  }
-  game_->startGame();
+
+//--------------setup helpers----------------------
+void GameController::setupGame(){
+  resetPlayers();
+  resetRound();
+  dealCards();
+  cleanTable();
+  determineStartingPlayer();
+  game_->notify();
 }
 
-// Clears the played cards on the table
-void GameController::cleanTable() {
-  game_->getTable()->clean();
+void GameController::resetPlayers(){
+  for(int i = 0; i< 4; i++){
+    game_->resetPlayer(i);
+  }
 }
+
+void GameController::resetRound(){
+  game_->setGameOver(false);
+}
+
+void GameController::dealCards(){
+  game_->shuffleDeck();
+  for(int i = 0; i < 4; i++){
+    std::vector<Card*> playerHand;
+    for(int j = 0; j < 13; j++){
+      playerHand.push_back(game_->getCardFromDeck(13 * i + j));
+    }
+    game_->setPlayerHand(i, playerHand);
+  }
+}
+
+void GameController::cleanTable(){
+  game_->cleanTable();
+}
+
+void GameController::determineStartingPlayer(){
+  int startingPlayerIndex = game_->getStartingPlayerIndex();
+  game_->setCurrentPlayer(startingPlayerIndex);
+  std::cerr << "A new round begins. It's player " << startingPlayerIndex + 1 << "'s turn to play." << std::endl;
+}
+
+//-------------end of setup helpers---------------

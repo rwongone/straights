@@ -3,11 +3,12 @@
 
 #include "Card.h"
 #include "Table.h"
+#include "Subject.h"
 #include <vector>
 #include <iostream>
 #include <algorithm>
 
-class Player {
+class Player: public Subject {
 public:
   // Constructor
   Player();

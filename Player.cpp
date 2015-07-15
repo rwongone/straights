@@ -54,6 +54,7 @@ bool Player::hasStartCard() const {
 // Mutator - Removes card from hand
 void Player::playCard(Card* card){
   hand_.erase(find(hand_.begin(), hand_.end(), card));
+  notify();
 }
 
 // Mutator - Removes card from hand and adds to discard pile
@@ -71,11 +72,13 @@ void Player::discardCard(Card card){
 
   // Remove card from hand
   hand_.erase(find(hand_.begin(), hand_.end(), cardToDiscard));
+  notify();
 }
 
 // Mutator - Empties the discard pile
 void Player::reset() {
   discardPile_.clear();
+  notify();
 }
 
 // Prints the player's hand

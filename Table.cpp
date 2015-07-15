@@ -47,6 +47,10 @@ void Table::clean() {
   }
 }
 
+std::set<Card*>* Table::getCards() const {
+  return cardsPlayed_;
+}
+
 // Insertion Operator - Insert Table into output stream
 std::ostream& operator<<(std::ostream& sout, Table& table) {
   std::string suits[SUIT_COUNT] = {"Clubs", "Diamonds", "Hearts", "Spades"};
