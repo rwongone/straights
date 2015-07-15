@@ -55,8 +55,6 @@ private:
   Table* table_;
   // Array of 4 players
   Player* players_[NUMBER_OF_PLAYERS];
-  // The starting player
-  Player* startingPlayer_;
   // The player whose turn it is right now
   int currentPlayer_;
   // Determines whether the program should quit
