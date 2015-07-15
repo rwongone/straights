@@ -9,17 +9,19 @@ CardTableView::CardTableView(Gtk::Window &parent, Game* game, GameController* co
   parent_(parent),
   cards_(4, 13, false),
   game_(game),
-  controller_(controller) {
+  controller_(controller),
+  table_(game_->getTable()) {
+
 
   // Start observing the Facade
   game->subscribe(this);
+  table_->subscribe(this);
 
   set_label("Cards on the table");
 
   for (int i=0; i<13; i++) {
     for (int j=0; j<4; j++) {
-      // setCard(i,j,false);
-      images_[i][j].set(toImageFile(j, i));
+      images_[i][j].set(NOTHING_CARD);
       cards_.attach(images_[i][j], i, i+1, j, j+1);
     }
   }

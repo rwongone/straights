@@ -8,7 +8,11 @@ HandCardsView::HandCardsView(Gtk::Window &parent, Game* game, GameController* co
   controller_(controller) {
 
   // Start observing the Facade
-  game->subscribe(this);
+  game_->subscribe(this);
+
+  for (int i=0; i<4; i++) {
+    game_->getPlayer(i)->subscribe(this);
+  }
 
   set_label("Your Hand");
 
@@ -39,6 +43,8 @@ void HandCardsView::update() {
   currentPlayer_ = game_->getPlayer(game_->getCurrentPlayer());
   setHand(currentPlayer_->getHand());
 
+  std::cerr << "Updating hand for player " << game_->getCurrentPlayer() + 1 << std::endl;
+
   for (int i=0; i<13; i++) {
     cards_.attach(images_[i], i, i+1, 0, 1);
   }
@@ -62,6 +68,6 @@ void HandCardsView::setHand(std::vector<Card*> hand) {
 }
 
 void HandCardsView::cardInHandClicked(const int index, Card theCard) {
-  std::cerr << "Player " << index+1 << " played " << theCard << std::endl;
-  // controller_->playCard(index, theCard);
+  std::cerr << "HandCardsView sees that player " << index+1 << " played " << theCard << std::endl;
+  controller_->playCard(index, theCard);
 }

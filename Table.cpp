@@ -15,6 +15,7 @@ Table::~Table() {
 // Mutator - Add a card to cardsPlayed
 void Table::playCard(Card* theCard) {
   cardsPlayed_[theCard->getSuit()].insert(theCard);
+  notify();
 }
 
 // Returns True if the passed in card is a legal move for the given table
@@ -45,6 +46,7 @@ void Table::clean() {
   for (int i=0; i<SUIT_COUNT; i++) {
     cardsPlayed_[i].clear();
   }
+  notify();
 }
 
 // Insertion Operator - Insert Table into output stream

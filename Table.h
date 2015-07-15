@@ -2,10 +2,11 @@
 #define _TABLE_
 
 #include "Card.h"
+#include "Subject.h"
 #include <set>
 #include <vector>
 
-class Table{
+class Table: public Subject {
 public:
   // Constructor
   Table();
@@ -18,6 +19,7 @@ public:
   // Insertion Operator - Insert Table into output stream
   friend std::ostream& operator<<(std::ostream&, Table&);
   void clean();
+
 private:
   // A pointer to a set of cards that have been played.
   std::set<Card*> *cardsPlayed_;

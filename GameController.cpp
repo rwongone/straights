@@ -18,6 +18,7 @@ std::string GameController::GameControllerException::code(){
 
 void GameController::setupGame(){
   game_->setupGame();
+  updateCurrentPlayer(game_->findStartingPlayerIndex());
 }
 
 // Player specified by index plays a card on the table - Returns true if successful
@@ -25,25 +26,27 @@ void GameController::playCard(const int index, Card card) {
   Card* cardToPlay = NULL;
   std::vector<Card*> legalMoves = game_->getLegalMoves(index);
   for(auto it = legalMoves.begin(); it != legalMoves.end(); ++it){
+    std::cerr << **it << " ";
     if(**it == card){
       cardToPlay = *it;
     }
   }
+  std::cerr << std::endl;
+  std::cerr << legalMoves.size() << std::endl;
 
   // This is not a legal play
   if(cardToPlay == NULL){
-    throw GameControllerException("Illegal Play");
+    std::cerr << "illegal play" << std::endl;
+    // throw GameControllerException("Illegal Play");
+  } else {
+    // Add card to table
+    Table* table = game_->getTable();
+    table->playCard(cardToPlay);
+
+    Player* player = game_->getPlayer(index);
+    // Remove card from player's hand
+    player->playCard(cardToPlay);
   }
-
-  std::cout << "Player " << (index+1) << " plays " << card << "." << std::endl;
-
-  // Add card to table
-  Table* table = game_->getTable();
-  table->playCard(cardToPlay);
-
-  Player* player = game_->getPlayer(index);
-  // Remove card from player's hand
-  player->playCard(cardToPlay);
 }
 
 // Player specified by index discards a card - Returns true if successful
@@ -107,6 +110,19 @@ void GameController::setPlayer(const int index, const std::string playerType) {
 // Tells the model whose turn it is
 void GameController::updateCurrentPlayer(int index){
   game_->setCurrentPlayer(index);
+}
+
+// Determines the index of the starting player
+// Pre: The 7S card must be in one player's hand.
+int GameController::findStartingPlayerIndex() {
+  for(int i = 0; i < 4; i++){
+    if(game_->getPlayer(i)->hasStartCard()){
+      std::cerr << "Found that the starting player has index " << i << std::endl;
+      game_->setStartingPlayer(i);
+      return i;
+    }
+  }
+  assert(false);
 }
 
 // Prints the player specified by index's hand

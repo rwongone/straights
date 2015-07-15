@@ -31,11 +31,13 @@ Table* Game::getTable() {
 // Mutator - Sets the game to quit mode: (The program should shut down)
 void Game::setQuit() {
   shouldQuit_ = true;
+  notify();
 }
 
 // Mutator - Sets the round to done. (52 cards have been played)
 void Game::setGameOver(){
   gameOver_ = true;
+  notify();
 }
 
 // Accessor - Returns whether the game should quit
@@ -51,11 +53,20 @@ bool Game::isGameDone() const{
 // Mutator - Sets the player at the given index
 void Game::setPlayer(const int index, Player* player) {
   players_[index] = player;
+  notify();
+}
+
+// Mutator - Sets the starting player
+void Game::setStartingPlayer(const int index) {
+  assert(0 <= index && index < NUMBER_OF_PLAYERS);
+  startingPlayer_ = players_[index];
+  notify();
 }
 
 // Mutator - Saves the index of the current player
 void Game::setCurrentPlayer(const int index){
   currentPlayer_ = index;
+  notify();
 }
 
 // Accessor - Gets the index of the current player
@@ -66,6 +77,7 @@ int Game::getCurrentPlayer() const{
 // Mutator - Gives the player a set of cards
 void Game::setPlayerHand(const int index, std::vector<Card*> hand) {
   players_[index]->setHand(hand);
+  notify();
 }
 
 // Accessor - Returns a set of a player's legal moves

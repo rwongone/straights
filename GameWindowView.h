@@ -3,6 +3,7 @@
 
 #include <gtkmm.h>
 #include <string>
+#include <iostream>
 #include "TopMenuView.h"
 #include "CardTableView.h"
 #include "PlayerListView.h"
