@@ -38,6 +38,7 @@ void GameController::playCard(const int index, Card card) {
     // Add card to table
     game_->playCardToTable(cardToPlay);
     game_->playPlayerCard(index, cardToPlay);
+    endTransaction();
   }
 }
 
@@ -53,6 +54,7 @@ void GameController::discardCard(const int index, Card card){
 
   Player* player = game_->getPlayer(index);
   player->discardCard(card);
+  endTransaction();
 }
 
 // Automove for a player
@@ -72,6 +74,7 @@ void GameController::playTurn(const int index) {
     Card* theCard = legalMoves.front();
     playCard(index, *theCard);
   }
+  endTransaction();
 }
 
 // Player specified by index ragequits and becomes a computer
@@ -81,11 +84,13 @@ void GameController::rageQuit(const int index) {
   game_->setPlayer(index, new ComputerPlayer(*humanToConvert));
   delete humanToConvert;
   numComputerPlayers_++;
+  endTransaction();
 }
 
 // Ends the program
 void GameController::quit() const{
   game_->setQuit();
+  endTransaction();
 }
 
 // Creates a new player based on type
@@ -97,11 +102,13 @@ void GameController::setPlayer(const int index, const std::string playerType) {
     game_->setPlayer(index, new ComputerPlayer());
     numComputerPlayers_++;
   }
+  endTransaction();
 }
 
 // Tells the model whose turn it is
 void GameController::updateCurrentPlayer(int index){
   game_->setCurrentPlayer(index);
+  endTransaction();
 }
 
 // Prints the player specified by index's hand
@@ -163,6 +170,9 @@ std::vector<int> GameController::winners() const {
   return minPlayers;
 }
 
+void GameController::endTransaction() const {
+  game_->notify();
+}
 
 //--------------setup helpers----------------------
 void GameController::setupGame(){

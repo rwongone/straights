@@ -58,6 +58,7 @@ public:
   void dealCards();
   void cleanTable();
   void determineStartingPlayer();
+  void endTransaction() const;
 private:
   // The game
   Game* game_;

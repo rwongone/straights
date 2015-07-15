@@ -61,7 +61,6 @@ void CardTableView::update(){
       int r = (*it)->getRank();
 
       setCard(**it, true);
-      cards_.attach(images_[s][r], s, s+1, r, r+1);
     }
   }
 }
