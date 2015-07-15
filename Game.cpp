@@ -97,8 +97,9 @@ void Game::playCardToTable(Card* theCard) {
 }
 
 int Game::addPlayerScore(const int index) {
-  players_[index]->addScore();
+  int returnValue = players_[index]->addScore();
   notify();
+  return returnValue;
 }
 
 void Game::playPlayerCard(const int index, Card* card) {
@@ -131,4 +132,7 @@ void Game::shuffleDeck(){
 
 Card* Game::getCardFromDeck(int index){
   return deck_->getCard(index);
+}
+std::set<Card*> Game::getCardsOnTable() const {
+  return table_->getCards();
 }
