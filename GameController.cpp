@@ -24,6 +24,8 @@ void GameController::setupGame(){
 void GameController::playCard(const int index, Card card) {
   Card* cardToPlay = NULL;
   std::vector<Card*> legalMoves = game_->getLegalMoves(index);
+
+  std::cerr << "Player " << (index+1) << " legal moves: ";
   for(auto it = legalMoves.begin(); it != legalMoves.end(); ++it){
     std::cerr << **it << " ";
     if(**it == card){
@@ -31,20 +33,15 @@ void GameController::playCard(const int index, Card card) {
     }
   }
   std::cerr << std::endl;
-  std::cerr << legalMoves.size() << std::endl;
 
   // This is not a legal play
   if(cardToPlay == NULL){
-    std::cerr << "illegal play" << std::endl;
+    std::cerr << card << " is an illegal play." << std::endl;
     // throw GameControllerException("Illegal Play");
   } else {
     // Add card to table
-    Table* table = game_->getTable();
-    table->playCard(cardToPlay);
-
-    Player* player = game_->getPlayer(index);
-    // Remove card from player's hand
-    player->playCard(cardToPlay);
+    game_->playCardToTable(cardToPlay);
+    game_->playPlayerCard(index, cardToPlay);
   }
 }
 

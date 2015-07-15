@@ -112,6 +112,7 @@ void Game::setupGame(){
     if(players_[i]->hasStartCard()){
       startingPlayer_ = players_[i];
       startingPlayerIndex = i;
+      currentPlayer_ = i;
       break;
     }
   }
@@ -119,3 +120,34 @@ void Game::setupGame(){
   std::cerr << "A new round begins. It's player " << startingPlayerIndex + 1 << "'s turn to play." << std::endl;
   notify();
 }
+
+void Game::cleanTable() {
+  table_->clean();
+  notify();
+}
+
+void Game::playCardToTable(Card* theCard) {
+  table_->playCard(theCard);
+  notify();
+}
+
+int Game::addPlayerScore(const int index) {
+  players_[index]->addScore();
+  notify();
+}
+
+void Game::playPlayerCard(const int index, Card* card) {
+  players_[index]->playCard(card);
+  notify();
+}
+
+void Game::discardPlayerCard(const int index, Card* card) {
+  players_[index]->discardCard(*card);
+  notify();
+}
+
+void Game::resetPlayer(const int index) {
+  players_[index]->reset();
+  notify();
+}
+

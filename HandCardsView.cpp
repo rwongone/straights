@@ -64,6 +64,5 @@ void HandCardsView::setHand(std::vector<Card*> hand) {
 }
 
 void HandCardsView::cardInHandClicked(const int index, Card theCard) {
-  std::cerr << "HandCardsView sees that player " << index+1 << " played " << theCard << std::endl;
   controller_->playCard(index, theCard);
 }

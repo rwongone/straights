@@ -41,6 +41,12 @@ public:
   // Accessor - Returns a set of a player's legal moves
   std::vector<Card*> getLegalMoves(int);
   void setupGame();
+  void cleanTable();
+  void playCardToTable(Card*);
+  int addPlayerScore(const int);
+  void playPlayerCard(const int, Card*);
+  void discardPlayerCard(const int, Card*);
+  void resetPlayer(const int);
 private:
   // Deck
   Deck* deck_;
