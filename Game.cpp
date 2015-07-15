@@ -35,8 +35,8 @@ void Game::setQuit() {
 }
 
 // Mutator - Sets the round to done. (52 cards have been played)
-void Game::setGameOver(){
-  gameOver_ = true;
+void Game::setGameOver(bool isGameOver){
+  gameOver_ = isGameOver;
   notify();
 }
 
@@ -86,38 +86,6 @@ std::vector<Card*> Game::getLegalMoves(int index){
   return legalMoves;
 }
 
-void Game::setupGame(){
-  // Clear a player's discard pile
-  for (int i=0; i<4; i++) {
-    players_[i]->reset();
-  }
-  gameOver_ = false;
-
-  // Shuffle he deck & give each player a hand
-  deck_->shuffle();
-  for (int i=0; i<4; i++){ // Use constants
-    std::vector<Card*> playerHand;
-    for(int j = 0; j < 13; j++){ // Use constants
-      playerHand.push_back(deck_->getCard(13*i+j)); // Use constants
-    }
-    setPlayerHand(i, playerHand);
-  }
-
-  // Clear the table
-  table_->clean();
-
-  // Determine starting player
-  for(int i = 0; i < 4; i++){
-    if(players_[i]->hasStartCard()){
-      currentPlayer_ = i;
-      break;
-    }
-  }
-
-  std::cerr << "A new round begins. It's player " << currentPlayer_ + 1 << "'s turn to play." << std::endl;
-  notify();
-}
-
 void Game::cleanTable() {
   table_->clean();
   notify();
@@ -148,3 +116,19 @@ void Game::resetPlayer(const int index) {
   notify();
 }
 
+int Game::getStartingPlayerIndex(){
+  for(int i = 0; i < 4; i++){
+    if(players_[i]->hasStartCard()){
+      return i;
+    }
+  }
+  assert(false); // called without having starting player
+}
+
+void Game::shuffleDeck(){
+  deck_->shuffle();
+}
+
+Card* Game::getCardFromDeck(int index){
+  return deck_->getCard(index);
+}

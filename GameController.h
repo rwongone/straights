@@ -51,7 +51,13 @@ public:
   // Returns the winner(s) of the game
   std::vector<int> winners() const;
 
+  // setup phase and helpers
   void setupGame();
+  void resetPlayers();
+  void resetRound();
+  void dealCards();
+  void cleanTable();
+  void determineStartingPlayer();
 private:
   // The game
   Game* game_;

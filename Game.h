@@ -24,8 +24,7 @@ public:
   Table* getTable();
   // Mutator - Sets the game to quit mode: (The program should shut down)
   void setQuit();
-  // Mutator - Sets the round to done. (52 cards have been played)
-  void setGameOver();
+  void setGameOver(bool);
   // Accessor - Returns whether the game should quit
   bool shouldQuit() const;
   // Accessor - Returns whether the round is done
@@ -40,13 +39,19 @@ public:
   void setPlayerHand(const int, std::vector<Card*>);
   // Accessor - Returns a set of a player's legal moves
   std::vector<Card*> getLegalMoves(int);
-  void setupGame();
   void cleanTable();
   void playCardToTable(Card*);
   int addPlayerScore(const int);
   void playPlayerCard(const int, Card*);
   void discardPlayerCard(const int, Card*);
   void resetPlayer(const int);
+  int getStartingPlayerIndex();
+
+  // Deck Functions
+  void shuffleDeck();
+  Card* getCardFromDeck(int);
+
+
 private:
   // Deck
   Deck* deck_;

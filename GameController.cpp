@@ -16,10 +16,6 @@ std::string GameController::GameControllerException::code(){
   return code_;
 }
 
-void GameController::setupGame(){
-  game_->setupGame();
-}
-
 // Player specified by index plays a card on the table - Returns true if successful
 void GameController::playCard(const int index, Card card) {
   Card* cardToPlay = NULL;
@@ -67,7 +63,7 @@ void GameController::playTurn(const int index) {
 
   if (legalMoves.size() == 0) {
     if (hand.size() == 0) {
-      game_->setGameOver();
+      game_->setGameOver(true);
       return;
     }
     Card* theCard = hand.front();
@@ -131,7 +127,7 @@ void GameController::printSummary() const{
     std::cout << thePlayer->score() << std::endl;
 
     if (thePlayer->score() >= 80) {
-      game_->setGameOver();
+      game_->setGameOver(true);
       game_->setQuit();
     }
   }
@@ -166,3 +162,47 @@ std::vector<int> GameController::winners() const {
   }
   return minPlayers;
 }
+
+
+//--------------setup helpers----------------------
+void GameController::setupGame(){
+  resetPlayers();
+  resetRound();
+  dealCards();
+  cleanTable();
+  determineStartingPlayer();
+  game_->notify();
+}
+
+void GameController::resetPlayers(){
+  for(int i = 0; i< 4; i++){
+    game_->resetPlayer(i);
+  }
+}
+
+void GameController::resetRound(){
+  game_->setGameOver(false);
+}
+
+void GameController::dealCards(){
+  game_->shuffleDeck();
+  for(int i = 0; i < 4; i++){
+    std::vector<Card*> playerHand;
+    for(int j = 0; j < 13; j++){
+      playerHand.push_back(game_->getCardFromDeck(13 * i + j));
+    }
+    game_->setPlayerHand(i, playerHand);
+  }
+}
+
+void GameController::cleanTable(){
+  game_->cleanTable();
+}
+
+void GameController::determineStartingPlayer(){
+  int startingPlayerIndex = game_->getStartingPlayerIndex();
+  game_->setCurrentPlayer(startingPlayerIndex);
+  std::cerr << "A new round begins. It's player " << startingPlayerIndex + 1 << "'s turn to play." << std::endl;
+}
+
+//-------------end of setup helpers---------------
