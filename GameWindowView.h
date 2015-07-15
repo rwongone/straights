@@ -18,7 +18,6 @@ public:
   virtual ~GameWindowView();
   virtual void update();
   void assignPlayerType(std::string, int);
-  void playGame();
 private:
   Gtk::VBox mainVBox;
   TopMenuView topMenu;

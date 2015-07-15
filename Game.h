@@ -32,8 +32,6 @@ public:
   bool isGameDone() const;
   // Mutator - Sets the player at the given index
   void setPlayer(const int, Player*);
-  // Mutator - Sets the starting player
-  void setStartingPlayer(const int);
   // Mutator - Saves the index of the current player
   void setCurrentPlayer(const int);
   // Accessor - Gets the index of the current player
@@ -42,7 +40,7 @@ public:
   void setPlayerHand(const int, std::vector<Card*>);
   // Accessor - Returns a set of a player's legal moves
   std::vector<Card*> getLegalMoves(int);
-  void startGame();
+  void setupGame();
 private:
   // Deck
   Deck* deck_;

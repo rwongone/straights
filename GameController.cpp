@@ -16,6 +16,10 @@ std::string GameController::GameControllerException::code(){
   return code_;
 }
 
+void GameController::setupGame(){
+  game_->setupGame();
+}
+
 // Player specified by index plays a card on the table - Returns true if successful
 void GameController::playCard(const int index, Card card) {
   Card* cardToPlay = NULL;
@@ -100,39 +104,9 @@ void GameController::setPlayer(const int index, const std::string playerType) {
   }
 }
 
-// Shuffles the deck and gives each player a hand
-void GameController::dealCards() {;
-  Deck* theDeck = game_->getDeck();
-  theDeck->shuffle();
-  for (int i=0; i<4; i++){ // Use constants
-    std::vector<Card*> playerHand;
-    for(int j = 0; j < 13; j++){ // Use constants
-      playerHand.push_back(theDeck->getCard(13*i+j)); // Use constants
-    }
-    game_->setPlayerHand(i, playerHand);
-  }
-}
-
-// Gives player a hand
-void GameController::setPlayerHand(const int index, std::vector<Card*> hand) {
-    game_->setPlayerHand(index, hand);
-}
-
 // Tells the model whose turn it is
 void GameController::updateCurrentPlayer(int index){
   game_->setCurrentPlayer(index);
-}
-
-// Determines the index of the starting player
-// Pre: The 7S card must be in one player's hand.
-int GameController::findStartingPlayerIndex() {
-  for(int i = 0; i < 4; i++){
-    if(game_->getPlayer(i)->hasStartCard()){
-      game_->setStartingPlayer(i);
-      return i;
-    }
-  }
-  assert(false);
 }
 
 // Prints the player specified by index's hand
@@ -192,17 +166,4 @@ std::vector<int> GameController::winners() const {
     }
   }
   return minPlayers;
-}
-
-// Resets players and starts the game
-void GameController::startGame() {
-  for (int i=0; i<4; i++) {
-    game_->getPlayer(i)->reset();
-  }
-  game_->startGame();
-}
-
-// Clears the played cards on the table
-void GameController::cleanTable() {
-  game_->getTable()->clean();
 }

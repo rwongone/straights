@@ -31,23 +31,7 @@ GameWindowView::GameWindowView(const std::string title, Game* game, GameControll
   playerList.show();
   handCards.show();
 
-  while (!game_->shouldQuit()) {
-    controller_->startGame();
-    controller_->dealCards();
-    controller_->cleanTable();
-    std::cerr << *(game_->getDeck()) << std::endl;
-    std::cerr << "A new round begins. It's player " << (controller_->findStartingPlayerIndex()+1) << "'s turn to play." << std::endl;
-    handCards.update();
-    break;
-  }
-
-  // // Declare winners
-  // if (game_->isGameDone()) {
-  //   std::vector<int> winners = controller_->winners();
-  //   for (auto it = winners.begin(); it != winners.end(); ++it) {
-  //     // std::cout << "Player " << *it << " wins!" << std::endl;
-  //   }
-  // }
+  controller_->setupGame();
 }
 
 GameWindowView::~GameWindowView() {}

@@ -45,7 +45,7 @@ void HandCardsView::update() {
 }
 
 void HandCardsView::setHand(std::vector<Card*> hand) {
-  for (int i=0; i<hand.size(); i++) {
+  for (unsigned int i=0; i<hand.size(); i++) {
     int currentPlayerIndex = game_->getCurrentPlayer();
     Card theCard = *hand[i];
 

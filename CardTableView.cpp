@@ -18,6 +18,7 @@ CardTableView::CardTableView(Gtk::Window &parent, Game* game, GameController* co
 
   for (int i=0; i<13; i++) {
     for (int j=0; j<4; j++) {
+      // setCard(i,j,false);
       images_[i][j].set(toImageFile(j, i));
       cards_.attach(images_[i][j], i, i+1, j, j+1);
     }
@@ -49,4 +50,12 @@ std::string CardTableView::toImageFile(const int i, const int j) const {
   return returnValue.str();
 }
 
-void CardTableView::update(){}
+void CardTableView::update(){
+  // std::set<Card*> *cards = game_->getTable()->getCards();
+  // for(int i = 0; i < cards->size(); i++){
+  //   int s = cards[i].getSuit();
+  //   int r = cards[i].getRank();
+  //   setCard(cards[i], true);
+  //   cards_.attach(images_[s][r], s, s+1, r, r+1);
+  // }
+}
