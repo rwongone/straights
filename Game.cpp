@@ -107,17 +107,14 @@ void Game::setupGame(){
   table_->clean();
 
   // Determine starting player
-  int startingPlayerIndex;
   for(int i = 0; i < 4; i++){
     if(players_[i]->hasStartCard()){
-      startingPlayer_ = players_[i];
-      startingPlayerIndex = i;
       currentPlayer_ = i;
       break;
     }
   }
 
-  std::cerr << "A new round begins. It's player " << startingPlayerIndex + 1 << "'s turn to play." << std::endl;
+  std::cerr << "A new round begins. It's player " << currentPlayer_ + 1 << "'s turn to play." << std::endl;
   notify();
 }
 

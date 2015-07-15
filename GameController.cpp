@@ -108,19 +108,6 @@ void GameController::updateCurrentPlayer(int index){
   game_->setCurrentPlayer(index);
 }
 
-// Determines the index of the starting player
-// Pre: The 7S card must be in one player's hand.
-// int GameController::findStartingPlayerIndex() {
-//   for(int i = 0; i < 4; i++){
-//     if(game_->getPlayer(i)->hasStartCard()){
-//       std::cerr << "Found that the starting player has index " << i << std::endl;
-//       game_->setCurrentPlayer(i);
-//       return i;
-//     }
-//   }
-//   assert(false);
-// }
-
 // Prints the player specified by index's hand
 void GameController::printHand(const int index) const {
   game_->getPlayer(index)->printHand();
