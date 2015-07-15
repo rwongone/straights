@@ -15,6 +15,7 @@ HandCardsView::HandCardsView(Gtk::Window &parent, Game* game, GameController* co
     images_[i].set("img/nothing.png");
     clickableImages_[i].set_image(images_[i]);
     cards_.attach(clickableImages_[i], i, i + 1, 0, 1);
+    cards_.attach(discardButtons_[i], i, i + 1, 1, 2);
   }
 
   cards_.set_col_spacings(2);
