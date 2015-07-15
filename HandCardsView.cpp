@@ -42,15 +42,23 @@ void HandCardsView::update() {
 }
 
 void HandCardsView::setHand(std::vector<Card*> hand) {
+  for (int i=0; i<13; i++) {
+    clickableImagesHandlers_[i].disconnect();
+    discardButtonsHandlers_[i].disconnect();
+  }
+
   for (unsigned int i=0; i<hand.size(); i++) {
     int currentPlayerIndex = game_->getCurrentPlayer();
     Card theCard = *hand[i];
 
     images_[i].set(toImageFile(theCard));
-    clickableImages_[i].signal_clicked().connect(sigc::bind<int, Card>(sigc::mem_fun(*this, &HandCardsView::cardInHandClicked), currentPlayerIndex, theCard));
+    clickableImagesHandlers_[i] = clickableImages_[i].signal_clicked().connect(sigc::bind<int, Card>(sigc::mem_fun(*this, &HandCardsView::cardInHandClicked), currentPlayerIndex, theCard));
+    discardButtonsHandlers_[i] = discardButtons_[i].signal_clicked().connect(sigc::bind<int, Card>(sigc::mem_fun(*this, &HandCardsView::discardButtonClicked), currentPlayerIndex, theCard));
   }
   for (int i=hand.size(); i<13; i++) {
     images_[i].set("img/nothing.png");
+    clickableImages_[i].signal_clicked().connect(sigc::mem_fun(*this, &HandCardsView::NOOP));
+    discardButtons_[i].signal_clicked().connect(sigc::mem_fun(*this, &HandCardsView::NOOP));
   }
 
   for (int i=0; i<13; i++) {
@@ -60,4 +68,13 @@ void HandCardsView::setHand(std::vector<Card*> hand) {
 
 void HandCardsView::cardInHandClicked(const int index, Card theCard) {
   controller_->playCard(index, theCard);
+}
+
+void HandCardsView::discardButtonClicked(const int index, Card theCard) {
+  controller_->discardCard(index, theCard);
+}
+
+// no operation
+void HandCardsView::NOOP() const {
+  return;
 }

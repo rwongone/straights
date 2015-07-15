@@ -57,9 +57,6 @@ void CardTableView::update(){
 
   for (int i=0; i<4; i++) {
     for(auto it=cardsOnTable_[i].begin(); it!=cardsOnTable_[i].end(); ++it) {
-      int s = (*it)->getSuit();
-      int r = (*it)->getRank();
-
       setCard(**it, true);
     }
   }

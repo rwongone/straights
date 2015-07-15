@@ -21,12 +21,17 @@ private:
   Gtk::Window &parent_;
   Gtk::Table cards_;
   Gtk::Button clickableImages_[13];
+  sigc::connection clickableImagesHandlers_[13];
+  Gtk::Button discardButtons_[13];
+  sigc::connection discardButtonsHandlers_[13];
   Gtk::Image images_[13];
   Game* game_;
   GameController* controller_;
   std::string toImageFile(const int, const int) const;
   std::string toImageFile(const Card&) const;
   void cardInHandClicked(const int, Card);
+  void discardButtonClicked(const int, Card);
+  void NOOP() const;
   Player* currentPlayer_;
 };
 
