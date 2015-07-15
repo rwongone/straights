@@ -56,13 +56,6 @@ void Game::setPlayer(const int index, Player* player) {
   notify();
 }
 
-// Mutator - Sets the starting player
-void Game::setStartingPlayer(const int index) {
-  assert(0 <= index && index < NUMBER_OF_PLAYERS);
-  startingPlayer_ = players_[index];
-  notify();
-}
-
 // Mutator - Saves the index of the current player
 void Game::setCurrentPlayer(const int index){
   currentPlayer_ = index;

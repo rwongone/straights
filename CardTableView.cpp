@@ -12,10 +12,8 @@ CardTableView::CardTableView(Gtk::Window &parent, Game* game, GameController* co
   controller_(controller),
   table_(game_->getTable()) {
 
-
   // Start observing the Facade
   game->subscribe(this);
-  table_->subscribe(this);
 
   set_label("Cards on the table");
 

@@ -18,7 +18,6 @@ std::string GameController::GameControllerException::code(){
 
 void GameController::setupGame(){
   game_->setupGame();
-  updateCurrentPlayer(game_->findStartingPlayerIndex());
 }
 
 // Player specified by index plays a card on the table - Returns true if successful
@@ -114,16 +113,16 @@ void GameController::updateCurrentPlayer(int index){
 
 // Determines the index of the starting player
 // Pre: The 7S card must be in one player's hand.
-int GameController::findStartingPlayerIndex() {
-  for(int i = 0; i < 4; i++){
-    if(game_->getPlayer(i)->hasStartCard()){
-      std::cerr << "Found that the starting player has index " << i << std::endl;
-      game_->setStartingPlayer(i);
-      return i;
-    }
-  }
-  assert(false);
-}
+// int GameController::findStartingPlayerIndex() {
+//   for(int i = 0; i < 4; i++){
+//     if(game_->getPlayer(i)->hasStartCard()){
+//       std::cerr << "Found that the starting player has index " << i << std::endl;
+//       game_->setCurrentPlayer(i);
+//       return i;
+//     }
+//   }
+//   assert(false);
+// }
 
 // Prints the player specified by index's hand
 void GameController::printHand(const int index) const {
