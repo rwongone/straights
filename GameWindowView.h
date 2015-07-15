@@ -17,7 +17,8 @@ public:
   GameWindowView(const std::string, Game*, GameController*);
   virtual ~GameWindowView();
   virtual void update();
-  void assignPlayerType(std::string);
+  void assignPlayerType(std::string, int);
+  void playGame();
 private:
   Gtk::VBox mainVBox;
   TopMenuView topMenu;
@@ -26,6 +27,8 @@ private:
   HandCardsView handCards;
   Game* game_;
   GameController* controller_;
+  // The index of the current player
+  int currentPlayerIndex_;
 };
 
 #endif

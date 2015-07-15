@@ -13,7 +13,7 @@ HandCardsView::HandCardsView(Gtk::Window &parent, Game* game, GameController* co
   set_label("Your Hand");
 
   for (int i = 0; i < 13; i++) {
-    images_[i].set(toImageFile(0, i));
+    images_[i].set("img/nothing.png");
     cards_.attach(images_[i], i, i + 1, 0, 1);
     images_[i].show();
   }
@@ -31,4 +31,25 @@ std::string HandCardsView::toImageFile(const int i, const int j) const {
   return returnValue.str();
 }
 
-void HandCardsView::update(){}
+std::string HandCardsView::toImageFile(const Card& c) const {
+  return toImageFile(c.getSuit(), c.getRank());
+}
+
+void HandCardsView::update() {
+  currentPlayer_ = game_->getPlayer(game_->getCurrentPlayer());
+  setHand(currentPlayer_->getHand());
+
+  for (int i=0; i<13; i++) {
+    cards_.attach(images_[i], i, i+1, 0, 1);
+  }
+}
+
+void HandCardsView::setHand(std::vector<Card*> hand) {
+  int i = 0;
+  for (; i<hand.size(); i++) {
+    images_[i].set(toImageFile(*(hand[i])));
+  }
+  for (; i<13; i++) {
+    images_[i].set("img/nothing.png");
+  }
+}

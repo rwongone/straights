@@ -16,7 +16,7 @@ GameWindowView::GameWindowView(const std::string title, Game* game, GameControll
   set_title(title);
 
   for(int i = 0; i < 4; i++){
-    PlayerPickerView picker(*this, "What type of player are you?");
+    PlayerPickerView picker(*this, "What type of player are you?", i);
   }
 
   add(mainVBox);
@@ -30,14 +30,31 @@ GameWindowView::GameWindowView(const std::string title, Game* game, GameControll
   cardTable.show();
   playerList.show();
   handCards.show();
+
+  while (!game_->shouldQuit()) {
+    controller_->startGame();
+    controller_->dealCards();
+    controller_->cleanTable();
+    std::cerr << *(game_->getDeck()) << std::endl;
+    std::cerr << "A new round begins. It's player " << (controller_->findStartingPlayerIndex()+1) << "'s turn to play." << std::endl;
+    break;
+  }
+
+  // // Declare winners
+  // if (game_->isGameDone()) {
+  //   std::vector<int> winners = controller_->winners();
+  //   for (auto it = winners.begin(); it != winners.end(); ++it) {
+  //     // std::cout << "Player " << *it << " wins!" << std::endl;
+  //   }
+  // }
 }
 
 GameWindowView::~GameWindowView() {}
 
 void GameWindowView::update(){}
 
-void GameWindowView::assignPlayerType(std::string playerType){
+void GameWindowView::assignPlayerType(std::string playerType, int whichPlayer){
   // Parse Human Player or Computer Player
-  // Determine player index
-  // controller_->setPlayer()
+  controller_->setPlayer(whichPlayer, playerType);
+  std::cerr << whichPlayer << " " << playerType << std::endl;
 }

@@ -10,12 +10,13 @@ class GameWindowView;
 
 class PlayerPickerView : Gtk::Dialog {
 public:
-  PlayerPickerView(GameWindowView&, std::string);
+  PlayerPickerView(GameWindowView&, std::string, int);
   virtual ~PlayerPickerView();
 private:
   GameWindowView &parent_;
   Gtk::RadioButton::Group group;
   std::vector<Gtk::RadioButton*> buttons;
+  int whichPlayer_;
 };
 
 #endif

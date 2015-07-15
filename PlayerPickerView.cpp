@@ -1,9 +1,10 @@
 #include "PlayerPickerView.h"
 
-PlayerPickerView::PlayerPickerView(GameWindowView &parent, std::string title) :
+PlayerPickerView::PlayerPickerView(GameWindowView &parent, std::string title, int whichPlayer) :
   // Initialization List
   Dialog(title, parent, true, true),
-  parent_(parent) {
+  parent_(parent),
+  whichPlayer_(whichPlayer) {
 
   set_default_size(300, 150);
   std::vector<std::string> options;
@@ -26,7 +27,7 @@ PlayerPickerView::PlayerPickerView(GameWindowView &parent, std::string title) :
     case Gtk::RESPONSE_OK:
       for(unsigned int i =0; i < options.size(); i++){
         if(buttons[i]->get_active()){
-          parent.assignPlayerType(options[i]);
+          parent.assignPlayerType(options[i], whichPlayer_);
           break;
         }
       }

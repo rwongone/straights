@@ -91,8 +91,8 @@ void GameController::quit() const{
 
 // Creates a new player based on type
 void GameController::setPlayer(const int index, const std::string playerType) {
-  assert(playerType == "h" || playerType == "c");
-  if (playerType == "h"){
+  assert(playerType == "Human Player" || playerType == "Computer Player");
+  if (playerType == "Human Player"){
     game_->setPlayer(index, new HumanPlayer());
   } else {
     game_->setPlayer(index, new ComputerPlayer());
