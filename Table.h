@@ -19,7 +19,7 @@ public:
   // Insertion Operator - Insert Table into output stream
   friend std::ostream& operator<<(std::ostream&, Table&);
   void clean();
-
+  std::set<Card*> getCards() const;
 private:
   // A pointer to a set of cards that have been played.
   std::set<Card*> *cardsPlayed_;

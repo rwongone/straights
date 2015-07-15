@@ -13,13 +13,14 @@ CardTableView::CardTableView(Gtk::Window &parent, Game* game, GameController* co
   table_(game_->getTable()) {
 
   // Start observing the Facade
+  std::cerr << "CardTableView is subscribed to game facade." << std::endl;
   game->subscribe(this);
 
   set_label("Cards on the table");
 
   for (int i=0; i<13; i++) {
     for (int j=0; j<4; j++) {
-      images_[i][j].set(NOTHING_CARD);
+      setCard(j, i, false);
       cards_.attach(images_[i][j], i, i+1, j, j+1);
     }
   }
@@ -51,11 +52,13 @@ std::string CardTableView::toImageFile(const int i, const int j) const {
 }
 
 void CardTableView::update(){
-  // std::set<Card*> *cards = game_->getTable()->getCards();
-  // for(int i = 0; i < cards->size(); i++){
-  //   int s = cards[i].getSuit();
-  //   int r = cards[i].getRank();
-  //   setCard(cards[i], true);
-  //   cards_.attach(images_[s][r], s, s+1, r, r+1);
-  // }
+  std::cerr << "Table is updating." << std::endl;
+  cardsOnTable_ = game_->getCardsOnTable();
+  for(auto it=cardsOnTable_.begin(); it!=cardsOnTable_.end(); ++it) {
+    int s = (*it)->getSuit();
+    int r = (*it)->getRank();
+
+    setCard(**it, true);
+    cards_.attach(images_[s][r], s, s+1, r, r+1);
+  }
 }

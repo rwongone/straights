@@ -47,6 +47,7 @@ public:
   void playPlayerCard(const int, Card*);
   void discardPlayerCard(const int, Card*);
   void resetPlayer(const int);
+  std::set<Card*> getCardsOnTable() const;
 private:
   // Deck
   Deck* deck_;

@@ -93,7 +93,7 @@ void Game::setupGame(){
   }
   gameOver_ = false;
 
-  // Shuffle he deck & give each player a hand
+  // Shuffle the deck & give each player a hand
   deck_->shuffle();
   for (int i=0; i<4; i++){ // Use constants
     std::vector<Card*> playerHand;
@@ -132,8 +132,9 @@ void Game::playCardToTable(Card* theCard) {
 }
 
 int Game::addPlayerScore(const int index) {
-  players_[index]->addScore();
+  int returnValue = players_[index]->addScore();
   notify();
+  return returnValue;
 }
 
 void Game::playPlayerCard(const int index, Card* card) {
@@ -151,3 +152,6 @@ void Game::resetPlayer(const int index) {
   notify();
 }
 
+std::set<Card*> Game::getCardsOnTable() const {
+  return table_->getCards();
+}

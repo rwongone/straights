@@ -28,7 +28,7 @@ void GameController::playCard(const int index, Card card) {
   std::cerr << "Player " << (index+1) << " legal moves: ";
   for(auto it = legalMoves.begin(); it != legalMoves.end(); ++it){
     std::cerr << **it << " ";
-    if(**it == card){
+    if(**it == card) {
       cardToPlay = *it;
     }
   }
