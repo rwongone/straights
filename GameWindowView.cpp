@@ -37,6 +37,7 @@ GameWindowView::GameWindowView(const std::string title, Game* game, GameControll
     controller_->cleanTable();
     std::cerr << *(game_->getDeck()) << std::endl;
     std::cerr << "A new round begins. It's player " << (controller_->findStartingPlayerIndex()+1) << "'s turn to play." << std::endl;
+    handCards.update();
     break;
   }
 
