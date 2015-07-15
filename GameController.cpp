@@ -38,6 +38,7 @@ void GameController::playCard(const int index, Card card) {
     // Add card to table
     game_->playCardToTable(cardToPlay);
     game_->playPlayerCard(index, cardToPlay);
+    nextTurn();
     endTransaction();
   }
 }
@@ -54,6 +55,7 @@ void GameController::discardCard(const int index, Card card){
 
   Player* player = game_->getPlayer(index);
   player->discardCard(card);
+  nextTurn();
   endTransaction();
 }
 
@@ -91,6 +93,13 @@ void GameController::rageQuit(const int index) {
 void GameController::quit() const{
   game_->setQuit();
   endTransaction();
+}
+
+void GameController::nextTurn(){
+  int currentPlayerIndex = game_->getCurrentPlayer();
+  currentPlayerIndex += 1;
+  currentPlayerIndex %= 4;
+  game_->setCurrentPlayer(currentPlayerIndex);
 }
 
 // Creates a new player based on type
@@ -181,7 +190,7 @@ void GameController::setupGame(){
   dealCards();
   cleanTable();
   determineStartingPlayer();
-  game_->notify();
+  endTransaction();
 }
 
 void GameController::resetPlayers(){
