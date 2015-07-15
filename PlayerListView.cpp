@@ -60,4 +60,8 @@ void PlayerListView::rageQuitButtonClicked(const int i) {
 
 PlayerListView::~PlayerListView() {}
 
-void PlayerListView::update(){}
+void PlayerListView::update(){
+  for(int i = 0; i < 4; i ++){
+    discards_[i].set_text(stringify(game_->getNumberOfDiscards(i), "discards"));
+  }
+}

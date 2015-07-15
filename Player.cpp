@@ -111,3 +111,7 @@ void Player::printSummary() const {
 bool Player::noMoreMoves() const {
   return hand_.size() == 0;
 }
+
+int Player::getNumberOfDiscards(){
+  return discardPile_.size();
+}

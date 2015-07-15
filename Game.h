@@ -35,18 +35,21 @@ public:
   void setCurrentPlayer(const int);
   // Accessor - Gets the index of the current player
   int getCurrentPlayer() const;
-  // Mutator - Gives the player a set of cards
-  void setPlayerHand(const int, std::vector<Card*>);
-  // Accessor - Returns a set of a player's legal moves
-  std::vector<Card*> getLegalMoves(int);
+
+  // Table Functions
   void cleanTable();
   void playCardToTable(Card*);
+  std::set<Card*>* getCardsOnTable() const;
+
+  // Player Functions
   int addPlayerScore(const int);
   void playPlayerCard(const int, Card*);
   void discardPlayerCard(const int, Card*);
   void resetPlayer(const int);
   int getStartingPlayerIndex();
-  std::set<Card*>* getCardsOnTable() const;
+  std::vector<Card*> getLegalMoves(int);
+  void setPlayerHand(const int, std::vector<Card*>);
+  int getNumberOfDiscards(const int) const;
 
   // Deck Functions
   void shuffleDeck();

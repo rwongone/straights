@@ -112,7 +112,7 @@ void GameController::setPlayer(const int index, const std::string playerType) {
     game_->setPlayer(index, new ComputerPlayer());
     numComputerPlayers_++;
   }
-  endTransaction();
+  // endTransaction();
 }
 
 // Tells the model whose turn it is

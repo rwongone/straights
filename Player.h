@@ -42,6 +42,7 @@ public:
   void printSummary() const;
   // Returns true when hand is empty
   bool noMoreMoves() const;
+  int getNumberOfDiscards();
 private:
   // A player's hand of cards
   std::vector<Card*> hand_;

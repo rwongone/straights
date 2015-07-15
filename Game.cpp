@@ -68,6 +68,10 @@ void Game::setPlayerHand(const int index, std::vector<Card*> hand) {
   players_[index]->setHand(hand);
 }
 
+int Game::getNumberOfDiscards(const int index) const{
+  return players_[index]->getNumberOfDiscards();
+}
+
 // Accessor - Returns a set of a player's legal moves
 std::vector<Card*> Game::getLegalMoves(int index){
   Player* player = getPlayer(index);
