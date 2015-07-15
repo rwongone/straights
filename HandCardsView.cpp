@@ -1,4 +1,5 @@
 #include "HandCardsView.h"
+#include <sstream>
 
 HandCardsView::HandCardsView(Gtk::Window &parent, Game* game, GameController* controller) :
   // Initialization List
@@ -9,8 +10,6 @@ HandCardsView::HandCardsView(Gtk::Window &parent, Game* game, GameController* co
 
   // Start observing the Facade
   game_->subscribe(this);
-
-  set_label("Your Hand");
 
   for (int i = 0; i < 13; i++) {
     images_[i].set("img/nothing.png");
@@ -36,6 +35,9 @@ std::string HandCardsView::toImageFile(const Card& c) const {
 }
 
 void HandCardsView::update() {
+  std::ostringstream label;
+  label << "Player " << game_->getCurrentPlayer() + 1 << "'s hand" << std::endl;
+  set_label(label.str());
   std::cerr << "Updating hand for player " << game_->getCurrentPlayer() + 1 << std::endl;
   currentPlayer_ = game_->getPlayer(game_->getCurrentPlayer());
   setHand(currentPlayer_->getHand());
