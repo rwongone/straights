@@ -1,7 +1,7 @@
 #include "Game.h"
 
 // Constructor - Takes an int which is used as a seed to shuffle the deck
-Game::Game(int seed = 0): deck_(new Deck(seed)), table_(new Table()), shouldQuit_(false), gameOver_(false) {}
+Game::Game(int seed = 0): deck_(new Deck(seed)), table_(new Table()), gameOver_(false), roundOver_(false) {}
 
 // Destructor - Delete the table and players
 Game::~Game() {
@@ -30,22 +30,22 @@ Table* Game::getTable() {
 
 // Mutator - Sets the game to quit mode: (The program should shut down)
 void Game::setGameOver() {
-  shouldQuit_ = true;
+  gameOver_ = true;
 }
 
 // Mutator - Sets the round to done. (52 cards have been played)
-void Game::setRoundOver(bool isGameOver){
-  gameOver_ = isGameOver;
+void Game::setRoundOver(bool isRoundOver){
+  roundOver_ = isRoundOver;
 }
 
 // Accessor - Returns whether the game should quit
-bool Game::shouldQuit() const{
-  return shouldQuit_;
+bool Game::getGameOver() const{
+  return gameOver_;
 }
 
 // Accessor - Returns whether the round is done
-bool Game::isGameDone() const{
-  return gameOver_;
+bool Game::getRoundOver() const{
+  return roundOver_;
 }
 
 // Mutator - Sets the player at the given index

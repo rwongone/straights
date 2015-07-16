@@ -6,6 +6,7 @@
 #include "Game.h"
 #include <vector>
 #include <string>
+#include <sstream>
 
 class GameController{
 public:
@@ -45,11 +46,11 @@ public:
   // Prints a summary of discards and scores at the end of a round
   void printSummary() const;
   // Returns true if the round is over
-  bool isGameDone() const;
+  bool getRoundOver() const;
   // Returns true if the program should end
-  bool shouldQuit() const;
+  bool getGameOver() const;
   // Returns the winner(s) of the game
-  std::vector<int> winners() const;
+  std::string winners() const;
   void nextTurn();
   void endTransaction() const;
 
