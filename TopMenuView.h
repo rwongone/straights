@@ -13,6 +13,7 @@ public:
   virtual void update();
 private:
   void quitButtonClicked();
+  void seedButtonClicked();
   Gtk::Window &parent_;
   Gtk::Button seedButton;
   Gtk::Entry seedEntry;

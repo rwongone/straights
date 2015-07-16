@@ -16,6 +16,7 @@ TopMenuView::TopMenuView(Gtk::Window &parent, Game* game, GameController* contro
   pack_start(quitButton);
 
   quitButton.signal_clicked().connect(sigc::mem_fun(*this, &TopMenuView::quitButtonClicked));
+  seedButton.signal_clicked().connect(sigc::mem_fun(*this, &TopMenuView::seedButtonClicked));
 
   seedButton.show();
   seedEntry.show();
@@ -26,6 +27,11 @@ TopMenuView::~TopMenuView() {}
 
 void TopMenuView::quitButtonClicked() {
   parent_.hide();
+}
+
+void TopMenuView::seedButtonClicked() {
+  std::cerr << "hello there: " << seedEntry.get_text() << std::endl;
+  controller_->setupGame();
 }
 
 void TopMenuView::update(){}

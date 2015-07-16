@@ -55,6 +55,9 @@ void CardTableView::update(){
   cardsOnTable_ = game_->getCardsOnTable();
 
   for (int i=0; i<4; i++) {
+    for (int j=0; j<13; j++) {
+      setCard(i, j, false);
+    }
     for(auto it=cardsOnTable_[i].begin(); it!=cardsOnTable_[i].end(); ++it) {
       setCard(**it, true);
     }
