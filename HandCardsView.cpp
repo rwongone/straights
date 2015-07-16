@@ -51,6 +51,7 @@ void HandCardsView::update() {
   if (legalMoves.size() > 0) {
     for (int i=0; i<hand.size(); i++) {
       discardIcons_[i].clear();
+      discardButtonsHandlers_[i].disconnect();
       for (auto it=legalMoves.begin(); it!=legalMoves.end(); ++it) {
         if (*hand[i] == **it) {
           discardIcons_[i].set("img/up.png");
@@ -79,8 +80,6 @@ void HandCardsView::setHand(std::vector<Card*> hand) {
   for (int i=hand.size(); i<13; i++) {
     images_[i].set("img/nothing.png");
     discardIcons_[i].clear();
-    clickableImages_[i].signal_clicked().connect(sigc::mem_fun(*this, &HandCardsView::NOOP));
-    discardButtons_[i].signal_clicked().connect(sigc::mem_fun(*this, &HandCardsView::NOOP));
   }
 
   for (int i=0; i<13; i++) {
