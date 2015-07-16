@@ -47,6 +47,7 @@ public:
   void discardPlayerCard(const int, Card*);
   void resetPlayer(const int);
   int getStartingPlayerIndex();
+  std::vector<Card*> getPlayerHand(int);
   std::vector<Card*> getLegalMoves(int);
   void setPlayerHand(const int, std::vector<Card*>);
   int getNumberOfDiscards(const int) const;

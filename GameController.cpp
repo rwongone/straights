@@ -62,9 +62,8 @@ void GameController::discardCard(const int index, Card card){
 
 // Automove for a player
 void GameController::playTurn(const int index) {
-  Player* player = game_->getPlayer(index);
   std::vector<Card*> legalMoves = game_->getLegalMoves(index);
-  std::vector<Card*> hand = player->getHand();
+  std::vector<Card*> hand = game_->getPlayerHand(index);
 
   if (legalMoves.size() == 0) {
     if (hand.size() == 0) {

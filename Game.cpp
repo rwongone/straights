@@ -85,6 +85,10 @@ std::vector<Card*> Game::getLegalMoves(int index){
   return legalMoves;
 }
 
+std::vector<Card*> Game::getPlayerHand(int index){
+  return players_[index]->getHand();
+}
+
 void Game::cleanTable() {
   table_->clean();
 }
