@@ -1,4 +1,5 @@
 #include "TopMenuView.h"
+#include <stdlib.h>
 
 TopMenuView::TopMenuView(Gtk::Window &parent, Game* game, GameController* controller):
   // Initialization List
@@ -30,8 +31,7 @@ void TopMenuView::quitButtonClicked() {
 }
 
 void TopMenuView::seedButtonClicked() {
-  std::cerr << "hello there: " << seedEntry.get_text() << std::endl;
-  controller_->setupGame();
+  controller_->setupGame(atoi(seedEntry.get_text().c_str()));
 }
 
 void TopMenuView::update(){}

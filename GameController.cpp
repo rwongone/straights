@@ -196,10 +196,10 @@ void GameController::endTransaction() const {
 }
 
 //--------------setup helpers----------------------
-void GameController::setupGame(){
+void GameController::setupGame(int seed){
   resetPlayers();
   resetRound();
-  dealCards();
+  dealCards(seed);
   cleanTable();
   determineStartingPlayer();
   playUntilHuman();
@@ -216,7 +216,8 @@ void GameController::resetRound(){
   game_->setGameOver(false);
 }
 
-void GameController::dealCards(){
+void GameController::dealCards(int seed){
+  game_->setSeed(seed);
   game_->shuffleDeck();
   for(int i = 0; i < 4; i++){
     std::vector<Card*> playerHand;

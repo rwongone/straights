@@ -54,6 +54,7 @@ public:
   bool isPlayerHuman(const int);
 
   // Deck Functions
+  void setSeed(int);
   void shuffleDeck();
   Card* getCardFromDeck(int);
 private:

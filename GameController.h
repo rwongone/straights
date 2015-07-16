@@ -54,10 +54,10 @@ public:
   void endTransaction() const;
 
   // setup phase and helpers
-  void setupGame();
+  void setupGame(int = 0);
   void resetPlayers();
   void resetRound();
-  void dealCards();
+  void dealCards(int);
   void cleanTable();
   void determineStartingPlayer();
   void playUntilHuman();

@@ -127,6 +127,10 @@ int Game::getStartingPlayerIndex(){
   assert(false); // called without having starting player
 }
 
+void Game::setSeed(int seed){
+  deck_->setSeed(seed);
+}
+
 void Game::shuffleDeck(){
   deck_->shuffle();
 }

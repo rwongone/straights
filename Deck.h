@@ -16,6 +16,7 @@ public:
   Card* getCard(const int) const;
   // Mutator - Shuffle the order of the deck's card
   void shuffle();
+  void setSeed(int);
   // Insertion Operator - Insert Deck into output stream
   friend std::ostream &operator<<(std::ostream &, const Deck &);
 private:
