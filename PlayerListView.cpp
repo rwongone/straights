@@ -22,7 +22,7 @@ PlayerListView::PlayerListView(Gtk::Window &parent, Game* game, GameController* 
   for(int i = 0; i < 4; i++){
     // Add the "Player i" title to the frame
     std::ostringstream frameTitle;
-    frameTitle << "Player " << i;
+    frameTitle << "Player " << i + 1;
     frames_[i].set_label(frameTitle.str());
 
     // Add the frame to the HBox
@@ -62,6 +62,17 @@ PlayerListView::~PlayerListView() {}
 
 void PlayerListView::update(){
   for(int i = 0; i < 4; i ++){
+    std::ostringstream playerName;
+    playerName << "Player " << i + 1 << " - ";
+    if(game_->isPlayerHuman(i)){
+      playerName << "Human";
+    } else {
+      playerName << "Computer";
+    }
+    if(game_->getCurrentPlayer() == i){
+      playerName << " (*)";
+    }
+    frames_[i].set_label(playerName.str());
     discards_[i].set_text(stringify(game_->getNumberOfDiscards(i), "discards"));
   }
 }

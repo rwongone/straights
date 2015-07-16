@@ -51,6 +51,7 @@ public:
   std::vector<Card*> getLegalMoves(int);
   void setPlayerHand(const int, std::vector<Card*>);
   int getNumberOfDiscards(const int) const;
+  bool isPlayerHuman(const int);
 
   // Deck Functions
   void shuffleDeck();

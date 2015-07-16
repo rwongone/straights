@@ -89,6 +89,10 @@ std::vector<Card*> Game::getPlayerHand(int index){
   return players_[index]->getHand();
 }
 
+bool Game::isPlayerHuman(const int index){
+  return getPlayer(index)->isHuman();
+}
+
 void Game::cleanTable() {
   table_->clean();
 }
