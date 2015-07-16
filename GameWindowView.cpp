@@ -32,13 +32,13 @@ GameWindowView::GameWindowView(const std::string title, Game* game, GameControll
   playerList.show();
   handCards.show();
 
-  controller_->setupGame();
+  controller_->resetGame();
 }
 
 GameWindowView::~GameWindowView() {}
 
 void GameWindowView::update() {
-  if(game_->isGameDone()){
+  if(game_->getRoundOver()){
     std::ostringstream message;
     for(int i = 0; i < 4; i++){
       message << "Player " << (i + 1) << "'s discards:";

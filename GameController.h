@@ -33,8 +33,6 @@ public:
   void playTurn(const int);
   // Player specified by index ragequits and becomes a computer
   void rageQuit(const int);
-  // Ends the game
-  void quit() const;
   // Creates a new player based on type
   void setPlayer(const int, const std::string);
   // Tells the model whose turn it is
@@ -55,10 +53,11 @@ public:
   void endTransaction() const;
 
   // setup phase and helpers
-  void setupGame(int = 0);
+  void resetGame();
+  void resetGame(int);
   void resetPlayers();
   void resetRound();
-  void dealCards(int);
+  void dealCards();
   void cleanTable();
   void determineStartingPlayer();
   void playUntilHuman();

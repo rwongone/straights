@@ -25,7 +25,7 @@ public:
   // Accessor - Returns the table
   Table* getTable();
   // Mutator - Sets the game to quit mode: (The program should shut down)
-  void setGameOver();
+  void setGameOver(bool);
   void setRoundOver(bool);
   // Accessor - Returns whether the game should quit
   bool getGameOver() const;

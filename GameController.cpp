@@ -77,12 +77,6 @@ void GameController::rageQuit(const int index) {
   endTransaction();
 }
 
-// Ends the program
-void GameController::quit() const{
-  game_->setGameOver();
-  endTransaction();
-}
-
 // Automove for a player
 void GameController::playTurn(const int index) {
   std::vector<Card*> legalMoves = game_->getLegalMoves(index);
@@ -152,25 +146,6 @@ void GameController::printLegalMoves(const int index) const {
   game_->getPlayer(index)->printLegalMoves(game_->getTable());
 }
 
-// Prints a summary of discards and scores at the end of a round
-void GameController::printSummary() const{
-  for (int i=0; i<4; i++) {
-    Player *thePlayer = game_->getPlayer(i);
-    std::cout << "Player " << (i+1) << "'s discards:";
-    thePlayer->printSummary();
-
-    std::cout << "Player " << (i+1) << "'s score: ";
-    std::cout << thePlayer->score() << " + ";
-    // std::cout << thePlayer->addScore() << " = ";
-    std::cout << thePlayer->score() << std::endl;
-
-    if (thePlayer->score() >= 80) {
-      game_->setRoundOver(true);
-      game_->setGameOver();
-    }
-  }
-}
-
 // Returns true if the program should end
 bool GameController::getRoundOver() const{
   return game_->getRoundOver();
@@ -219,15 +194,32 @@ void GameController::updateScores(){
     int oldScore = game_->getPlayerScore(i);
     int discardPoints = game_->getPlayerDiscardPoints(i);
     game_->setPlayerScore(i, oldScore + discardPoints);
+    if(game_->getPlayerScore(i) >= 80){
+      game_->setGameOver(true);
+      endTransaction();
+      // this break might not be correct
+      break;
+    }
   }
-  endTransaction();
+  resetRound();
 }
 
 //--------------setup helpers----------------------
-void GameController::setupGame(int seed){
-  resetPlayers();
+void GameController::resetGame(int seed){
+  game_->setSeed(seed);
+  game_->setGameOver(false);
   resetRound();
-  dealCards(seed);
+}
+
+void GameController::resetGame(){
+  game_->setGameOver(false);
+  resetRound();
+}
+
+void GameController::resetRound(){
+  resetPlayers();
+  game_->setRoundOver(false);
+  dealCards();
   cleanTable();
   determineStartingPlayer();
   playUntilHuman();
@@ -240,12 +232,7 @@ void GameController::resetPlayers(){
   }
 }
 
-void GameController::resetRound(){
-  game_->setRoundOver(false);
-}
-
-void GameController::dealCards(int seed){
-  game_->setSeed(seed);
+void GameController::dealCards(){
   game_->shuffleDeck();
   for(int i = 0; i < 4; i++){
     std::vector<Card*> playerHand;

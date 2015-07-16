@@ -31,7 +31,7 @@ void TopMenuView::quitButtonClicked() {
 }
 
 void TopMenuView::seedButtonClicked() {
-  controller_->setupGame(atoi(seedEntry.get_text().c_str()));
+  controller_->resetGame(atoi(seedEntry.get_text().c_str()));
 }
 
 void TopMenuView::update(){}
