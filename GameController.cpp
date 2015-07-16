@@ -67,6 +67,7 @@ void GameController::rageQuit(const int index) {
   game_->setPlayer(index, new ComputerPlayer(*humanToConvert));
   delete humanToConvert;
   numComputerPlayers_++;
+  playTurn(index);
   endTransaction();
 }
 

@@ -55,7 +55,7 @@ PlayerListView::PlayerListView(Gtk::Window &parent, Game* game, GameController* 
 }
 
 void PlayerListView::rageQuitButtonClicked(const int i) {
-
+  controller_->rageQuit(i);
 }
 
 PlayerListView::~PlayerListView() {}
@@ -74,5 +74,10 @@ void PlayerListView::update(){
     }
     frames_[i].set_label(playerName.str());
     discards_[i].set_text(stringify(game_->getNumberOfDiscards(i), "discards"));
+    if(game_->getCurrentPlayer() == i && game_->isPlayerHuman(i)){
+      rageQuit_[i].set_sensitive(true);
+    } else {
+      rageQuit_[i].set_sensitive(false);
+    }
   }
 }
