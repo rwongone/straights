@@ -39,10 +39,26 @@ std::string HandCardsView::toImageFile(const Card& c) const {
 
 void HandCardsView::update() {
   std::ostringstream label;
-  label << "Player " << game_->getCurrentPlayer() + 1 << "'s hand" << std::endl;
+  int currentPlayerIndex = game_->getCurrentPlayer();
+  label << "Player " << currentPlayerIndex + 1 << "'s hand" << std::endl;
   set_label(label.str());
-  currentPlayer_ = game_->getPlayer(game_->getCurrentPlayer());
-  setHand(currentPlayer_->getHand());
+  currentPlayer_ = game_->getPlayer(currentPlayerIndex);
+
+  std::vector<Card*> hand = currentPlayer_->getHand();
+  setHand(hand);
+  std::vector<Card*> legalMoves = game_->getLegalMoves(currentPlayerIndex);
+
+  if (legalMoves.size() > 0) {
+    for (int i=0; i<hand.size(); i++) {
+      discardIcons_[i].clear();
+      for (auto it=legalMoves.begin(); it!=legalMoves.end(); ++it) {
+        if (*hand[i] == **it) {
+          discardIcons_[i].set("img/up.png");
+          break;
+        }
+      }
+    }
+  }
 }
 
 void HandCardsView::setHand(std::vector<Card*> hand) {
