@@ -173,19 +173,21 @@ void GameController::printSummary() const{
 }
 
 // Returns true if the program should end
-bool GameController::isGameDone() const{
-  return game_->isGameDone();
+bool GameController::getRoundOver() const{
+  return game_->getRoundOver();
 }
 
 // Returns true if the round is over
-bool GameController::shouldQuit() const{
-  return game_->shouldQuit() || numComputerPlayers_ == 4;
+bool GameController::getGameOver() const{
+  return game_->getGameOver() || numComputerPlayers_ == 4;
 }
 
 // Returns the winner(s) of the game
-std::vector<int> GameController::winners() const {
+std::string GameController::winners() const {
   int minScore = 1000;
   std::vector<int> minPlayers;
+  std::ostringstream returnValue;
+
   for (int i=0; i<4; i++) {
     int theScore = game_->getPlayer(i)->score();
     if (theScore == minScore) {
@@ -195,11 +197,14 @@ std::vector<int> GameController::winners() const {
       minPlayers.clear();
       minPlayers.push_back(i+1);
       minScore = game_->getPlayer(i)->score();
-    } else {
-      minPlayers.clear();
     }
   }
-  return minPlayers;
+
+  for (auto it = minPlayers.begin(); it != minPlayers.end(); ++it) {
+    returnValue << "Player " << *it << " wins!" << std::endl;
+  }
+
+  return returnValue.str();
 }
 
 void GameController::endTransaction() const {

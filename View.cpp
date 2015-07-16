@@ -4,7 +4,7 @@
 View::View(Game* game, GameController* controller) : game_(game), controller_(controller) {
   createPlayers();
 
-  while (!game_->shouldQuit()) {
+  while (!game_->getGameOver()) {
     controller_->startGame();
     controller_->dealCards();
     controller_->cleanTable();
@@ -12,7 +12,7 @@ View::View(Game* game, GameController* controller) : game_(game), controller_(co
     playGame();
   }
 
-  if (game_->isGameDone()) {
+  if (game_->getRoundOver()) {
     std::vector<int> winners = controller_->winners();
     for (auto it = winners.begin(); it != winners.end(); ++it) {
       std::cout << "Player " << *it << " wins!" << std::endl;
@@ -38,7 +38,7 @@ void View::createPlayers() {
 void View::playGame() {
   currentPlayerIndex_ = controller_->findStartingPlayerIndex();
 
-  while (!game_->isGameDone() && !game_->shouldQuit()) {
+  while (!game_->getRoundOver() && !game_->getGameOver()) {
     controller_->updateCurrentPlayer(currentPlayerIndex_);
     if (game_->getPlayer(currentPlayerIndex_)->isHuman()) {
       humanPrompt();
@@ -49,7 +49,7 @@ void View::playGame() {
     currentPlayerIndex_ %= 4;
   }
 
-  if (!game_->shouldQuit()) {
+  if (!game_->getGameOver()) {
     controller_->printSummary();
   }
 }

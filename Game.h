@@ -26,9 +26,9 @@ public:
   void setGameOver();
   void setRoundOver(bool);
   // Accessor - Returns whether the game should quit
-  bool shouldQuit() const;
+  bool getGameOver() const;
   // Accessor - Returns whether the round is done
-  bool isGameDone() const;
+  bool getRoundOver() const;
   // Mutator - Sets the player at the given index
   void setPlayer(const int, Player*);
   // Mutator - Saves the index of the current player
@@ -69,9 +69,9 @@ private:
   // The player whose turn it is right now
   int currentPlayer_;
   // Determines whether the program should quit
-  bool shouldQuit_;
-  // Determines whether the round is over
   bool gameOver_;
+  // Determines whether the round is over
+  bool roundOver_;
 };
 
 #endif
