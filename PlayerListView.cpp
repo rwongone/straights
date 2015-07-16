@@ -32,7 +32,7 @@ PlayerListView::PlayerListView(Gtk::Window &parent, Game* game, GameController* 
     frames_[i].add(playerStats_[i]);
 
     // Add the ragequit button
-    rageQuit_[i].set_label("Rage!");
+    rageQuit_[i].set_label("Toggle AI");
     rageQuit_[i].signal_clicked().connect(sigc::bind<int>(sigc::mem_fun(*this, &PlayerListView::rageQuitButtonClicked), i));
 
     playerStats_[i].pack_start(rageQuit_[i]);
@@ -78,13 +78,6 @@ void PlayerListView::update(){
 
     // Number of discards
     discards_[i].set_text(stringify(game_->getNumberOfDiscards(i), "discards"));
-
-    // Ragequit
-    if(game_->getCurrentPlayer() == i && game_->isPlayerHuman(i)){
-      rageQuit_[i].set_sensitive(true);
-    } else {
-      rageQuit_[i].set_sensitive(false);
-    }
 
     // Points
     points_[i].set_text(stringify(game_->getPlayerScore(i), "points"));
