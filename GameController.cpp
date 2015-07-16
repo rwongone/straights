@@ -91,7 +91,6 @@ void GameController::playTurn(const int index) {
     Card* theCard = legalMoves.front();
     playCard(index, *theCard);
   }
-  endTransaction();
 }
 
 void GameController::playUntilHuman() {
