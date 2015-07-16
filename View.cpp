@@ -59,7 +59,7 @@ void View::humanPrompt() {
   int currentIndex = game_->getCurrentPlayer();
   Player* thePlayer = game_->getPlayer(currentIndex);
   if (thePlayer->noMoreMoves()) {
-    game_->setGameOver();
+    game_->setRoundOver();
     return;
   }
 

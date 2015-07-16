@@ -73,7 +73,7 @@ void GameController::rageQuit(const int index) {
 
 // Ends the program
 void GameController::quit() const{
-  game_->setQuit();
+  game_->setGameOver();
   endTransaction();
 }
 
@@ -158,8 +158,8 @@ void GameController::printSummary() const{
     std::cout << thePlayer->score() << std::endl;
 
     if (thePlayer->score() >= 80) {
-      game_->setGameOver(true);
-      game_->setQuit();
+      game_->setRoundOver(true);
+      game_->setGameOver();
     }
   }
 }
@@ -199,7 +199,7 @@ void GameController::endTransaction() const {
 }
 
 void GameController::roundOver(){
-  game_->setGameOver(true);
+  game_->setRoundOver(true);
   for(int i = 0; i < 4; i++){
     int oldScore = game_->getPlayerScore(i);
     int discardPoints = game_->getPlayerDiscardPoints(i);
@@ -225,7 +225,7 @@ void GameController::resetPlayers(){
 }
 
 void GameController::resetRound(){
-  game_->setGameOver(false);
+  game_->setRoundOver(false);
 }
 
 void GameController::dealCards(int seed){

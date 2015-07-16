@@ -29,12 +29,12 @@ Table* Game::getTable() {
 }
 
 // Mutator - Sets the game to quit mode: (The program should shut down)
-void Game::setQuit() {
+void Game::setGameOver() {
   shouldQuit_ = true;
 }
 
 // Mutator - Sets the round to done. (52 cards have been played)
-void Game::setGameOver(bool isGameOver){
+void Game::setRoundOver(bool isGameOver){
   gameOver_ = isGameOver;
 }
 
