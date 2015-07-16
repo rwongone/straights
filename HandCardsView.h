@@ -16,15 +16,15 @@ public:
   HandCardsView(Gtk::Window&, Game*, GameController*);
   virtual ~HandCardsView();
   virtual void update();
-  void setHand(std::vector<Card*>);
+  void setHand(const int, std::vector<Card*>);
 private:
   Gtk::Window &parent_;
   Gtk::Table cards_;
   Gtk::Button clickableImages_[13];
   sigc::connection clickableImagesHandlers_[13];
   Gtk::Image images_[13];
-  Gtk::Button discardButtons_[13];
-  sigc::connection discardButtonsHandlers_[13];
+  // Gtk::Button discardButtons_[13];
+  // sigc::connection discardButtonsHandlers_[13];
   Gtk::Image discardIcons_[13];
   Game* game_;
   GameController* controller_;
