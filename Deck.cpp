@@ -20,8 +20,8 @@ void Deck::setSeed(int seed){
 
 // Mutator - Shuffle the order of the deck's card
 void Deck::shuffle(){
-  // static std::mt19937 rng(seed_);
-  std::mt19937 rng(seed_); // Remove static so that the seed actually works
+  static std::mt19937 rng(seed_);
+  rng.seed(seed_);
 
   int n = Card::MAX_CARDS;
 
