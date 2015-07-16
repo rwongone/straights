@@ -9,6 +9,8 @@ public:
   HumanPlayer();
   // Destructor
   ~HumanPlayer();
+  // Copy Constructor
+  HumanPlayer(const Player&);
   // Returns true since this is a human
   bool isHuman() const;
 };
