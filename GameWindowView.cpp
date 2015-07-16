@@ -38,7 +38,7 @@ GameWindowView::GameWindowView(const std::string title, Game* game, GameControll
 GameWindowView::~GameWindowView() {}
 
 void GameWindowView::update() {
-  if(game_->getRoundOver()){
+  if(game_->getRoundOver() && game_->getGameOver() == false){
     std::ostringstream message;
     for(int i = 0; i < 4; i++){
       message << "Player " << (i + 1) << "'s discards:";
@@ -52,6 +52,11 @@ void GameWindowView::update() {
     }
     RoundSummaryView summary(*this, message.str());
     controller_->updateScores();
+  } else if(game_->getGameOver()){
+    std::ostringstream message;
+    message << "The winners are Players: " << 1;
+    RoundSummaryView winners(*this, message.str());
+    controller_->resetGame();
   }
 }
 

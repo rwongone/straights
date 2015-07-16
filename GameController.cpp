@@ -208,11 +208,14 @@ void GameController::updateScores(){
 //--------------setup helpers----------------------
 void GameController::resetGame(int seed){
   game_->setSeed(seed);
-  game_->setGameOver(false);
-  resetRound();
+  resetGame();
 }
 
 void GameController::resetGame(){
+  for(int i = 0; i < 4; i++){
+    game_->setPlayerScore(i, 0);
+  }
+
   game_->setGameOver(false);
   resetRound();
 }
