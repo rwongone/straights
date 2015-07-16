@@ -21,14 +21,16 @@ int Player::score() const {
   return score_;
 }
 
-// Mutator - Updates the player's score and returns how much it increased by
-int Player::addScore() {
+int Player::getDiscardPoints() {
   int accumulator = 0;
   for (auto it = discardPile_.begin(); it != discardPile_.end(); ++it) {
     accumulator += (**it).getRank() + 1;
   }
-  score_ += accumulator;
   return accumulator;
+}
+
+void Player::setScore(int newScore){
+  score_ = newScore;
 }
 
 // Mutator - Gives a player a vector of cards for their hand

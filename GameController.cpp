@@ -83,10 +83,6 @@ void GameController::playTurn(const int index) {
   std::vector<Card*> hand = game_->getPlayerHand(index);
 
   if (legalMoves.size() == 0) {
-    if (hand.size() == 0) {
-      game_->setGameOver(true);
-      return;
-    }
     Card* theCard = hand.front();
     discardCard(index, *theCard);
   } else {
@@ -112,6 +108,11 @@ void GameController::nextTurn(){
   currentPlayerIndex += 1;
   currentPlayerIndex %= 4;
   game_->setCurrentPlayer(currentPlayerIndex);
+  std::vector<Card*> hand = game_->getPlayerHand(currentPlayerIndex);
+  if (hand.size() == 0) {
+    roundOver();
+    return;
+  }
   playUntilHuman();
 }
 
@@ -152,7 +153,7 @@ void GameController::printSummary() const{
 
     std::cout << "Player " << (i+1) << "'s score: ";
     std::cout << thePlayer->score() << " + ";
-    std::cout << thePlayer->addScore() << " = ";
+    // std::cout << thePlayer->addScore() << " = ";
     std::cout << thePlayer->score() << std::endl;
 
     if (thePlayer->score() >= 80) {
@@ -194,6 +195,15 @@ std::vector<int> GameController::winners() const {
 
 void GameController::endTransaction() const {
   game_->notify();
+}
+
+void GameController::roundOver(){
+  game_->setGameOver(true);
+  for(int i = 0; i < 4; i++){
+    int oldScore = game_->getPlayerScore(i);
+    int discardPoints = game_->getPlayerDiscardPoints(i);
+    game_->setPlayerScore(i, oldScore + discardPoints);
+  }
 }
 
 //--------------setup helpers----------------------

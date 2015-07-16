@@ -42,7 +42,6 @@ public:
   std::set<Card*>* getCardsOnTable() const;
 
   // Player Functions
-  int addPlayerScore(const int);
   void playPlayerCard(const int, Card*);
   void discardPlayerCard(const int, Card*);
   void resetPlayer(const int);
@@ -53,6 +52,8 @@ public:
   int getNumberOfDiscards(const int) const;
   bool isPlayerHuman(const int);
   int  getPlayerScore(const int);
+  void setPlayerScore(int, int);
+  int getPlayerDiscardPoints(const int);
 
   // Deck Functions
   void setSeed(int);

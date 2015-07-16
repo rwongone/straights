@@ -19,7 +19,8 @@ public:
   // Accessor - Return's the player's score
   int score() const;
   // Mutator - Updates the player's score and returns how much it increased by
-  int addScore();
+  int getDiscardPoints();
+  void setScore(int);
   // Mutator - Gives a player a vector of cards for their hand
   void setHand(std::vector<Card*>);
   // Accessor - Returns the player's hand

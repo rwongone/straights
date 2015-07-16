@@ -48,7 +48,7 @@ void HandCardsView::update() {
   std::vector<Card*> legalMoves = game_->getLegalMoves(currentPlayerIndex);
 
   if (legalMoves.size() > 0) {
-    for (int i=0; i<hand.size(); i++) {
+    for (unsigned int i=0; i<hand.size(); i++) {
       discardIcons_[i].clear();
       for (auto it=legalMoves.begin(); it!=legalMoves.end(); ++it) {
         if (*hand[i] == **it) {

@@ -93,6 +93,14 @@ int Game::getPlayerScore(const int index){
   return getPlayer(index)->score();
 }
 
+void Game::setPlayerScore(int index, int newScore){
+  getPlayer(index)->setScore(newScore);
+}
+
+int Game::getPlayerDiscardPoints(const int index){
+  return getPlayer(index)->getDiscardPoints();
+}
+
 bool Game::isPlayerHuman(const int index){
   return getPlayer(index)->isHuman();
 }
@@ -103,11 +111,6 @@ void Game::cleanTable() {
 
 void Game::playCardToTable(Card* theCard) {
   table_->playCard(theCard);
-}
-
-int Game::addPlayerScore(const int index) {
-  int returnValue = players_[index]->addScore();
-  return returnValue;
 }
 
 void Game::playPlayerCard(const int index, Card* card) {
