@@ -6,6 +6,8 @@
 #include "HumanPlayer.h"
 #include "ComputerPlayer.h"
 #include <vector>
+#include <string>
+#include <sstream>
 #include <cassert>
 #include "Subject.h"
 
@@ -23,7 +25,7 @@ public:
   // Accessor - Returns the table
   Table* getTable();
   // Mutator - Sets the game to quit mode: (The program should shut down)
-  void setGameOver();
+  void setGameOver(bool);
   void setRoundOver(bool);
   // Accessor - Returns whether the game should quit
   bool getGameOver() const;
@@ -49,11 +51,12 @@ public:
   std::vector<Card*> getPlayerHand(int);
   std::vector<Card*> getLegalMoves(int);
   void setPlayerHand(const int, std::vector<Card*>);
-  int getNumberOfDiscards(const int) const;
+  int getNumberOfDiscards(const int);
   bool isPlayerHuman(const int);
   int  getPlayerScore(const int);
   void setPlayerScore(int, int);
   int getPlayerDiscardPoints(const int);
+  std::string getDiscardsAsString(const int);
 
   // Deck Functions
   void setSeed(int);

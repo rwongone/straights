@@ -39,8 +39,8 @@ void GameController::playCard(const int index, Card card) {
     game_->playCardToTable(cardToPlay);
     game_->playPlayerCard(index, cardToPlay);
     nextTurn();
-    endTransaction();
   }
+  endTransaction();
 }
 
 // Player specified by index discards a card - Returns true if successful
@@ -56,8 +56,8 @@ void GameController::discardCard(const int index, Card card){
     Player* player = game_->getPlayer(index);
     player->discardCard(card);
     nextTurn();
-    endTransaction();
   }
+  endTransaction();
 }
 
 // Player specified by index ragequits and becomes a computer
@@ -79,12 +79,6 @@ void GameController::rageQuit(const int index) {
   endTransaction();
 }
 
-// Ends the program
-void GameController::quit() const{
-  game_->setGameOver();
-  endTransaction();
-}
-
 // Automove for a player
 void GameController::playTurn(const int index) {
   std::vector<Card*> legalMoves = game_->getLegalMoves(index);
@@ -97,7 +91,6 @@ void GameController::playTurn(const int index) {
     Card* theCard = legalMoves.front();
     playCard(index, *theCard);
   }
-  endTransaction();
 }
 
 void GameController::playUntilHuman() {
@@ -119,6 +112,7 @@ void GameController::nextTurn(){
   game_->setCurrentPlayer(currentPlayerIndex);
   std::vector<Card*> hand = game_->getPlayerHand(currentPlayerIndex);
   if (hand.size() == 0) {
+    std::cerr << "No moves available" << std::endl;
     roundOver();
     return;
   }
@@ -151,25 +145,6 @@ void GameController::printHand(const int index) const {
 // Prints the legal moves for a player specified by index
 void GameController::printLegalMoves(const int index) const {
   game_->getPlayer(index)->printLegalMoves(game_->getTable());
-}
-
-// Prints a summary of discards and scores at the end of a round
-void GameController::printSummary() const{
-  for (int i=0; i<4; i++) {
-    Player *thePlayer = game_->getPlayer(i);
-    std::cout << "Player " << (i+1) << "'s discards:";
-    thePlayer->printSummary();
-
-    std::cout << "Player " << (i+1) << "'s score: ";
-    std::cout << thePlayer->score() << " + ";
-    // std::cout << thePlayer->addScore() << " = ";
-    std::cout << thePlayer->score() << std::endl;
-
-    if (thePlayer->score() >= 80) {
-      game_->setRoundOver(true);
-      game_->setGameOver();
-    }
-  }
 }
 
 // Returns true if the program should end
@@ -213,18 +188,43 @@ void GameController::endTransaction() const {
 
 void GameController::roundOver(){
   game_->setRoundOver(true);
+}
+
+void GameController::updateScores(){
   for(int i = 0; i < 4; i++){
     int oldScore = game_->getPlayerScore(i);
     int discardPoints = game_->getPlayerDiscardPoints(i);
     game_->setPlayerScore(i, oldScore + discardPoints);
+    if(game_->getPlayerScore(i) >= 80){
+      game_->setGameOver(true);
+    }
+  }
+  if (game_->getGameOver()) {
+    endTransaction();
+  } else {
+    resetRound();
   }
 }
 
 //--------------setup helpers----------------------
-void GameController::setupGame(int seed){
-  resetPlayers();
+void GameController::resetGame(int seed){
+  game_->setSeed(seed);
+  resetGame();
+}
+
+void GameController::resetGame(){
+  for(int i = 0; i < 4; i++){
+    game_->setPlayerScore(i, 0);
+  }
+
+  game_->setGameOver(false);
   resetRound();
-  dealCards(seed);
+}
+
+void GameController::resetRound(){
+  resetPlayers();
+  game_->setRoundOver(false);
+  dealCards();
   cleanTable();
   determineStartingPlayer();
   playUntilHuman();
@@ -237,12 +237,7 @@ void GameController::resetPlayers(){
   }
 }
 
-void GameController::resetRound(){
-  game_->setRoundOver(false);
-}
-
-void GameController::dealCards(int seed){
-  game_->setSeed(seed);
+void GameController::dealCards(){
   game_->shuffleDeck();
   for(int i = 0; i < 4; i++){
     std::vector<Card*> playerHand;

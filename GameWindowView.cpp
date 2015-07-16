@@ -1,5 +1,6 @@
 #include "GameWindowView.h"
 #include <iostream>
+#include <sstream>
 
 GameWindowView::GameWindowView(const std::string title, Game* game, GameController* controller) :
   // Initialization List
@@ -31,12 +32,33 @@ GameWindowView::GameWindowView(const std::string title, Game* game, GameControll
   playerList.show();
   handCards.show();
 
-  controller_->setupGame();
+  controller_->resetGame();
 }
 
 GameWindowView::~GameWindowView() {}
 
-void GameWindowView::update() {}
+void GameWindowView::update() {
+  if(game_->getRoundOver() && game_->getGameOver() == false){
+    std::ostringstream message;
+    for(int i = 0; i < 4; i++){
+      message << "Player " << (i + 1) << "'s discards:";
+      message << game_->getDiscardsAsString(i);
+      message << "Player " << (i + 1) << "'s score: ";
+      int oldScore = game_->getPlayerScore(i);
+      int discardPoints = game_->getPlayerDiscardPoints(i);
+      message << oldScore << " + ";
+      message << discardPoints << " = ";
+      message << oldScore + discardPoints << "\n";
+    }
+    RoundSummaryView summary(*this, message.str());
+    controller_->updateScores();
+  } else if(game_->getGameOver()){
+    std::ostringstream message;
+    message << "The winners are Players: " << 1;
+    RoundSummaryView winners(*this, message.str());
+    controller_->resetGame();
+  }
+}
 
 void GameWindowView::assignPlayerType(std::string playerType, int whichPlayer){
   // Parse Human Player or Computer Player

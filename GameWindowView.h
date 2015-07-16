@@ -9,6 +9,7 @@
 #include "PlayerListView.h"
 #include "HandCardsView.h"
 #include "PlayerPickerView.h"
+#include "RoundSummaryView.h"
 #include "Game.h"
 #include "GameController.h"
 #include "Observer.h"

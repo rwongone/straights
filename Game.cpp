@@ -29,8 +29,8 @@ Table* Game::getTable() {
 }
 
 // Mutator - Sets the game to quit mode: (The program should shut down)
-void Game::setGameOver() {
-  gameOver_ = true;
+void Game::setGameOver(bool isGameOver) {
+  gameOver_ = isGameOver;
 }
 
 // Mutator - Sets the round to done. (52 cards have been played)
@@ -68,8 +68,8 @@ void Game::setPlayerHand(const int index, std::vector<Card*> hand) {
   players_[index]->setHand(hand);
 }
 
-int Game::getNumberOfDiscards(const int index) const{
-  return players_[index]->getNumberOfDiscards();
+int Game::getNumberOfDiscards(const int index) {
+  return getPlayer(index)->getDiscards().size();
 }
 
 // Accessor - Returns a set of a player's legal moves
@@ -147,4 +147,15 @@ Card* Game::getCardFromDeck(int index){
 }
 std::set<Card*>* Game::getCardsOnTable() const {
   return table_->getCards();
+}
+
+std::string Game::getDiscardsAsString(const int index){
+  std::vector<Card*> discards = getPlayer(index)->getDiscards();
+
+  std::ostringstream message;
+  for (auto it = discards.begin(); it != discards.end(); ++it) {
+    message << " " << **it;
+  }
+  message << "\n";
+  return message.str();
 }
