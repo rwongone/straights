@@ -9,7 +9,6 @@ void Subject::subscribe(Observer* o) {
 }
 
 void Subject::notify() {
-  std::cerr << "Notifying " << subscribers_.size() << " observers." << std::endl;
   for (auto it=subscribers_.begin(); it!=subscribers_.end(); ++it) {
     (*it)->update();
   }

@@ -52,7 +52,6 @@ std::string CardTableView::toImageFile(const int i, const int j) const {
 }
 
 void CardTableView::update(){
-  std::cerr << "Table is updating." << std::endl;
   cardsOnTable_ = game_->getCardsOnTable();
 
   for (int i=0; i<4; i++) {

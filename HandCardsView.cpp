@@ -41,7 +41,6 @@ void HandCardsView::update() {
   std::ostringstream label;
   label << "Player " << game_->getCurrentPlayer() + 1 << "'s hand" << std::endl;
   set_label(label.str());
-  std::cerr << "Updating hand for player " << game_->getCurrentPlayer() + 1 << std::endl;
   currentPlayer_ = game_->getPlayer(game_->getCurrentPlayer());
   setHand(currentPlayer_->getHand());
 }

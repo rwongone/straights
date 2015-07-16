@@ -60,6 +60,7 @@ public:
   void dealCards();
   void cleanTable();
   void determineStartingPlayer();
+  void playUntilHuman();
 private:
   // The game
   Game* game_;

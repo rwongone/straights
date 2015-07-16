@@ -60,6 +60,22 @@ void GameController::discardCard(const int index, Card card){
   }
 }
 
+// Player specified by index ragequits and becomes a computer
+void GameController::rageQuit(const int index) {
+  // convert the player[index] to a computer player
+  Player* humanToConvert = game_->getPlayer(index);
+  game_->setPlayer(index, new ComputerPlayer(*humanToConvert));
+  delete humanToConvert;
+  numComputerPlayers_++;
+  endTransaction();
+}
+
+// Ends the program
+void GameController::quit() const{
+  game_->setQuit();
+  endTransaction();
+}
+
 // Automove for a player
 void GameController::playTurn(const int index) {
   std::vector<Card*> legalMoves = game_->getLegalMoves(index);
@@ -79,20 +95,15 @@ void GameController::playTurn(const int index) {
   endTransaction();
 }
 
-// Player specified by index ragequits and becomes a computer
-void GameController::rageQuit(const int index) {
-  // convert the player[index] to a computer player
-  Player* humanToConvert = game_->getPlayer(index);
-  game_->setPlayer(index, new ComputerPlayer(*humanToConvert));
-  delete humanToConvert;
-  numComputerPlayers_++;
-  endTransaction();
-}
-
-// Ends the program
-void GameController::quit() const{
-  game_->setQuit();
-  endTransaction();
+void GameController::playUntilHuman() {
+  int currentPlayerIndex = game_->getCurrentPlayer();
+  Player* thePlayer = game_->getPlayer(currentPlayerIndex);
+  if (!thePlayer->isHuman()) {
+    std::cerr << "this is a computer " << currentPlayerIndex << std::endl;
+    playTurn(currentPlayerIndex);
+  } else {
+    std::cerr << "this is a human " << currentPlayerIndex << std::endl;
+  }
 }
 
 void GameController::nextTurn(){
@@ -100,6 +111,7 @@ void GameController::nextTurn(){
   currentPlayerIndex += 1;
   currentPlayerIndex %= 4;
   game_->setCurrentPlayer(currentPlayerIndex);
+  playUntilHuman();
 }
 
 // Creates a new player based on type
@@ -190,6 +202,7 @@ void GameController::setupGame(){
   dealCards();
   cleanTable();
   determineStartingPlayer();
+  playUntilHuman();
   endTransaction();
 }
 
