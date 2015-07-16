@@ -36,7 +36,11 @@ GameWindowView::GameWindowView(const std::string title, Game* game, GameControll
 
 GameWindowView::~GameWindowView() {}
 
-void GameWindowView::update() {}
+void GameWindowView::update() {
+  if(game->isGameDone()){
+
+  }
+}
 
 void GameWindowView::assignPlayerType(std::string playerType, int whichPlayer){
   // Parse Human Player or Computer Player
