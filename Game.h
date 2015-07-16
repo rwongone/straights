@@ -52,6 +52,7 @@ public:
   void setPlayerHand(const int, std::vector<Card*>);
   int getNumberOfDiscards(const int) const;
   bool isPlayerHuman(const int);
+  int  getPlayerScore(const int);
 
   // Deck Functions
   void setSeed(int);

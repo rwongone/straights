@@ -62,6 +62,8 @@ PlayerListView::~PlayerListView() {}
 
 void PlayerListView::update(){
   for(int i = 0; i < 4; i ++){
+
+    // Player Name
     std::ostringstream playerName;
     playerName << "Player " << i + 1 << " - ";
     if(game_->isPlayerHuman(i)){
@@ -73,11 +75,18 @@ void PlayerListView::update(){
       playerName << " (*)";
     }
     frames_[i].set_label(playerName.str());
+
+    // Number of discards
     discards_[i].set_text(stringify(game_->getNumberOfDiscards(i), "discards"));
+
+    // Ragequit
     if(game_->getCurrentPlayer() == i && game_->isPlayerHuman(i)){
       rageQuit_[i].set_sensitive(true);
     } else {
       rageQuit_[i].set_sensitive(false);
     }
+
+    // Points
+    points_[i].set_text(stringify(game_->getPlayerScore(i), "points"));
   }
 }
