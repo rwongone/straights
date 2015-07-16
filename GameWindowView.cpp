@@ -1,5 +1,6 @@
 #include "GameWindowView.h"
 #include <iostream>
+#include <sstream>
 
 GameWindowView::GameWindowView(const std::string title, Game* game, GameController* controller) :
   // Initialization List
@@ -38,8 +39,13 @@ GameWindowView::~GameWindowView() {}
 
 void GameWindowView::update() {
   if(game_->isGameDone()){
-    std::cerr << "Game is done" << std::endl;
-    RoundSummaryView summary(*this, game_, controller_);
+    std::ostringstream message;
+    for(int i = 0; i < 4; i++){
+      message << "Player " << (i + 1) << "'s discards:";
+      message << game_->getDiscardsAsString(i);
+      message << "Player " << (i + 1) << "'s score: ";
+    }
+    RoundSummaryView summary(*this, message.str());
   }
 }
 

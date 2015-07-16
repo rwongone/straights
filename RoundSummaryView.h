@@ -2,12 +2,13 @@
 #define ROUND_SUMMARY_VIEW_H
 
 #include <gtkmm.h>
+#include <string>
 #include "Game.h"
 #include "GameController.h"
 
-class RoundSummaryView: public Gtk::Dialog {
+class RoundSummaryView: public Gtk::MessageDialog {
 public:
-  RoundSummaryView(Gtk::Window&, Game*, GameController*);
+  RoundSummaryView(Gtk::Window&, std::string);
   ~RoundSummaryView();
 private:
   Gtk::Window &parent_;
