@@ -197,12 +197,13 @@ void GameController::updateScores(){
     game_->setPlayerScore(i, oldScore + discardPoints);
     if(game_->getPlayerScore(i) >= 80){
       game_->setGameOver(true);
-      endTransaction();
-      // this break might not be correct
-      break;
     }
   }
-  resetRound();
+  if (game_->getGameOver()) {
+    endTransaction();
+  } else {
+    resetRound();
+  }
 }
 
 //--------------setup helpers----------------------
