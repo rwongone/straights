@@ -63,6 +63,7 @@ public:
   void determineStartingPlayer();
   void playUntilHuman();
   void roundOver();
+  void updateScores();
 private:
   // The game
   Game* game_;

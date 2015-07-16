@@ -212,11 +212,15 @@ void GameController::endTransaction() const {
 
 void GameController::roundOver(){
   game_->setRoundOver(true);
+}
+
+void GameController::updateScores(){
   for(int i = 0; i < 4; i++){
     int oldScore = game_->getPlayerScore(i);
     int discardPoints = game_->getPlayerDiscardPoints(i);
     game_->setPlayerScore(i, oldScore + discardPoints);
   }
+  endTransaction();
 }
 
 //--------------setup helpers----------------------

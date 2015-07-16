@@ -44,8 +44,14 @@ void GameWindowView::update() {
       message << "Player " << (i + 1) << "'s discards:";
       message << game_->getDiscardsAsString(i);
       message << "Player " << (i + 1) << "'s score: ";
+      int oldScore = game_->getPlayerScore(i);
+      int discardPoints = game_->getPlayerDiscardPoints(i);
+      message << oldScore << " + ";
+      message << discardPoints << " = ";
+      message << oldScore + discardPoints << "\n";
     }
     RoundSummaryView summary(*this, message.str());
+    controller_->updateScores();
   }
 }
 
