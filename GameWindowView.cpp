@@ -53,9 +53,7 @@ void GameWindowView::update() {
     RoundSummaryView summary(*this, message.str());
     controller_->updateScores();
   } else if(game_->getGameOver()){
-    std::ostringstream message;
-    message << "The winners are Players: " << 1;
-    RoundSummaryView winners(*this, message.str());
+    RoundSummaryView winners(*this, controller_->winners());
     controller_->resetGame();
   }
 }
