@@ -53,6 +53,7 @@ void GameWindowView::update() {
     RoundSummaryView summary(*this, message.str());
     controller_->updateScores();
   } else if(game_->getGameOver()){
+
     RoundSummaryView winners(*this, controller_->winners());
     controller_->resetGame();
   }
@@ -61,5 +62,5 @@ void GameWindowView::update() {
 void GameWindowView::assignPlayerType(std::string playerType, int whichPlayer){
   // Parse Human Player or Computer Player
   controller_->setPlayer(whichPlayer, playerType);
-  std::cerr << whichPlayer << " " << playerType << std::endl;
+  // std::cerr << whichPlayer << " " << playerType << std::endl;
 }

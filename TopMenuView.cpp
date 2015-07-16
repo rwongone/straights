@@ -19,6 +19,8 @@ TopMenuView::TopMenuView(Gtk::Window &parent, Game* game, GameController* contro
   quitButton.signal_clicked().connect(sigc::mem_fun(*this, &TopMenuView::quitButtonClicked));
   seedButton.signal_clicked().connect(sigc::mem_fun(*this, &TopMenuView::seedButtonClicked));
 
+  seedEntry.set_text("0");
+
   seedButton.show();
   seedEntry.show();
   quitButton.show();

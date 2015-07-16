@@ -13,7 +13,7 @@ CardTableView::CardTableView(Gtk::Window &parent, Game* game, GameController* co
   table_(game_->getTable()) {
 
   // Start observing the Facade
-  std::cerr << "CardTableView is subscribed to game facade." << std::endl;
+  // std::cerr << "CardTableView is subscribed to game facade." << std::endl;
   game->subscribe(this);
 
   set_label("Cards on the table");

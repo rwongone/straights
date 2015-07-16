@@ -8,14 +8,14 @@ View::View(Game* game, GameController* controller) : game_(game), controller_(co
     controller_->startGame();
     controller_->dealCards();
     controller_->cleanTable();
-    std::cout << "A new round begins. It's player " << (controller_->findStartingPlayerIndex()+1) << "'s turn to play." << std::endl;
+    // std::cout << "A new round begins. It's player " << (controller_->findStartingPlayerIndex()+1) << "'s turn to play." << std::endl;
     playGame();
   }
 
   if (game_->getRoundOver()) {
     std::vector<int> winners = controller_->winners();
     for (auto it = winners.begin(); it != winners.end(); ++it) {
-      std::cout << "Player " << *it << " wins!" << std::endl;
+      // std::cout << "Player " << *it << " wins!" << std::endl;
     }
   }
 }
@@ -26,7 +26,7 @@ View::~View() {}
 // Determine the type of each player and adds to the game
 void View::createPlayers() {
   for(int i = 0; i < 4; i++){
-    std::cout << "Is player " << (i + 1) << " a human(h) or a computer(c)?" << std::endl << ">";
+    // std::cout << "Is player " << (i + 1) << " a human(h) or a computer(c)?" << std::endl << ">";
     std::string playerType;
     std::cin >> playerType;
     assert(playerType == "h" || playerType == "c");
@@ -64,7 +64,7 @@ void View::humanPrompt() {
   }
 
   Table* theTable = game_->getTable();
-  std::cout << *theTable;
+  // std::cout << *theTable;
 
   // Print out hand
   controller_->printHand(currentIndex);
@@ -83,7 +83,7 @@ void View::humanPrompt() {
         done = true;
       } catch (GameController::GameControllerException ex){
         if(ex.code() == "Illegal Play"){
-          std::cout << "This is not a legal play." << std::endl << ">";
+          // std::cout << "This is not a legal play." << std::endl << ">";
         }
       }
     } else if (c.type == DISCARD) {
@@ -92,17 +92,17 @@ void View::humanPrompt() {
         done = true;
       } catch (GameController::GameControllerException ex){
         if(ex.code() == "Legal Moves Exist"){
-          std::cout << "You have a legal play. You may not discard." << std::endl << ">";
+          // std::cout << "You have a legal play. You may not discard." << std::endl << ">";
         }
       }
     } else if (c.type == DECK) {
-      std::cout << *game_->getDeck();
+      // std::cout << *game_->getDeck();
     } else if (c.type == QUIT) {
       controller_->quit();
       done = true;
     } else if (c.type == RAGEQUIT) {
       // change human player to computer player
-      std::cout << "Player " << (currentIndex+1) << " ragequits. A computer will now take over." << std::endl;
+      // std::cout << "Player " << (currentIndex+1) << " ragequits. A computer will now take over." << std::endl;
       controller_->rageQuit(currentIndex);
       controller_->playTurn(currentIndex);
       done = true;

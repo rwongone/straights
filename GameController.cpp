@@ -21,18 +21,18 @@ void GameController::playCard(const int index, Card card) {
   Card* cardToPlay = NULL;
   std::vector<Card*> legalMoves = game_->getLegalMoves(index);
 
-  std::cerr << "Player " << (index+1) << " legal moves: ";
+  // std::cerr << "Player " << (index+1) << " legal moves: ";
   for(auto it = legalMoves.begin(); it != legalMoves.end(); ++it){
-    std::cerr << **it << " ";
+    // std::cerr << **it << " ";
     if(**it == card) {
       cardToPlay = *it;
     }
   }
-  std::cerr << std::endl;
+  // std::cerr << std::endl;
 
   // This is not a legal play
   if(cardToPlay == NULL){
-    std::cerr << card << " is an illegal play." << std::endl;
+    // std::cerr << card << " is an illegal play." << std::endl;
     // throw GameControllerException("Illegal Play");
   } else {
     // Add card to table
@@ -48,10 +48,10 @@ void GameController::discardCard(const int index, Card card){
   // Assert that there are no legal moves available
   std::vector<Card*> legalMoves = game_->getLegalMoves(index);
   if(legalMoves.size() > 0){
-    std::cerr << "Legal moves exist, cannot discard." << std::endl;
+    // std::cerr << "Legal moves exist, cannot discard." << std::endl;
     // throw GameControllerException("Legal Moves Exist");
   } else {
-    std::cout << "Player " << (index+1) << " discards " << card << "." << std::endl;
+    // std::cout << "Player " << (index+1) << " discards " << card << "." << std::endl;
 
     Player* player = game_->getPlayer(index);
     player->discardCard(card);
@@ -97,10 +97,10 @@ void GameController::playUntilHuman() {
   int currentPlayerIndex = game_->getCurrentPlayer();
   Player* thePlayer = game_->getPlayer(currentPlayerIndex);
   if (!thePlayer->isHuman()) {
-    std::cerr << "this is a computer " << currentPlayerIndex << std::endl;
+    // std::cerr << "this is a computer " << currentPlayerIndex << std::endl;
     playTurn(currentPlayerIndex);
   } else {
-    std::cerr << "this is a human " << currentPlayerIndex << std::endl;
+    // std::cerr << "this is a human " << currentPlayerIndex << std::endl;
   }
 
 }
@@ -112,7 +112,7 @@ void GameController::nextTurn(){
   game_->setCurrentPlayer(currentPlayerIndex);
   std::vector<Card*> hand = game_->getPlayerHand(currentPlayerIndex);
   if (hand.size() == 0) {
-    std::cerr << "No moves available" << std::endl;
+    // std::cerr << "No moves available" << std::endl;
     roundOver();
     return;
   }
@@ -255,7 +255,7 @@ void GameController::cleanTable(){
 void GameController::determineStartingPlayer(){
   int startingPlayerIndex = game_->getStartingPlayerIndex();
   game_->setCurrentPlayer(startingPlayerIndex);
-  std::cerr << "A new round begins. It's player " << startingPlayerIndex + 1 << "'s turn to play." << std::endl;
+  // std::cerr << "A new round begins. It's player " << startingPlayerIndex + 1 << "'s turn to play." << std::endl;
 }
 
 //-------------end of setup helpers---------------
