@@ -40,6 +40,7 @@ void GameController::playCard(const int index, Card card) {
     game_->playPlayerCard(index, cardToPlay);
     nextTurn();
   }
+  endTransaction();
 }
 
 // Player specified by index discards a card - Returns true if successful
@@ -56,6 +57,7 @@ void GameController::discardCard(const int index, Card card){
     player->discardCard(card);
     nextTurn();
   }
+  endTransaction();
 }
 
 // Player specified by index ragequits and becomes a computer
@@ -89,6 +91,7 @@ void GameController::playTurn(const int index) {
     Card* theCard = legalMoves.front();
     playCard(index, *theCard);
   }
+  endTransaction();
 }
 
 void GameController::playUntilHuman() {
@@ -114,7 +117,6 @@ void GameController::nextTurn(){
     roundOver();
     return;
   }
-  endTransaction();
   playUntilHuman();
 }
 
