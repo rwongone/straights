@@ -37,8 +37,9 @@ GameWindowView::GameWindowView(const std::string title, Game* game, GameControll
 GameWindowView::~GameWindowView() {}
 
 void GameWindowView::update() {
-  if(game->isGameDone()){
-
+  if(game_->isGameDone()){
+    std::cerr << "Game is done" << std::endl;
+    RoundSummaryView summary(*this, game_, controller_);
   }
 }
 

@@ -39,7 +39,6 @@ void GameController::playCard(const int index, Card card) {
     game_->playCardToTable(cardToPlay);
     game_->playPlayerCard(index, cardToPlay);
     nextTurn();
-    endTransaction();
   }
 }
 
@@ -56,7 +55,6 @@ void GameController::discardCard(const int index, Card card){
     Player* player = game_->getPlayer(index);
     player->discardCard(card);
     nextTurn();
-    endTransaction();
   }
 }
 
@@ -97,7 +95,6 @@ void GameController::playTurn(const int index) {
     Card* theCard = legalMoves.front();
     playCard(index, *theCard);
   }
-  endTransaction();
 }
 
 void GameController::playUntilHuman() {
@@ -119,9 +116,11 @@ void GameController::nextTurn(){
   game_->setCurrentPlayer(currentPlayerIndex);
   std::vector<Card*> hand = game_->getPlayerHand(currentPlayerIndex);
   if (hand.size() == 0) {
+    std::cerr << "No moves available" << std::endl;
     roundOver();
     return;
   }
+  endTransaction();
   playUntilHuman();
 }
 

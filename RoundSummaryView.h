@@ -5,11 +5,10 @@
 #include "Game.h"
 #include "GameController.h"
 
-class RoundSummaryView: public Gtk::MessageDialog {
+class RoundSummaryView: public Gtk::Dialog {
 public:
   RoundSummaryView(Gtk::Window&, Game*, GameController*);
   ~RoundSummaryView();
-  virtual void update();
 private:
   Gtk::Window &parent_;
   Game* game_;
