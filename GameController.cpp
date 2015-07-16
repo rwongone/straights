@@ -16,7 +16,7 @@ std::string GameController::GameControllerException::code(){
   return code_;
 }
 
-// Player specified by index plays a card on the table - Returns true if successful
+// Player specified by index plays a card on the table
 void GameController::playCard(const int index, Card card) {
   Card* cardToPlay = NULL;
   std::vector<Card*> legalMoves = game_->getLegalMoves(index);
@@ -101,6 +101,7 @@ void GameController::playUntilHuman() {
   } else {
     std::cerr << "this is a human " << currentPlayerIndex << std::endl;
   }
+
 }
 
 void GameController::nextTurn(){
