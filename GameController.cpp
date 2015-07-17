@@ -116,32 +116,6 @@ void GameController::setPlayer(const int index, const std::string playerType) {
   }
 }
 
-// Tells the model whose turn it is
-void GameController::updateCurrentPlayer(int index){
-  game_->setCurrentPlayer(index);
-  endTransaction();
-}
-
-// Prints the player specified by index's hand
-void GameController::printHand(const int index) const {
-  game_->getPlayer(index)->printHand();
-}
-
-// Prints the legal moves for a player specified by index
-void GameController::printLegalMoves(const int index) const {
-  game_->getPlayer(index)->printLegalMoves(game_->getTable());
-}
-
-// Returns true if the program should end
-bool GameController::getRoundOver() const{
-  return game_->getRoundOver();
-}
-
-// Returns true if the round is over
-bool GameController::getGameOver() const{
-  return game_->getGameOver() || numComputerPlayers_ == 4;
-}
-
 // Returns the winner(s) of the game
 std::string GameController::winners() const {
   int minScore = 1000;
@@ -252,3 +226,15 @@ void GameController::determineStartingPlayer(){
 }
 
 //-------------end of setup helpers---------------
+
+
+//------debug functions-------
+// // Prints the player specified by index's hand
+// void GameController::printHand(const int index) const {
+//   game_->getPlayer(index)->printHand();
+// }
+
+// // Prints the legal moves for a player specified by index
+// void GameController::printLegalMoves(const int index) const {
+//   game_->getPlayer(index)->printLegalMoves(game_->getTable());
+// }
