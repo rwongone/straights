@@ -7,19 +7,19 @@
 #include "Observer.h"
 
 class TopMenuView : public Gtk::HBox, public Observer {
-public:
-  TopMenuView(Gtk::Window&, Game*, GameController*);
-  virtual ~TopMenuView();
-  virtual void update();
-private:
-  void quitButtonClicked();
-  void seedButtonClicked();
-  Gtk::Window &parent_;
-  Gtk::Button seedButton;
-  Gtk::Entry seedEntry;
-  Gtk::Button quitButton;
-  Game* game_;
-  GameController* controller_;
+public:                                               // PUBLIC
+  TopMenuView(Gtk::Window&, Game*, GameController*);    // Constructor
+  virtual ~TopMenuView();                               // Destructor
+  virtual void update();                                // Update the view
+private:                                              // PRIVATE
+  void quitButtonClicked();                             // Quit button handler
+  void seedButtonClicked();                             // Seed button handler
+  Gtk::Window &parent_;                                 // GameWindowView reference
+  Gtk::Button seedButton;                               // Start game with new seed button
+  Gtk::Entry seedEntry;                                 // Text entry for new seed
+  Gtk::Button quitButton;                               // Quit button
+  Game* game_;                                          // Pointer to the model
+  GameController* controller_;                          // Pointer to the controller
 };
 
 #endif

@@ -3,7 +3,6 @@
 
 #include <gtkmm.h>
 #include <string>
-#include <iostream>
 #include "TopMenuView.h"
 #include "CardTableView.h"
 #include "PlayerListView.h"
@@ -15,21 +14,19 @@
 #include "Observer.h"
 
 class GameWindowView : public Gtk::Window, public Observer {
-public:
-  GameWindowView(const std::string, Game*, GameController*);
-  virtual ~GameWindowView();
-  virtual void update();
-  void assignPlayerType(std::string, int);
-private:
-  Gtk::VBox mainVBox;
-  TopMenuView topMenu;
-  CardTableView cardTable;
-  PlayerListView playerList;
-  HandCardsView handCards;
-  Game* game_;
-  GameController* controller_;
-  // The index of the current player
-  int currentPlayerIndex_;
+public:                                                      // PUBLIC
+  GameWindowView(const std::string, Game*, GameController*);   // Constructor
+  virtual ~GameWindowView();                                   // Destructor
+  virtual void update();                                       // Update view when notify() is called
+  void assignPlayerType(std::string, int);                     // Tell controller to assign human or computer player
+private:                                                     // PRIVATE
+  Gtk::VBox mainVBox;                                          // VBox containing the 4 sections of the view
+  TopMenuView topMenu;                                         // View containing "Start game with seed" and "Quit game" buttons
+  CardTableView cardTable;                                     // View containing the cards that have been played on the table
+  PlayerListView playerList;                                   // View containing the player points, discards and type toggle
+  HandCardsView handCards;                                     // View containing the current player's cards
+  Game* game_;                                                 // Pointer to the model
+  GameController* controller_;                                 // Pointer to the controller
 };
 
 #endif

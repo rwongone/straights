@@ -6,7 +6,7 @@ PlayerPickerView::PlayerPickerView(GameWindowView &parent, std::string title, in
   parent_(parent),
   whichPlayer_(whichPlayer) {
 
-  set_default_size(300, 150);
+  set_default_size(400, 150);
   std::vector<std::string> options;
   options.push_back("Human Player");
   options.push_back("Computer Player");
