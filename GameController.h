@@ -49,22 +49,33 @@ public:
   bool getGameOver() const;
   // Returns the winner(s) of the game
   std::string winners() const;
+  // Play the next turn.
   void nextTurn();
+  // End a sequence of modifications.
   void endTransaction() const;
-
   // setup phase and helpers
+  // Reset the game with default seed 0.
   void resetGame();
+  // Reset the game with specified seed.
   void resetGame(int);
+  // Reset player state.
   void resetPlayers();
+  // Reset round state.
   void resetRound();
+  // Shuffle deck and deal cards.
   void dealCards();
+  // Clear the table of cards.
   void cleanTable();
+  // Set the starting player.
   void determineStartingPlayer();
+  // Play the game until current player is human.
   void playUntilHuman();
+  // Flag roundOver.
   void roundOver();
+  // Update player scores.
   void updateScores();
 private:
-  // The game
+  // The game facade.
   Game* game_;
   // Counter that denotes how many computer players there are
   int numComputerPlayers_;

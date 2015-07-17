@@ -82,31 +82,31 @@ void Player::reset() {
 
 // Prints the player's hand
 void Player::printHand() const {
-  // std::cout << "Your hand:";
+  std::cout << "Your hand:";
   for (auto it = hand_.begin(); it != hand_.end(); ++it) {
-    // std::cout << " " <<  **it;
+    std::cout << " " <<  **it;
   }
-  // std::cout << std::endl;
+  std::cout << std::endl;
 }
 
 // Prints the player's legal moves
 void Player::printLegalMoves(Table* table) const {
-  // std::cout << "Legal plays:";
+  std::cout << "Legal plays:";
   // Determine legal plays
   for (auto it = hand_.begin(); it != hand_.end(); ++it) {
     if (table->isLegalCard(*it)) {
-      // std::cout << " " << **it;
+      std::cout << " " << **it;
     }
   }
-  // std::cout << std::endl << ">";
+  std::cout << std::endl << ">";
 }
 
 // Prints a summary of a player's discarded cards at the end of the round
 void Player::printSummary() const {
   for (auto it = discardPile_.begin(); it != discardPile_.end(); ++it) {
-    // std::cout << " " << **it;
+    std::cout << " " << **it;
   }
-  // std::cout << std::endl;
+  std::cout << std::endl;
 }
 
 // Returns true when hand is empty
