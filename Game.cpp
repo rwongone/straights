@@ -12,34 +12,21 @@ Game::~Game() {
   }
 }
 
-// Accessor - Returns the player at the given index
-Player* Game::getPlayer(int index){
-  return players_[index];
-}
+// ------Game Related Functions-----
 
-// Accessor - Returns the deck
-Deck* Game::getDeck() {
-  return deck_;
-}
-
-// Accessor - Returns the table
-Table* Game::getTable() {
-  return table_;
-}
-
-// Mutator - Sets the game to quit mode: (The program should shut down)
+// Mutator - Set the game state
 void Game::setGameOver(bool isGameOver) {
   gameOver_ = isGameOver;
 }
 
-// Mutator - Sets the round to done. (52 cards have been played)
-void Game::setRoundOver(bool isRoundOver){
-  roundOver_ = isRoundOver;
-}
-
-// Accessor - Returns whether the game should quit
+// Accessor - Returns the game state
 bool Game::getGameOver() const{
   return gameOver_;
+}
+
+// Accessor - Returns the round state
+void Game::setRoundOver(bool isRoundOver){
+  roundOver_ = isRoundOver;
 }
 
 // Accessor - Returns whether the round is done
@@ -62,13 +49,63 @@ int Game::getCurrentPlayer() const{
   return currentPlayer_;
 }
 
-// Mutator - Gives the player a set of cards
-void Game::setPlayerHand(const int index, std::vector<Card*> hand) {
-  players_[index]->setHand(hand);
+// -----Table Related Functions
+
+// Accessor - Returns the table
+Table* Game::getTable() {
+  return table_;
 }
 
-int Game::getNumberOfDiscards(const int index) {
-  return getPlayer(index)->getDiscards().size();
+// Mutator - Clears the played cards
+void Game::cleanTable() {
+  table_->clean();
+}
+
+// Mutator - Adds card to table
+void Game::playCardToTable(Card* theCard) {
+  table_->playCard(theCard);
+}
+
+// Accessor - Return the cards that have been played
+std::set<Card*>* Game::getCardsOnTable() const {
+  return table_->getCards();
+}
+
+// -----Player Related Functions-----
+
+// Accessor - Returns the player at the given index
+Player* Game::getPlayer(int index){
+  return players_[index];
+}
+
+// Mutator - Play a card
+void Game::playPlayerCard(const int index, Card* card) {
+  players_[index]->playCard(card);
+}
+
+// Mutator - Discard a card
+void Game::discardPlayerCard(const int index, Card* card) {
+  players_[index]->discardCard(*card);
+}
+
+// Mutator - Empty Discard pile
+void Game::resetPlayer(const int index) {
+  players_[index]->reset();
+}
+
+// Accessor - Returns the index of the player with the seven of spades
+int Game::getStartingPlayerIndex(){
+  for(int i = 0; i < 4; i++){
+    if(players_[i]->hasStartCard()){
+      return i;
+    }
+  }
+  return -1;
+}
+
+// Accessor - Returns the player's hand
+std::vector<Card*> Game::getPlayerHand(int index){
+  return players_[index]->getHand();
 }
 
 // Accessor - Returns a set of a player's legal moves
@@ -84,70 +121,32 @@ std::vector<Card*> Game::getLegalMoves(int index){
   return legalMoves;
 }
 
-std::vector<Card*> Game::getPlayerHand(int index){
-  return players_[index]->getHand();
+// Mutator - Gives the player a set of cards
+void Game::setPlayerHand(const int index, std::vector<Card*> hand) {
+  players_[index]->setHand(hand);
 }
 
-int Game::getPlayerScore(const int index){
-  return getPlayer(index)->score();
+// Accessor - Return the number of discarded cards for a player
+int Game::getNumberOfDiscards(const int index) {
+  return getPlayer(index)->getDiscards().size();
 }
 
+// Mutator - Set the player score
 void Game::setPlayerScore(int index, int newScore){
   getPlayer(index)->setScore(newScore);
 }
 
+// Accessor - Return the player score
+int Game::getPlayerScore(const int index){
+  return getPlayer(index)->score();
+}
+
+// Accessor - Get the point total of discarded cards
 int Game::getPlayerDiscardPoints(const int index){
   return getPlayer(index)->getDiscardPoints();
 }
 
-bool Game::isPlayerHuman(const int index){
-  return getPlayer(index)->isHuman();
-}
-
-void Game::cleanTable() {
-  table_->clean();
-}
-
-void Game::playCardToTable(Card* theCard) {
-  table_->playCard(theCard);
-}
-
-void Game::playPlayerCard(const int index, Card* card) {
-  players_[index]->playCard(card);
-}
-
-void Game::discardPlayerCard(const int index, Card* card) {
-  players_[index]->discardCard(*card);
-}
-
-void Game::resetPlayer(const int index) {
-  players_[index]->reset();
-}
-
-int Game::getStartingPlayerIndex(){
-  for(int i = 0; i < 4; i++){
-    if(players_[i]->hasStartCard()){
-      return i;
-    }
-  }
-  return -1;
-}
-
-void Game::setSeed(int seed){
-  deck_->setSeed(seed);
-}
-
-void Game::shuffleDeck(){
-  deck_->shuffle();
-}
-
-Card* Game::getCardFromDeck(int index){
-  return deck_->getCard(index);
-}
-std::set<Card*>* Game::getCardsOnTable() const {
-  return table_->getCards();
-}
-
+// Accessor - Return the discarded cards encoded as a string
 std::string Game::getDiscardsAsString(const int index){
   std::vector<Card*> discards = getPlayer(index)->getDiscards();
 
@@ -158,3 +157,26 @@ std::string Game::getDiscardsAsString(const int index){
   message << "\n";
   return message.str();
 }
+
+// Accessor - Return true if player is human controlled
+bool Game::isPlayerHuman(const int index){
+  return getPlayer(index)->isHuman();
+}
+
+// -----Deck Related Functions-----
+
+// Mutator - Set the seed for the shuffle algorithm
+void Game::setSeed(int seed){
+  deck_->setSeed(seed);
+}
+
+// Mutator - Shuffle the deck
+void Game::shuffleDeck(){
+  deck_->shuffle();
+}
+
+// Accessor - Returns card from deck
+Card* Game::getCardFromDeck(int index){
+  return deck_->getCard(index);
+}
+
