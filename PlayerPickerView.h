@@ -9,14 +9,14 @@
 class GameWindowView;
 
 class PlayerPickerView : Gtk::Dialog {
-public:
-  PlayerPickerView(GameWindowView&, std::string, int);
-  virtual ~PlayerPickerView();
-private:
-  GameWindowView &parent_;
-  Gtk::RadioButton::Group group;
-  std::vector<Gtk::RadioButton*> buttons;
-  int whichPlayer_;
+public:                                                // PUBLIC
+  PlayerPickerView(GameWindowView&, std::string, int);   // Constructor
+  virtual ~PlayerPickerView();                           // Destructor
+private:                                               // PRIVATE
+  GameWindowView &parent_;                               // Reference to GameWindowView
+  Gtk::RadioButton::Group group;                         // Player type radio button group
+  std::vector<Gtk::RadioButton*> buttons;                // Player type radio buttons
+  int whichPlayer_;                                      // Index of current player
 };
 
 #endif

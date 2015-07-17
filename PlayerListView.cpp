@@ -3,6 +3,7 @@
 #include <sstream>
 
 namespace {
+  // Helper to combine int and string
   std::string stringify(int i, std::string str){
     std::ostringstream returnString;
     returnString << i << " " << str;
@@ -10,6 +11,7 @@ namespace {
   }
 };
 
+// Constructor
 PlayerListView::PlayerListView(Gtk::Window &parent, Game* game, GameController* controller) :
   // Initialization List
   parent_(parent),
@@ -31,11 +33,11 @@ PlayerListView::PlayerListView(Gtk::Window &parent, Game* game, GameController* 
     // Add a VBox within each frame to contain: ragequit, points, discard
     frames_[i].add(playerStats_[i]);
 
-    // Add the ragequit button
-    rageQuit_[i].set_label("Toggle AI");
-    rageQuit_[i].signal_clicked().connect(sigc::bind<int>(sigc::mem_fun(*this, &PlayerListView::rageQuitButtonClicked), i));
+    // Add the toggle player type buttons
+    togglePlayerType_[i].set_label("Toggle AI");
+    togglePlayerType_[i].signal_clicked().connect(sigc::bind<int>(sigc::mem_fun(*this, &PlayerListView::togglePlayerTypeButtonClicked), i));
 
-    playerStats_[i].pack_start(rageQuit_[i]);
+    playerStats_[i].pack_start(togglePlayerType_[i]);
 
     // Add the points
     points_[i].set_text(stringify(0, "points"));
@@ -48,22 +50,25 @@ PlayerListView::PlayerListView(Gtk::Window &parent, Game* game, GameController* 
     // Show everything
     frames_[i].show();
     playerStats_[i].show();
-    rageQuit_[i].show();
+    togglePlayerType_[i].show();
     points_[i].show();
     discards_[i].show();
   }
 }
 
-void PlayerListView::rageQuitButtonClicked(const int i) {
-  controller_->rageQuit(i);
-}
-
+// Destructor
 PlayerListView::~PlayerListView() {}
 
+// Toggle Player Type button handler
+void PlayerListView::togglePlayerTypeButtonClicked(const int i) {
+  controller_->togglePlayerType(i);
+}
+
+// Update view with player information from model
 void PlayerListView::update(){
   for(int i = 0; i < 4; i ++){
 
-    // Player Name
+    // Player Name (type)
     std::ostringstream playerName;
     playerName << "Player " << i + 1 << " - ";
     if(game_->isPlayerHuman(i)){
