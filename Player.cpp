@@ -16,11 +16,12 @@ Player::Player(const Player& player){
   discardPile_ = player.discardPile_;
 }
 
-// Accessor - Return's the player's score
+// Accessor - Returns the player's score
 int Player::score() const {
   return score_;
 }
 
+// Accessor - Returns the player's score for the current round.
 int Player::getDiscardPoints() {
   int accumulator = 0;
   for (auto it = discardPile_.begin(); it != discardPile_.end(); ++it) {

@@ -20,7 +20,6 @@ public:
   Suit getSuit() const;
   Rank getRank() const;
   bool isStartCard() const;
-
 private:
   Suit suit_;
   Rank rank_;

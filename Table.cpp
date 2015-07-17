@@ -41,12 +41,14 @@ bool Table::isLegalCard(Card* theCard) const {
   return false;
 }
 
+// Clean the table.
 void Table::clean() {
   for (int i=0; i<SUIT_COUNT; i++) {
     cardsPlayed_[i].clear();
   }
 }
 
+// Get the cards on the table.
 std::set<Card*>* Table::getCards() const {
   return cardsPlayed_;
 }
