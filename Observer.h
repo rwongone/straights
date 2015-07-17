@@ -2,10 +2,10 @@
 #define _OBSERVER_H
 
 class Observer {
-public:
-  Observer();
-  virtual ~Observer();
-  virtual void update() = 0;
+public:                     // PUBLIC
+  Observer();                 // Constructor
+  virtual ~Observer();        // Destructor
+  virtual void update() = 0;  // Update view with model data
 };
 
 #endif
