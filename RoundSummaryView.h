@@ -7,13 +7,11 @@
 #include "GameController.h"
 
 class RoundSummaryView: public Gtk::MessageDialog {
-public:
-  RoundSummaryView(Gtk::Window&, std::string);
-  ~RoundSummaryView();
-private:
-  Gtk::Window &parent_;
-  Game* game_;
-  GameController* controller_;
+public:                                       // PUBLIC
+  RoundSummaryView(Gtk::Window&, std::string);  // Constructor
+  ~RoundSummaryView();                          // Destructor
+private:                                      // PRIVATE
+  Gtk::Window &parent_;                         // Reference to GameWindowView
 };
 
 #endif

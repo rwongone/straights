@@ -21,20 +21,14 @@ void GameController::playCard(const int index, Card card) {
   Card* cardToPlay = NULL;
   std::vector<Card*> legalMoves = game_->getLegalMoves(index);
 
-  // std::cerr << "Player " << (index+1) << " legal moves: ";
   for(auto it = legalMoves.begin(); it != legalMoves.end(); ++it){
-    // std::cerr << **it << " ";
     if(**it == card) {
       cardToPlay = *it;
     }
   }
-  // std::cerr << std::endl;
 
   // This is not a legal play
-  if(cardToPlay == NULL){
-    // std::cerr << card << " is an illegal play." << std::endl;
-    // throw GameControllerException("Illegal Play");
-  } else {
+  if(cardToPlay != NULL){
     // Add card to table
     game_->playCardToTable(cardToPlay);
     game_->playPlayerCard(index, cardToPlay);
@@ -47,12 +41,7 @@ void GameController::playCard(const int index, Card card) {
 void GameController::discardCard(const int index, Card card){
   // Assert that there are no legal moves available
   std::vector<Card*> legalMoves = game_->getLegalMoves(index);
-  if(legalMoves.size() > 0){
-    // std::cerr << "Legal moves exist, cannot discard." << std::endl;
-    // throw GameControllerException("Legal Moves Exist");
-  } else {
-    // std::cout << "Player " << (index+1) << " discards " << card << "." << std::endl;
-
+  if (legalMoves.size() == 0) {
     Player* player = game_->getPlayer(index);
     player->discardCard(card);
     nextTurn();
@@ -61,7 +50,7 @@ void GameController::discardCard(const int index, Card card){
 }
 
 // Player specified by index ragequits and becomes a computer
-void GameController::rageQuit(const int index) {
+void GameController::togglePlayerType(const int index) {
   // convert the player[index] to a computer player
   Player* playerToConvert = game_->getPlayer(index);
   if (playerToConvert->isHuman()) {
@@ -93,18 +82,16 @@ void GameController::playTurn(const int index) {
   }
 }
 
+// Let computers play their turns until current player is human
 void GameController::playUntilHuman() {
   int currentPlayerIndex = game_->getCurrentPlayer();
   Player* thePlayer = game_->getPlayer(currentPlayerIndex);
   if (!thePlayer->isHuman()) {
-    // std::cerr << "this is a computer " << currentPlayerIndex << std::endl;
     playTurn(currentPlayerIndex);
-  } else {
-    // std::cerr << "this is a human " << currentPlayerIndex << std::endl;
   }
-
 }
 
+// Play the next turn.
 void GameController::nextTurn(){
   int currentPlayerIndex = game_->getCurrentPlayer();
   currentPlayerIndex += 1;
@@ -112,7 +99,6 @@ void GameController::nextTurn(){
   game_->setCurrentPlayer(currentPlayerIndex);
   std::vector<Card*> hand = game_->getPlayerHand(currentPlayerIndex);
   if (hand.size() == 0) {
-    // std::cerr << "No moves available" << std::endl;
     roundOver();
     return;
   }
@@ -128,33 +114,6 @@ void GameController::setPlayer(const int index, const std::string playerType) {
     game_->setPlayer(index, new ComputerPlayer());
     numComputerPlayers_++;
   }
-  // endTransaction();
-}
-
-// Tells the model whose turn it is
-void GameController::updateCurrentPlayer(int index){
-  game_->setCurrentPlayer(index);
-  endTransaction();
-}
-
-// Prints the player specified by index's hand
-void GameController::printHand(const int index) const {
-  game_->getPlayer(index)->printHand();
-}
-
-// Prints the legal moves for a player specified by index
-void GameController::printLegalMoves(const int index) const {
-  game_->getPlayer(index)->printLegalMoves(game_->getTable());
-}
-
-// Returns true if the program should end
-bool GameController::getRoundOver() const{
-  return game_->getRoundOver();
-}
-
-// Returns true if the round is over
-bool GameController::getGameOver() const{
-  return game_->getGameOver() || numComputerPlayers_ == 4;
 }
 
 // Returns the winner(s) of the game
@@ -182,14 +141,17 @@ std::string GameController::winners() const {
   return returnValue.str();
 }
 
+// Call after making a sequence of modifications and we want to update the views.
 void GameController::endTransaction() const {
   game_->notify();
 }
 
+// Flag roundOver.
 void GameController::roundOver(){
   game_->setRoundOver(true);
 }
 
+// Update player scores.
 void GameController::updateScores(){
   for(int i = 0; i < 4; i++){
     int oldScore = game_->getPlayerScore(i);
@@ -207,20 +169,22 @@ void GameController::updateScores(){
 }
 
 //--------------setup helpers----------------------
+// Start new game with specified seed.
 void GameController::resetGame(int seed){
   game_->setSeed(seed);
   resetGame();
 }
 
+// Reset the game with default seed.
 void GameController::resetGame(){
   for(int i = 0; i < 4; i++){
     game_->setPlayerScore(i, 0);
   }
-
   game_->setGameOver(false);
   resetRound();
 }
 
+// Reset the current round.
 void GameController::resetRound(){
   resetPlayers();
   game_->setRoundOver(false);
@@ -231,12 +195,14 @@ void GameController::resetRound(){
   endTransaction();
 }
 
+// Reset player state.
 void GameController::resetPlayers(){
   for(int i = 0; i< 4; i++){
     game_->resetPlayer(i);
   }
 }
 
+// Shuffle deck and deal hands.
 void GameController::dealCards(){
   game_->shuffleDeck();
   for(int i = 0; i < 4; i++){
@@ -248,14 +214,27 @@ void GameController::dealCards(){
   }
 }
 
+// Clear the table cards.
 void GameController::cleanTable(){
   game_->cleanTable();
 }
 
+// Set the current player to starting player.
 void GameController::determineStartingPlayer(){
   int startingPlayerIndex = game_->getStartingPlayerIndex();
   game_->setCurrentPlayer(startingPlayerIndex);
-  // std::cerr << "A new round begins. It's player " << startingPlayerIndex + 1 << "'s turn to play." << std::endl;
 }
 
 //-------------end of setup helpers---------------
+
+
+//------debug functions-------
+// // Prints the player specified by index's hand
+// void GameController::printHand(const int index) const {
+//   game_->getPlayer(index)->printHand();
+// }
+
+// // Prints the legal moves for a player specified by index
+// void GameController::printLegalMoves(const int index) const {
+//   game_->getPlayer(index)->printLegalMoves(game_->getTable());
+// }

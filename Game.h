@@ -5,12 +5,12 @@
 #include "Deck.h"
 #include "HumanPlayer.h"
 #include "ComputerPlayer.h"
+#include "Subject.h"
 #include <vector>
 #include <string>
 #include <sstream>
-#include <cassert>
-#include "Subject.h"
 
+// Facade Class
 class Game : public Subject {
 public:
   static const int NUMBER_OF_PLAYERS = 4;
@@ -18,49 +18,77 @@ public:
   Game(int);
   // Destructor
   virtual ~Game();
-  // Accessor - Returns the player at the given index
-  Player* getPlayer(int);
-  // Accessor - Returns the deck
-  Deck* getDeck();
-  // Accessor - Returns the table
-  Table* getTable();
-  // Mutator - Sets the game to quit mode: (The program should shut down)
+
+
+  // -----Game Related Functions-----
+
+  // Mutator - Set the game state
   void setGameOver(bool);
-  void setRoundOver(bool);
-  // Accessor - Returns whether the game should quit
+  // Accessor - Returns the game state
   bool getGameOver() const;
-  // Accessor - Returns whether the round is done
+  // Mutator - Set the round state
+  void setRoundOver(bool);
+  // Accessor - Returns the round state
   bool getRoundOver() const;
   // Mutator - Sets the player at the given index
   void setPlayer(const int, Player*);
   // Mutator - Saves the index of the current player
   void setCurrentPlayer(const int);
-  // Accessor - Gets the index of the current player
+  // Accessor - Returns the index of the current player
   int getCurrentPlayer() const;
 
-  // Table Functions
+
+  // -----Table Related Functions-----
+
+  // Accessor - Returns the table
+  Table* getTable();
+  // Mutator - Clears the played cards
   void cleanTable();
+  // Mutator - Adds card to table
   void playCardToTable(Card*);
+  // Accessor - Return the cards that have been played
   std::set<Card*>* getCardsOnTable() const;
 
-  // Player Functions
-  void playPlayerCard(const int, Card*);
-  void discardPlayerCard(const int, Card*);
-  void resetPlayer(const int);
-  int getStartingPlayerIndex();
-  std::vector<Card*> getPlayerHand(int);
-  std::vector<Card*> getLegalMoves(int);
-  void setPlayerHand(const int, std::vector<Card*>);
-  int getNumberOfDiscards(const int);
-  bool isPlayerHuman(const int);
-  int  getPlayerScore(const int);
-  void setPlayerScore(int, int);
-  int getPlayerDiscardPoints(const int);
-  std::string getDiscardsAsString(const int);
 
-  // Deck Functions
+  // -----Player Related Functions-----
+
+  // Accessor - Returns the player at the given index
+  Player* getPlayer(int);
+  // Mutator - Play a card
+  void playPlayerCard(const int, Card*);
+  // Mutator - Discard a card
+  void discardPlayerCard(const int, Card*);
+  // Mutator - Empty Discard pile
+  void resetPlayer(const int);
+  // Accessor - Returns the index of the player with the seven of spades
+  int getStartingPlayerIndex();
+  // Accessor - Returns the player's hand
+  std::vector<Card*> getPlayerHand(int);
+  // Accessor - Returns a set of a player's legal moves
+  std::vector<Card*> getLegalMoves(int);
+  // Mutator - Gives the player a set of cards
+  void setPlayerHand(const int, std::vector<Card*>);
+  // Accessor - Return the number of discarded cards for a player
+  int getNumberOfDiscards(const int);
+  // Mutator - Set the player score
+  void setPlayerScore(int, int);
+  // Accessor - Return the player score
+  int  getPlayerScore(const int);
+  // Accessor - Get the point total of discarded cards
+  int getPlayerDiscardPoints(const int);
+  // Accessor - Return the discarded cards encoded as a string
+  std::string getDiscardsAsString(const int);
+  // Accessor - Return true if player is human controlled
+  bool isPlayerHuman(const int);
+
+
+  // -----Deck Related Functions-----
+
+  // Mutator - Set the seed for the shuffle algorithm
   void setSeed(int);
+  // Mutator - Shuffle the deck
   void shuffleDeck();
+  // Accessor - Returns card from deck
   Card* getCardFromDeck(int);
 private:
   // Deck

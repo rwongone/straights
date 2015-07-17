@@ -1,21 +1,29 @@
 #include "CardTableView.h"
+#include <sstream>
 
 namespace {
+  // Helper to format image file name
+  std::string toImageFile(int i, int j) {
+    std::ostringstream returnValue;
+    returnValue << "img/" << i << "_" << j << ".png";
+    return returnValue.str();
+  }
   const std::string NOTHING_CARD = "img/nothing.png";
 }
 
+// Constructor
 CardTableView::CardTableView(Gtk::Window &parent, Game* game, GameController* controller) :
   // Initialization List
   parent_(parent),
   cards_(4, 13, false),
+  table_(game_->getTable()),
   game_(game),
-  controller_(controller),
-  table_(game_->getTable()) {
+  controller_(controller) {
 
   // Start observing the Facade
-  // std::cerr << "CardTableView is subscribed to game facade." << std::endl;
   game->subscribe(this);
 
+  // Initialize table with empty cards
   set_label("Cards on the table");
 
   for (int i=0; i<13; i++) {
@@ -31,8 +39,10 @@ CardTableView::CardTableView(Gtk::Window &parent, Game* game, GameController* co
   show_all();
 }
 
+// Destructor
 CardTableView::~CardTableView() {}
 
+// Helper to add card to table
 void CardTableView::setCard(const int suitIndex, const int rankIndex, const bool onTable) {
   if (onTable) {
     images_[rankIndex][suitIndex].set(toImageFile(suitIndex, rankIndex));
@@ -41,16 +51,12 @@ void CardTableView::setCard(const int suitIndex, const int rankIndex, const bool
   }
 }
 
+// Helper to add card to table
 void CardTableView::setCard(const Card c, const bool onTable) {
   setCard(c.getSuit(), c.getRank(), onTable);
 }
 
-std::string CardTableView::toImageFile(const int i, const int j) const {
-  std::ostringstream returnValue;
-  returnValue << "img/" << i << "_" << j << ".png";
-  return returnValue.str();
-}
-
+// Update the view by fetching the cards from the model
 void CardTableView::update(){
   cardsOnTable_ = game_->getCardsOnTable();
 

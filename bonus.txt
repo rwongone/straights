@@ -1,0 +1,3 @@
+Feature: Visual Play Cues
+* Garbage bin icons identify cards that can be discarded on a human player's turn.
+* Up-arrow icons identify all of the cards that can be played on a human player's turn.

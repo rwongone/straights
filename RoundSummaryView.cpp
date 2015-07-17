@@ -1,5 +1,6 @@
 #include "RoundSummaryView.h"
 
+// Constructor
 RoundSummaryView::RoundSummaryView(Gtk::Window &parent, std::string message) :
   // Initialization List
   MessageDialog(parent, message),
@@ -7,7 +8,8 @@ RoundSummaryView::RoundSummaryView(Gtk::Window &parent, std::string message) :
 
   set_default_size(300, 150);
   show_all_children();
-  int result = run();
+  run();
 }
 
+// Destructor
 RoundSummaryView::~RoundSummaryView() {}

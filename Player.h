@@ -18,7 +18,9 @@ public:
   Player(const Player&);
   // Accessor - Return's the player's score
   int score() const;
+  // Accessor - Return the points gained for discarding.
   int getDiscardPoints();
+  // Mutator - set player score.
   void setScore(int);
   // Mutator - Gives a player a vector of cards for their hand
   void setHand(std::vector<Card*>);
@@ -42,6 +44,7 @@ public:
   void printSummary() const;
   // Returns true when hand is empty
   bool noMoreMoves() const;
+  // Get list of cards.
   std::vector<Card*> getDiscards();
 private:
   // A player's hand of cards
