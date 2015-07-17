@@ -197,7 +197,6 @@ void GameController::updateScores(){
 //--------------setup helpers----------------------
 // Start new game with specified seed.
 void GameController::resetGame(int seed){
-  game_->setGameOver(false);
   game_->setSeed(seed);
   resetGame();
 }
@@ -207,6 +206,7 @@ void GameController::resetGame(){
   for(int i = 0; i < 4; i++){
     game_->setPlayerScore(i, 0);
   }
+  game_->setGameOver(false);
   resetRound();
 }
 
