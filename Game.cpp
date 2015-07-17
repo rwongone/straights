@@ -14,7 +14,6 @@ Game::~Game() {
 
 // Accessor - Returns the player at the given index
 Player* Game::getPlayer(int index){
-  // Assert valid index
   return players_[index];
 }
 
@@ -131,7 +130,7 @@ int Game::getStartingPlayerIndex(){
       return i;
     }
   }
-  assert(false); // called without having starting player
+  return -1;
 }
 
 void Game::setSeed(int seed){
