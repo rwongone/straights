@@ -32,6 +32,6 @@ test:
 	bash ./${TESTSCRIPT} ./${EXEC}
 
 zip:
-	zip straights.zip ${CPP} ${HEADERS} Makefile
+	mkdir straightsgame && cp -R ${CPP} ${HEADERS} Makefile bonus.txt straightsgame/ && zip -R straights.zip straightsgame/* && rm -rf straightsgame
 
 -include ${DEPENDS}
