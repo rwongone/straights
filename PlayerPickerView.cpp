@@ -1,5 +1,6 @@
 #include "PlayerPickerView.h"
 
+// Constructor
 PlayerPickerView::PlayerPickerView(GameWindowView &parent, std::string title, int whichPlayer) :
   // Initialization List
   Dialog(title, parent, true, true),
@@ -7,6 +8,8 @@ PlayerPickerView::PlayerPickerView(GameWindowView &parent, std::string title, in
   whichPlayer_(whichPlayer) {
 
   set_default_size(400, 150);
+
+  // Set dialog radio options
   std::vector<std::string> options;
   options.push_back("Human Player");
   options.push_back("Computer Player");
@@ -35,6 +38,7 @@ PlayerPickerView::PlayerPickerView(GameWindowView &parent, std::string title, in
   }
 }
 
+// Destructor
 PlayerPickerView::~PlayerPickerView() {
   for (unsigned int i = 0; i < buttons.size(); i++ ){
     delete buttons[i];

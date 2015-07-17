@@ -61,7 +61,7 @@ void GameController::discardCard(const int index, Card card){
 }
 
 // Player specified by index ragequits and becomes a computer
-void GameController::rageQuit(const int index) {
+void GameController::togglePlayerType(const int index) {
   // convert the player[index] to a computer player
   Player* playerToConvert = game_->getPlayer(index);
   if (playerToConvert->isHuman()) {

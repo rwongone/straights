@@ -2,17 +2,16 @@
 #define _SUBJECT_
 
 #include <vector>
-#include <iostream>
 #include "Observer.h"
 
 class Subject {
-public:
-  Subject();
-  virtual ~Subject();
-  void subscribe(Observer*);
-  void notify();
-private:
-  std::vector<Observer*> subscribers_;
+public:                               // PUBLIC
+  Subject();                            // Constructor
+  virtual ~Subject();                   // Destructor
+  void subscribe(Observer*);            // Add observer to subscriber list
+  void notify();                        // Call update on each subscriber
+private:                              // PRIVATE
+  std::vector<Observer*> subscribers_;  //
 };
 
 #endif

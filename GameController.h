@@ -32,7 +32,7 @@ public:
   // Automove for a player
   void playTurn(const int);
   // Player specified by index ragequits and becomes a computer
-  void rageQuit(const int);
+  void togglePlayerType(const int);
   // Creates a new player based on type
   void setPlayer(const int, const std::string);
   // Tells the model whose turn it is
