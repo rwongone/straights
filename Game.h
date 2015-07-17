@@ -5,11 +5,10 @@
 #include "Deck.h"
 #include "HumanPlayer.h"
 #include "ComputerPlayer.h"
+#include "Subject.h"
 #include <vector>
 #include <string>
 #include <sstream>
-#include <cassert>
-#include "Subject.h"
 
 class Game : public Subject {
 public:
