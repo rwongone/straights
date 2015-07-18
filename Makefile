@@ -20,18 +20,19 @@ CPP = ${OBJECTS:.o=.cpp}
 HEADERS = ${OBJECTS:.o=.h}
 DEPENDS = ${OBJECTS:.o=.d}
 EXEC = straights
+ZIP = ${EXEC}.zip
 TESTSCRIPT = tester.sh
 
 ${EXEC}: ${OBJECTS}
 	${CXX} ${OBJECTS} ${CXXFLAGS} -o ${EXEC}
 
 clean:
-	rm -rf ${DEPENDS} ${OBJECTS} ${EXEC}
+	rm -rf ${DEPENDS} ${OBJECTS} ${EXEC} ${ZIP} straightsgame
 
 test:
 	bash ./${TESTSCRIPT} ./${EXEC}
 
 zip:
-	mkdir straightsgame && cp -R ${CPP} ${HEADERS} Makefile bonus.txt straightsgame/ && zip -R straights.zip straightsgame/* && rm -rf straightsgame
+	mkdir -p straightsgame && cp -R img/ ${CPP} ${HEADERS} Makefile bonus.txt straightsgame/ && zip -R straights.zip straightsgame/* straightsgame/img/*
 
 -include ${DEPENDS}
