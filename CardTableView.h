@@ -18,9 +18,9 @@ private:                                               // PRIVATE
   Gtk::Window &parent_;                                  // Reference to the GameWindowView
   Gtk::Table cards_;                                     // Table containing the played cards
   Gtk::Image images_[13][4];                             // 2D array containing the images of played cards
+  Game* game_;                                           // Pointer to the model
   Table* table_;                                         // The game's table
   std::set<Card*>* cardsOnTable_;                        // Set of cards on the table
-  Game* game_;                                           // Pointer to the model
   GameController* controller_;                           // Pointer to the controller
   void setCard(const Card, const bool);                  // Helper to add card to view
   void setCard(const int, const int, const bool);        // Helper to add card to view

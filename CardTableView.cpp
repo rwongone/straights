@@ -16,8 +16,8 @@ CardTableView::CardTableView(Gtk::Window &parent, Game* game, GameController* co
   // Initialization List
   parent_(parent),
   cards_(4, 13, false),
-  table_(game_->getTable()),
   game_(game),
+  table_(game_->getTable()),
   controller_(controller) {
 
   // Start observing the Facade

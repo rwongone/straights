@@ -4,12 +4,12 @@
 // Constructor
 GameWindowView::GameWindowView(const std::string title, Game* game, GameController* controller) :
   // Initialization List
+  game_(game),
+  controller_(controller),
   topMenu(*this, game, controller),
   cardTable(*this, game, controller),
   playerList(*this, game, controller),
-  handCards(*this, game, controller),
-  game_(game),
-  controller_(controller) {
+  handCards(*this, game, controller) {
 
   // Start observing the Facade
   game->subscribe(this);
